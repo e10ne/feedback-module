@@ -30,8 +30,12 @@ export const CategoriesQuery = queryField("allCategories", {
   type: list(Category),
   description: "Gets all categories",
   async resolve(_src, _args, ctx) {
-    const categories = await ctx.prisma.category.findMany();
-
+    const categories = await ctx.prisma.category.findMany({
+      select: {
+        id: true,
+        title: true,
+      },
+    });
     return categories;
   },
 });

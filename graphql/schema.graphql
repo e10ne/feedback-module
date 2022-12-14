@@ -33,4 +33,7 @@ type Mutation {
 type Query {
   """Gets all categories"""
   allCategories: [Category]
+
+  """Get a specific feedback"""
+  feedback(id: Int!): Feedback
 }

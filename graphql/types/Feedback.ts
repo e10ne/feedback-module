@@ -1,4 +1,4 @@
-import { mutationField, nonNull, objectType } from "nexus";
+import { mutationField, nonNull, objectType, queryField } from "nexus";
 import { Category } from "./Category";
 
 export const Feedback = objectType({
@@ -38,5 +38,34 @@ export const CreateFeedbackMutation = mutationField("createFeedback", {
       },
     });
     return newFeedback;
+  },
+});
+
+export const FeedbackQuery = queryField("feedback", {
+  type: Feedback,
+  description: "Get a specific feedback",
+  args: {
+    id: nonNull("Int"),
+  },
+  async resolve(_src, args, ctx) {
+    const singleFeedback = await ctx.prisma.feedback.findUnique({
+      where: {
+        id: args.id,
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        create_date: true,
+        category_id: true,
+        category: {
+          select: {
+            title: true,
+          },
+        },
+      },
+    });
+
+    return singleFeedback;
   },
 });

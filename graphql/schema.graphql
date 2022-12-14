@@ -20,6 +20,9 @@ type Mutation {
   """Create a new category"""
   createCategory(title: String!): Category
 
+  """Create feedback"""
+  createFeedback(category_id: Int!, description: String!, title: String!): Feedback
+
   """Delete an category"""
   deleteCategory(id: Int!): Category
 

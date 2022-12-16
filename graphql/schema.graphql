@@ -9,6 +9,7 @@ type Category {
 }
 
 type Feedback {
+  archived: Boolean
   category: Category
   category_id: Int!
   description: String

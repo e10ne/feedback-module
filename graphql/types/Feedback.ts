@@ -8,6 +8,7 @@ export const Feedback = objectType({
       t.string("title"),
       t.string("description"),
       t.nonNull.int("category_id"),
+      t.boolean("archived"),
       t.field("category", {
         type: Category,
         async resolve(src, _args, ctx) {

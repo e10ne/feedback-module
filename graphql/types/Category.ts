@@ -15,10 +15,10 @@ export const Category = objectType({
       t.string("title"),
       t.list.field("feedbacks", {
         type: Feedback,
-        async resolve(_src, _args, ctx) {
+        async resolve(src, _args, ctx) {
           return await ctx.prisma.feedback.findMany({
             where: {
-              category_id: _src.id,
+              category_id: src.id,
             },
           });
         },

@@ -5,7 +5,7 @@
 ```bash
 # create .env from .env.example
 cp .env.example .env
-# fill
+# fill out variables
 
 # install dependencies
 yarn install

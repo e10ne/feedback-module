@@ -10,7 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Flex
       flexDirection={"column"}
-      bgColor={"ghostwhite"}
+      bgColor={"mainBackground"}
       h={"100vh"}
     >
       <Header />

@@ -5,6 +5,15 @@ const fonts = { mono: `'Menlo', monospace` };
 const theme = extendTheme({
   semanticTokens: {
     colors: {
+      mainBackground: {
+        default: "#F3F4F6",
+      },
+      headerBackground: {
+        default: "#416080",
+      },
+      button: {
+        default: "#FAB63D",
+      },
       text: {
         default: "#16161D",
         _dark: "#ade3b8",

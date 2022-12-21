@@ -10,7 +10,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
       justifyContent={"space-between"}
       py={"1em"}
       px={"2em"}
-      bgColor={"#3f5e7e"}
+      bgColor={"headerBackground"}
     >
       <Heading
         size={"md"}

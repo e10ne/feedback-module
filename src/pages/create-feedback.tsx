@@ -1,5 +1,7 @@
 import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
+import { withUrqlClient } from "next-urql";
+import { createUrqlClient } from "../../lib/createUrqlClient";
 import DescriptionTextarea from "../components/form/DescriptionTextarea";
 import InputText from "../components/form/InputText";
 import SelectCategory from "../components/form/SelectCategory";
@@ -68,4 +70,4 @@ const CreateFeedback: React.FC<{}> = ({}) => {
   );
 };
 
-export default CreateFeedback;
+export default withUrqlClient(createUrqlClient)(CreateFeedback);

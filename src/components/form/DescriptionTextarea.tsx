@@ -19,7 +19,12 @@ const DescriptionTextarea: React.FC<DescriptionTextareaProps> = ({
   const [field, { error }] = useField(props);
   return (
     <FormControl isInvalid={!!error}>
-      <FormLabel htmlFor={field.name}>{label}</FormLabel>
+      <FormLabel
+        htmlFor={field.name}
+        fontSize={"18px"}
+      >
+        {label}
+      </FormLabel>
       <Textarea
         placeholder="Omschrijving"
         resize={"none"}

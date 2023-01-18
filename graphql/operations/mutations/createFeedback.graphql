@@ -1,0 +1,20 @@
+mutation CreateFeedback(
+  $title: String!
+  $description: String!
+  $categoryId: Int!
+) {
+  createFeedback(
+    title: $title
+    description: $description
+    category_id: $categoryId
+  ) {
+    id
+    title
+    description
+    create_date
+    category_id
+    category {
+      title
+    }
+  }
+}

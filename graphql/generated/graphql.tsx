@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: any;
 };
 
 export type Category = {
@@ -27,6 +28,7 @@ export type Feedback = {
   archived?: Maybe<Scalars['Boolean']>;
   category?: Maybe<Category>;
   category_id: Scalars['Int'];
+  create_date?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
@@ -80,12 +82,43 @@ export type QueryFeedbackArgs = {
   id: Scalars['Int'];
 };
 
+export type CreateFeedbackMutationVariables = Exact<{
+  title: Scalars['String'];
+  description: Scalars['String'];
+  categoryId: Scalars['Int'];
+}>;
+
+
+export type CreateFeedbackMutation = { __typename?: 'Mutation', createFeedback?: { __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category_id: number, category?: { __typename?: 'Category', title?: string | null } | null } | null };
+
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CategoriesQuery = { __typename?: 'Query', allCategories?: Array<{ __typename?: 'Category', id: number, title?: string | null } | null> | null };
 
 
+export const CreateFeedbackDocument = gql`
+    mutation CreateFeedback($title: String!, $description: String!, $categoryId: Int!) {
+  createFeedback(
+    title: $title
+    description: $description
+    category_id: $categoryId
+  ) {
+    id
+    title
+    description
+    create_date
+    category_id
+    category {
+      title
+    }
+  }
+}
+    `;
+
+export function useCreateFeedbackMutation() {
+  return Urql.useMutation<CreateFeedbackMutation, CreateFeedbackMutationVariables>(CreateFeedbackDocument);
+};
 export const CategoriesDocument = gql`
     query Categories {
   allCategories {

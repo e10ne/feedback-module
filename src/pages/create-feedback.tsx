@@ -24,9 +24,33 @@ const CreateFeedback: React.FC<{}> = ({}) => {
         mollit anim id est laborum.
       </Text>
       <Formik
-        initialValues={{ title: "", category: 0, description: "" }}
-        onSubmit={() => {
-          console.log("submit");
+        enableReinitialize={true}
+        validateOnBlur={false}
+        validateOnChange={false}
+        initialValues={{
+          title: "",
+          category_id: "",
+          description: "",
+        }}
+        validate={(values) => {
+          const errors: Record<string, string> = {};
+
+          if (values.title.length < 3) {
+            errors.title = "Minimaal 3 karakters";
+          }
+
+          if (values.category_id === "") {
+            errors.category_id = "Kies een categorie";
+          }
+
+          if (values.description.length < 10) {
+            errors.description = "Minimaal 10 karakters";
+          }
+
+          return errors;
+        }}
+        onSubmit={(values) => {
+          console.log(values);
         }}
       >
         {({ isSubmitting }) => (
@@ -39,7 +63,10 @@ const CreateFeedback: React.FC<{}> = ({}) => {
                 label="Titel*"
                 name="title"
               />
-              <SelectCategory />
+              <SelectCategory
+                name="category_id"
+                label="Categorie*"
+              />
               <DescriptionTextarea
                 label="Omschrijving*"
                 name="description"

@@ -1,24 +1,58 @@
-import { FormControl, FormLabel, Select } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Select,
+} from "@chakra-ui/react";
 import { useCategoriesQuery } from "../../../graphql/generated/graphql";
+import { Field, useField } from "formik";
+import { SelectHTMLAttributes } from "react";
 
-const SelectCategory: React.FC<{}> = () => {
+type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
+  name: string;
+  label: string;
+};
+
+const SelectCategory: React.FC<SelectProps> = ({ label, ...props }) => {
+  const [field, { error }] = useField(props);
+
   const [{ data, fetching }] = useCategoriesQuery();
 
   if (!data && !fetching) return <></>;
 
   return (
-    <FormControl>
-      <FormLabel fontSize={"18px"}>Categorie*</FormLabel>
-      <Select
-        name="category"
+    <FormControl isInvalid={!!error}>
+      <FormLabel
+        htmlFor={field.name}
+        fontSize={"18px"}
+      >
+        {label}
+      </FormLabel>
+      <Field
+        id={field.name}
+        as={Select}
+        name={field.name}
         borderColor={"gray.400"}
         _hover={{ borderColor: "gray.600" }}
-        placeholder={fetching ? "laden..." : undefined}
       >
-        {data!.allCategories!.map((cat) =>
-          !cat ? null : <option value={cat.id}>{cat.title}</option>
+        <option
+          value={""}
+          disabled
+        >
+          -- Selecteer een categorie --
+        </option>
+        {data?.allCategories?.map((cat) =>
+          !cat ? null : (
+            <option
+              key={`${cat.id}${cat.title}`}
+              value={cat.id}
+            >
+              {cat.title}
+            </option>
+          )
         )}
-      </Select>
+      </Field>
+      {error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
     </FormControl>
   );
 };

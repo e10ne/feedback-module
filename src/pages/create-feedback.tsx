@@ -1,13 +1,17 @@
-import { Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
+// import { useCreateFeedbackMutation } from "../../graphql/generated/graphql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
 import DescriptionTextarea from "../components/form/DescriptionTextarea";
 import InputText from "../components/form/InputText";
 import SelectCategory from "../components/form/SelectCategory";
+import SubmitModal from "../components/form/SubmitModal";
 import Layout from "../components/layout/Layout";
+import { feedbackValidation } from "../utils/validation";
 
 const CreateFeedback: React.FC<{}> = ({}) => {
+  // const [, createFeedback] = useCreateFeedbackMutation()
   return (
     <Layout>
       <Heading mt={"8"}>Feedback doorgeven</Heading>
@@ -24,36 +28,18 @@ const CreateFeedback: React.FC<{}> = ({}) => {
         mollit anim id est laborum.
       </Text>
       <Formik
-        enableReinitialize={true}
-        validateOnBlur={false}
-        validateOnChange={false}
         initialValues={{
           title: "",
-          category_id: "",
+          category_name: "",
           description: "",
         }}
-        validate={(values) => {
-          const errors: Record<string, string> = {};
-
-          if (values.title.length < 3) {
-            errors.title = "Minimaal 3 karakters";
-          }
-
-          if (values.category_id === "") {
-            errors.category_id = "Kies een categorie";
-          }
-
-          if (values.description.length < 10) {
-            errors.description = "Minimaal 10 karakters";
-          }
-
-          return errors;
-        }}
-        onSubmit={(values) => {
+        validate={(values) => feedbackValidation(values)}
+        onSubmit={async (values) => {
           console.log(values);
+          // await createFeedback()
         }}
       >
-        {({ isSubmitting }) => (
+        {({ values, handleSubmit, validateForm }) => (
           <Form>
             <Flex
               flexDir={"column"}
@@ -64,7 +50,7 @@ const CreateFeedback: React.FC<{}> = ({}) => {
                 name="title"
               />
               <SelectCategory
-                name="category_id"
+                name="category_name"
                 label="Categorie*"
               />
               <DescriptionTextarea
@@ -78,17 +64,11 @@ const CreateFeedback: React.FC<{}> = ({}) => {
               >
                 Je feedback wordt anoniem opgeslagen.
               </Text>
-              <Button
-                type={"submit"}
-                isDisabled={isSubmitting}
-                bgColor={"button"}
-                w={"max-content"}
-                alignSelf={"flex-end"}
-                px={"2em"}
-                py={"1.5em"}
-              >
-                Verzenden
-              </Button>
+              <SubmitModal
+                values={values}
+                handleSubmit={handleSubmit}
+                validateForm={validateForm}
+              />
             </Flex>
           </Form>
         )}

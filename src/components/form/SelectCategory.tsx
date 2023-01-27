@@ -45,7 +45,7 @@ const SelectCategory: React.FC<SelectProps> = ({ label, ...props }) => {
           !cat ? null : (
             <option
               key={`${cat.id}${cat.title}`}
-              value={cat.id}
+              value={cat.title as string}
             >
               {cat.title}
             </option>

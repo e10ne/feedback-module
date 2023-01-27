@@ -107,7 +107,6 @@ export const CategoryQuery = queryField("findCategory", {
       },
       select: {
         id: true,
-        title: true,
       },
     });
     return category;

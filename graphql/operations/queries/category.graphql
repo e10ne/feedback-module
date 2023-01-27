@@ -1,6 +1,5 @@
 query FindCategory($title: String!) {
   findCategory(title: $title) {
     id
-    title
   }
 }

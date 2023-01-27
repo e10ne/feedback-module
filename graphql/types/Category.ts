@@ -93,3 +93,23 @@ export const DeleteCategoryMutation = mutationField("deleteCategory", {
     return deletedCategory;
   },
 });
+
+export const CategoryQuery = queryField("findCategory", {
+  type: Category,
+  description: "Find one category by title value",
+  args: {
+    title: nonNull("String"),
+  },
+  async resolve(_src, args, ctx) {
+    const category = await ctx.prisma.category.findFirst({
+      where: {
+        title: args.title,
+      },
+      select: {
+        id: true,
+        title: true,
+      },
+    });
+    return category;
+  },
+});

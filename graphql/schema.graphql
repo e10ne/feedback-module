@@ -43,4 +43,7 @@ type Query {
 
   """Get a specific feedback"""
   feedback(id: Int!): Feedback
+
+  """Find one category by title value"""
+  findCategory(title: String!): Category
 }

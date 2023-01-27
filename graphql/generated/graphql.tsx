@@ -75,11 +75,18 @@ export type Query = {
   allCategories?: Maybe<Array<Maybe<Category>>>;
   /** Get a specific feedback */
   feedback?: Maybe<Feedback>;
+  /** Find one category by title value */
+  findCategory?: Maybe<Category>;
 };
 
 
 export type QueryFeedbackArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryFindCategoryArgs = {
+  title: Scalars['String'];
 };
 
 export type CreateFeedbackMutationVariables = Exact<{
@@ -95,6 +102,13 @@ export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CategoriesQuery = { __typename?: 'Query', allCategories?: Array<{ __typename?: 'Category', id: number, title?: string | null } | null> | null };
+
+export type FindCategoryQueryVariables = Exact<{
+  title: Scalars['String'];
+}>;
+
+
+export type FindCategoryQuery = { __typename?: 'Query', findCategory?: { __typename?: 'Category', id: number, title?: string | null } | null };
 
 
 export const CreateFeedbackDocument = gql`
@@ -130,4 +144,16 @@ export const CategoriesDocument = gql`
 
 export function useCategoriesQuery(options?: Omit<Urql.UseQueryArgs<CategoriesQueryVariables>, 'query'>) {
   return Urql.useQuery<CategoriesQuery, CategoriesQueryVariables>({ query: CategoriesDocument, ...options });
+};
+export const FindCategoryDocument = gql`
+    query FindCategory($title: String!) {
+  findCategory(title: $title) {
+    id
+    title
+  }
+}
+    `;
+
+export function useFindCategoryQuery(options: Omit<Urql.UseQueryArgs<FindCategoryQueryVariables>, 'query'>) {
+  return Urql.useQuery<FindCategoryQuery, FindCategoryQueryVariables>({ query: FindCategoryDocument, ...options });
 };

@@ -28,9 +28,12 @@ const CreateFeedback: React.FC<{}> = ({}) => {
         mollit anim id est laborum.
       </Text>
       <Formik
+        validateOnBlur={false}
+        validateOnChange={false}
         initialValues={{
           title: "",
           category_name: "",
+          category_id: "",
           description: "",
         }}
         validate={(values) => feedbackValidation(values)}

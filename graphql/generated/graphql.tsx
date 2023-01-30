@@ -89,7 +89,7 @@ export type CreateFeedbackMutationVariables = Exact<{
 }>;
 
 
-export type CreateFeedbackMutation = { __typename?: 'Mutation', createFeedback?: { __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category_id: number, category?: { __typename?: 'Category', title?: string | null } | null } | null };
+export type CreateFeedbackMutation = { __typename?: 'Mutation', createFeedback?: { __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category_id: number, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -110,6 +110,7 @@ export const CreateFeedbackDocument = gql`
     create_date
     category_id
     category {
+      id
       title
     }
   }

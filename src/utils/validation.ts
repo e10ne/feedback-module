@@ -1,6 +1,6 @@
 export interface feedbackValues {
   title: string;
-  category_name: string;
+  category_id: string;
   description: string;
 }
 
@@ -11,8 +11,8 @@ export const feedbackValidation = (values: feedbackValues) => {
     errors.title = "Minimaal 3 karakters";
   }
 
-  if (values.category_name === "") {
-    errors.category_name = "Kies een categorie";
+  if (values.category_id === "") {
+    errors.category_id = "Kies een categorie";
   }
 
   if (values.description.length < 10) {

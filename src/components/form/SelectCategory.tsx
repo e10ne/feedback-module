@@ -4,21 +4,28 @@ import {
   FormLabel,
   Select,
 } from "@chakra-ui/react";
-import { useCategoriesQuery } from "../../../graphql/generated/graphql";
 import { Field, useField } from "formik";
 import { SelectHTMLAttributes } from "react";
+import { CategoriesQuery } from "../../../graphql/generated/graphql";
 
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   name: string;
   label: string;
+  categories: CategoriesQuery | undefined;
+  fetching: boolean;
 };
 
-const SelectCategory: React.FC<SelectProps> = ({ label, ...props }) => {
+const SelectCategory: React.FC<SelectProps> = ({
+  label,
+  categories,
+  fetching,
+  ...props
+}) => {
   const [field, { error }] = useField(props);
 
-  const [{ data, fetching }] = useCategoriesQuery();
-
-  if (!data && !fetching) return <></>;
+  if (!categories && !fetching) {
+    return <>There are no categories</>;
+  }
 
   return (
     <FormControl isInvalid={!!error}>
@@ -41,11 +48,12 @@ const SelectCategory: React.FC<SelectProps> = ({ label, ...props }) => {
         >
           -- Selecteer een categorie --
         </option>
-        {data?.allCategories?.map((cat) =>
+
+        {categories?.allCategories?.map((cat) =>
           !cat ? null : (
             <option
               key={`${cat.id}${cat.title}`}
-              value={cat.title as string}
+              value={cat.id}
             >
               {cat.title}
             </option>

@@ -11,20 +11,26 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { FormikErrors } from "formik";
+import { CategoriesQuery } from "../../../graphql/generated/graphql";
 import { feedbackValues } from "../../utils/validation";
 
 interface SubmitModalProps {
   values: feedbackValues;
+  categories: CategoriesQuery | undefined;
   handleSubmit: () => void;
   validateForm: () => Promise<FormikErrors<feedbackValues>>;
 }
 
 const SubmitModal: React.FC<SubmitModalProps> = ({
   values,
+  categories,
   validateForm,
   handleSubmit,
 }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const category = categories?.allCategories?.find((cat) => {
+    return cat?.id == parseInt(values.category_id);
+  });
   return (
     <>
       <Button
@@ -36,11 +42,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({
         onClick={async () => {
           const validated = await validateForm();
           if (
-            !(
-              validated.category_name ||
-              validated.description ||
-              validated.title
-            )
+            !(validated.category_id || validated.description || validated.title)
           )
             onOpen();
         }}
@@ -59,7 +61,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({
           <ModalCloseButton />
           <ModalBody>
             <Text>Titel: {values.title}</Text>
-            <Text>Categorie: {values.category_name}</Text>
+            <Text>Categorie: {category?.title}</Text>
             <Text>Omschrijving: {values.description}</Text>
           </ModalBody>
           <ModalFooter>

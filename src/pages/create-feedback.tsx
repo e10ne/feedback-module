@@ -1,7 +1,8 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
-// import { useCreateFeedbackMutation } from "../../graphql/generated/graphql";
+import { useCategoriesQuery } from "../../graphql/generated/graphql";
+import { useCreateFeedbackMutation } from "../../graphql/generated/graphql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
 import DescriptionTextarea from "../components/form/DescriptionTextarea";
 import InputText from "../components/form/InputText";
@@ -11,7 +12,9 @@ import Layout from "../components/layout/Layout";
 import { feedbackValidation } from "../utils/validation";
 
 const CreateFeedback: React.FC<{}> = ({}) => {
-  // const [, createFeedback] = useCreateFeedbackMutation()
+  const [{ data: categoriesData, fetching: categoriesFetching }] =
+    useCategoriesQuery();
+  const [, createFeedback] = useCreateFeedbackMutation();
   return (
     <Layout>
       <Heading mt={"8"}>Feedback doorgeven</Heading>
@@ -32,14 +35,19 @@ const CreateFeedback: React.FC<{}> = ({}) => {
         validateOnChange={false}
         initialValues={{
           title: "",
-          category_name: "",
           category_id: "",
           description: "",
         }}
         validate={(values) => feedbackValidation(values)}
         onSubmit={async (values) => {
           console.log(values);
-          // await createFeedback()
+          const { error } = await createFeedback({
+            categoryId: parseInt(values.category_id),
+            title: values.title,
+            description: values.description,
+          });
+
+          if (!error) console.log("Success");
         }}
       >
         {({ values, handleSubmit, validateForm }) => (
@@ -53,8 +61,10 @@ const CreateFeedback: React.FC<{}> = ({}) => {
                 name="title"
               />
               <SelectCategory
-                name="category_name"
+                name="category_id"
                 label="Categorie*"
+                categories={categoriesData}
+                fetching={categoriesFetching}
               />
               <DescriptionTextarea
                 label="Omschrijving*"
@@ -69,6 +79,7 @@ const CreateFeedback: React.FC<{}> = ({}) => {
               </Text>
               <SubmitModal
                 values={values}
+                categories={categoriesData}
                 handleSubmit={handleSubmit}
                 validateForm={validateForm}
               />

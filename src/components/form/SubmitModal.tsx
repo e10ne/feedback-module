@@ -59,14 +59,21 @@ const SubmitModal: React.FC<SubmitModalProps> = ({
         <ModalContent>
           <ModalHeader>Zijn de gegevens correct?</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody my={"6"}>
             <Text>Titel: {values.title}</Text>
             <Text>Categorie: {category?.title}</Text>
             <Text>Omschrijving: {values.description}</Text>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter justifyContent={"space-around"}>
             <Button onClick={onClose}>Nee</Button>
-            <Button onClick={handleSubmit}>Ja</Button>
+            <Button
+              onClick={() => {
+                handleSubmit();
+                onClose();
+              }}
+            >
+              Ja
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

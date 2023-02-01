@@ -31,7 +31,6 @@ const CreateFeedback: React.FC<{}> = ({}) => {
         mollit anim id est laborum.
       </Text>
       <Formik
-        validateOnBlur={false}
         validateOnChange={false}
         initialValues={{
           title: "",
@@ -39,7 +38,7 @@ const CreateFeedback: React.FC<{}> = ({}) => {
           description: "",
         }}
         validate={(values) => feedbackValidation(values)}
-        onSubmit={async (values) => {
+        onSubmit={async (values, { resetForm }) => {
           console.log(values);
           const { error } = await createFeedback({
             categoryId: parseInt(values.category_id),
@@ -47,7 +46,10 @@ const CreateFeedback: React.FC<{}> = ({}) => {
             description: values.description,
           });
 
-          if (!error) console.log("Success");
+          if (!error) {
+            console.log("Success");
+            resetForm();
+          }
         }}
       >
         {({ values, handleSubmit, validateForm }) => (

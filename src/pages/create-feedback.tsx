@@ -17,10 +17,15 @@ const CreateFeedback: React.FC<{}> = ({}) => {
   const [, createFeedback] = useCreateFeedbackMutation();
   return (
     <Layout>
-      <Heading mt={"8"}>Feedback doorgeven</Heading>
+      <Heading
+        mt={"8"}
+        size={"lg"}
+      >
+        Feedback doorgeven
+      </Heading>
       <Text
-        mt={"4"}
-        mb={"5"}
+        mt={"6"}
+        fontSize={"lg"}
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -32,6 +37,7 @@ const CreateFeedback: React.FC<{}> = ({}) => {
       </Text>
       <Formik
         validateOnChange={false}
+        validateOnBlur={false}
         initialValues={{
           title: "",
           category_id: "",
@@ -55,6 +61,7 @@ const CreateFeedback: React.FC<{}> = ({}) => {
         {({ values, handleSubmit, validateForm }) => (
           <Form>
             <Flex
+              mt={"10"}
               flexDir={"column"}
               gap={"4"}
             >

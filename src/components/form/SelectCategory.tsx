@@ -32,6 +32,7 @@ const SelectCategory: React.FC<SelectProps> = ({
       <FormLabel
         htmlFor={field.name}
         fontSize={"18px"}
+        fontWeight={"600"}
       >
         {label}
       </FormLabel>

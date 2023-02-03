@@ -21,6 +21,7 @@ const InputText: React.FC<InputTextProps> = ({ label, ...props }) => {
       <FormLabel
         htmlFor={field.name}
         fontSize={"18px"}
+        fontWeight={"600"}
       >
         {label}
       </FormLabel>

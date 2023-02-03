@@ -22,6 +22,7 @@ const DescriptionTextarea: React.FC<DescriptionTextareaProps> = ({
       <FormLabel
         htmlFor={field.name}
         fontSize={"18px"}
+        fontWeight={"600"}
       >
         {label}
       </FormLabel>

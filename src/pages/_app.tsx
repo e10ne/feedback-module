@@ -1,5 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 
+import "@fontsource/open-sans";
+
 import theme from "../theme";
 import { AppProps } from "next/app";
 import Head from "next/head";

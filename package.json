@@ -17,6 +17,7 @@
     "@chakra-ui/theme-tools": "^2.0.14",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fontsource/open-sans": "^4.5.14",
     "@prisma/client": "^4.8.0",
     "@urql/exchange-auth": "^1.0.0",
     "@urql/exchange-graphcache": "^5.0.8",

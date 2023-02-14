@@ -1,3 +1,4 @@
+import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import {
   Button,
   Modal,
@@ -54,19 +55,38 @@ const SubmitModal: React.FC<SubmitModalProps> = ({
         scrollBehavior={"inside"}
         isOpen={isOpen}
         onClose={onClose}
+        size={"3xl"}
       >
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Zijn de gegevens correct?</ModalHeader>
+        <ModalContent
+          p={"5"}
+          bgColor={"snow"}
+          color={"blackAlpha.800"}
+        >
+          <ModalHeader fontSize={"2xl"}>Zijn de gegevens correct?</ModalHeader>
           <ModalCloseButton />
           <ModalBody my={"6"}>
-            <Text>Titel: {values.title}</Text>
-            <Text>Categorie: {category?.title}</Text>
-            <Text>Omschrijving: {values.description}</Text>
+            <Text fontSize={"xl"}>Titel: {values.title}</Text>
+            <Text fontSize={"xl"}>Categorie: {category?.title}</Text>
+            <Text fontSize={"xl"}>Omschrijving: {values.description}</Text>
           </ModalBody>
           <ModalFooter justifyContent={"space-around"}>
-            <Button onClick={onClose}>Nee</Button>
             <Button
+              leftIcon={<AiOutlineClose />}
+              borderRadius={"full"}
+              px={"14"}
+              fontSize={"lg"}
+              colorScheme={"blue"}
+              onClick={onClose}
+            >
+              Nee
+            </Button>
+            <Button
+              leftIcon={<AiOutlineCheck />}
+              borderRadius={"full"}
+              px={"14"}
+              fontSize={"lg"}
+              colorScheme={"green"}
               onClick={() => {
                 handleSubmit();
                 onClose();

@@ -7,6 +7,23 @@ const fonts = {
 };
 
 const theme = extendTheme({
+  components: {
+    Alert: {
+      variants: {
+        solid: {
+          container: {},
+          title: {
+            fontSize: "1.1rem",
+          },
+          icon: {
+            my: "auto",
+            mr: "2em",
+          },
+          description: {},
+        },
+      },
+    },
+  },
   semanticTokens: {
     colors: {
       mainBackground: {

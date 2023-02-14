@@ -1,4 +1,4 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
 import { useCategoriesQuery } from "../../graphql/generated/graphql";
@@ -15,6 +15,17 @@ const CreateFeedback: React.FC<{}> = ({}) => {
   const [{ data: categoriesData, fetching: categoriesFetching }] =
     useCategoriesQuery();
   const [, createFeedback] = useCreateFeedbackMutation();
+  const toast = useToast({
+    title: "Success",
+    description: "Bedankt voor de feedback",
+    status: "success",
+    isClosable: true,
+    duration: 5000,
+    containerStyle: {
+      width: "max-content",
+    },
+  });
+
   return (
     <Layout>
       <Heading
@@ -55,6 +66,7 @@ const CreateFeedback: React.FC<{}> = ({}) => {
           if (!error) {
             console.log("Success");
             resetForm();
+            toast();
           }
         }}
       >

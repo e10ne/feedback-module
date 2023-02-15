@@ -1,5 +1,7 @@
 import { Flex, Heading } from "@chakra-ui/react";
+import NextImage from "next/image";
 import HeaderButton from "./HeaderButton";
+import logo from "/public/logo.svg";
 
 interface HeaderProps {}
 
@@ -12,13 +14,22 @@ const Header: React.FC<HeaderProps> = ({}) => {
       px={"2em"}
       bgColor={"headerBackground"}
     >
-      <Heading
-        size={"md"}
-        color={"white"}
+      <Flex
+        gap={"2em"}
+        alignItems={"center"}
       >
-        {/* Icon */}
-        Feedback module Spectrum Multimedia & IT
-      </Heading>
+        <NextImage
+          alt=""
+          src={logo}
+          title=""
+        />
+        <Heading
+          size={"md"}
+          color={"white"}
+        >
+          Feedback module Spectrum Multimedia & IT
+        </Heading>
+      </Flex>
       <HeaderButton />
     </Flex>
   );

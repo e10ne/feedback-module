@@ -82,6 +82,13 @@ export type QueryFeedbackArgs = {
   id: Scalars['Int'];
 };
 
+export type CreateCategoryMutationVariables = Exact<{
+  title: Scalars['String'];
+}>;
+
+
+export type CreateCategoryMutation = { __typename?: 'Mutation', createCategory?: { __typename?: 'Category', id: number, title?: string | null } | null };
+
 export type CreateFeedbackMutationVariables = Exact<{
   title: Scalars['String'];
   description: Scalars['String'];
@@ -91,12 +98,32 @@ export type CreateFeedbackMutationVariables = Exact<{
 
 export type CreateFeedbackMutation = { __typename?: 'Mutation', createFeedback?: { __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category_id: number, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null };
 
+export type UpdateCategoryMutationVariables = Exact<{
+  id: Scalars['Int'];
+  title: Scalars['String'];
+}>;
+
+
+export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory?: { __typename?: 'Category', id: number, title?: string | null } | null };
+
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CategoriesQuery = { __typename?: 'Query', allCategories?: Array<{ __typename?: 'Category', id: number, title?: string | null } | null> | null };
 
 
+export const CreateCategoryDocument = gql`
+    mutation CreateCategory($title: String!) {
+  createCategory(title: $title) {
+    id
+    title
+  }
+}
+    `;
+
+export function useCreateCategoryMutation() {
+  return Urql.useMutation<CreateCategoryMutation, CreateCategoryMutationVariables>(CreateCategoryDocument);
+};
 export const CreateFeedbackDocument = gql`
     mutation CreateFeedback($title: String!, $description: String!, $categoryId: Int!) {
   createFeedback(
@@ -119,6 +146,18 @@ export const CreateFeedbackDocument = gql`
 
 export function useCreateFeedbackMutation() {
   return Urql.useMutation<CreateFeedbackMutation, CreateFeedbackMutationVariables>(CreateFeedbackDocument);
+};
+export const UpdateCategoryDocument = gql`
+    mutation UpdateCategory($id: Int!, $title: String!) {
+  updateCategory(id: $id, title: $title) {
+    id
+    title
+  }
+}
+    `;
+
+export function useUpdateCategoryMutation() {
+  return Urql.useMutation<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument);
 };
 export const CategoriesDocument = gql`
     query Categories {

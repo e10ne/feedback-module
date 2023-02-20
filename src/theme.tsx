@@ -4,6 +4,7 @@ const fonts = {
   mono: `'Menlo', monospace`,
   body: `'Open Sans', sans-serif`,
   heading: `'Open Sans', sans-serif`,
+  montserrat: `'Montserrat', sans-serif`,
 };
 
 const theme = extendTheme({
@@ -23,9 +24,35 @@ const theme = extendTheme({
         },
       },
     },
+    Heading: {
+      variants: {
+        pageHeader: {
+          my: "8",
+          fontSize: "30px",
+        },
+        subHeader: {
+          fontSize: "26px",
+          fontWeight: "600",
+          my: "8",
+        },
+      },
+    },
+    Input: {},
   },
   semanticTokens: {
     colors: {
+      primary: {
+        default: "#416080",
+      },
+      secondary: {
+        default: "#5D8EBF",
+      },
+      modalConfirm: {
+        default: "#5F8EBE",
+      },
+      modalCancel: {
+        default: "#E56A6A",
+      },
       mainBackground: {
         default: "#F3F4F6",
       },
@@ -54,6 +81,7 @@ const theme = extendTheme({
   },
   colors: {
     black: "#16161D",
+    adminWhite: "#F9F9F9",
   },
   fonts,
 });

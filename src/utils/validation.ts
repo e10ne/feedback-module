@@ -21,3 +21,13 @@ export const feedbackValidation = (values: feedbackValues) => {
 
   return errors;
 };
+
+export const categoryValidation = (title: string) => {
+  const errors: Record<string, string> = {};
+
+  if (title.length < 3) {
+    errors.title = "Minimaal 3 karakters";
+  }
+
+  return errors;
+};

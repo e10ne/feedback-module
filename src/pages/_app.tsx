@@ -1,7 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
 
 import "@fontsource/open-sans";
-import "@fontsource/montserrat";
+import "@fontsource/montserrat/600.css";
+import "@fontsource/montserrat/700.css";
 
 import theme from "../theme";
 import { AppProps } from "next/app";

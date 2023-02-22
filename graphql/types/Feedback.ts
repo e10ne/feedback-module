@@ -1,4 +1,4 @@
-import { mutationField, nonNull, objectType, queryField } from "nexus";
+import { list, mutationField, nonNull, objectType, queryField } from "nexus";
 import { Category } from "./Category";
 
 export const Feedback = objectType({
@@ -71,5 +71,22 @@ export const FeedbackQuery = queryField("feedback", {
     });
 
     return singleFeedback;
+  },
+});
+
+export const ActiveFeedbacksQuery = queryField("feedbacks", {
+  type: list(Feedback),
+  description: "Returns feedbacks that are not archived",
+  async resolve(_src, _args, ctx) {
+    const feedbacks = await ctx.prisma.feedback.findMany({
+      where: {
+        archived: false,
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+
+    return feedbacks;
   },
 });

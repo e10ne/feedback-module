@@ -75,6 +75,8 @@ export type Query = {
   allCategories?: Maybe<Array<Maybe<Category>>>;
   /** Get a specific feedback */
   feedback?: Maybe<Feedback>;
+  /** Returns feedbacks that are not archived */
+  feedbacks?: Maybe<Array<Maybe<Feedback>>>;
 };
 
 
@@ -110,6 +112,11 @@ export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CategoriesQuery = { __typename?: 'Query', allCategories?: Array<{ __typename?: 'Category', id: number, title?: string | null } | null> | null };
+
+export type FeedbacksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FeedbacksQuery = { __typename?: 'Query', feedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, archived?: boolean | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null };
 
 
 export const CreateCategoryDocument = gql`
@@ -170,4 +177,23 @@ export const CategoriesDocument = gql`
 
 export function useCategoriesQuery(options?: Omit<Urql.UseQueryArgs<CategoriesQueryVariables>, 'query'>) {
   return Urql.useQuery<CategoriesQuery, CategoriesQueryVariables>({ query: CategoriesDocument, ...options });
+};
+export const FeedbacksDocument = gql`
+    query feedbacks {
+  feedbacks {
+    id
+    title
+    description
+    create_date
+    archived
+    category {
+      id
+      title
+    }
+  }
+}
+    `;
+
+export function useFeedbacksQuery(options?: Omit<Urql.UseQueryArgs<FeedbacksQueryVariables>, 'query'>) {
+  return Urql.useQuery<FeedbacksQuery, FeedbacksQueryVariables>({ query: FeedbacksDocument, ...options });
 };

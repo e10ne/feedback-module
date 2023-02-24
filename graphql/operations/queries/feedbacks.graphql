@@ -1,0 +1,13 @@
+query feedbacks {
+  feedbacks {
+    id
+    title
+    description
+    create_date
+    archived
+    category {
+      id
+      title
+    }
+  }
+}

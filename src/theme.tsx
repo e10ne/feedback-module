@@ -37,7 +37,22 @@ const theme = extendTheme({
         },
       },
     },
-    Input: {},
+    Button: {
+      variants: {
+        admin: {
+          backgroundColor: "mainBackground",
+          borderColor: "primary",
+          borderWidth: "1px",
+          color: "primary",
+          fontFamily: "Montserrat",
+          fontWeight: "700",
+          p: "1.5rem",
+          _hover: {
+            bgColor: "gray.200",
+          },
+        },
+      },
+    },
   },
   semanticTokens: {
     colors: {

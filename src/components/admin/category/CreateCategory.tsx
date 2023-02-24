@@ -29,16 +29,8 @@ const CreateCategory: React.FC<{}> = ({}) => {
     <>
       <Button
         onClick={onOpen}
-        my={"8"}
-        borderColor={"primary"}
-        borderWidth={"2px"}
-        borderRadius={"5px"}
-        color={"primary"}
-        backgroundColor={"mainBackground"}
         rightIcon={<TiPlus fontSize={"1.2rem"} />}
-        p={"1.5rem"}
-        fontFamily={"montserrat"}
-        fontWeight={"700"}
+        variant={"admin"}
       >
         Categorie aanmaken
       </Button>

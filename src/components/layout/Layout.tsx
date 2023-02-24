@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <Flex
       flexDirection={"column"}
       bgColor={"mainBackground"}
-      h={"100vh"}
+      minH={"100vh"}
     >
       <Header />
       <Wrapper>{children}</Wrapper>

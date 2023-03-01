@@ -84,6 +84,8 @@ export type Query = {
   feedback?: Maybe<Feedback>;
   /** Returns feedbacks that are not archived */
   feedbacks?: Maybe<Array<Maybe<Feedback>>>;
+  /** Gets the 5 newest created feedbacks that are archived */
+  initialArchived?: Maybe<Array<Maybe<Feedback>>>;
 };
 
 
@@ -131,6 +133,11 @@ export type FeedbacksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FeedbacksQuery = { __typename?: 'Query', feedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, archived?: boolean | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null };
+
+export type InitialArchivedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type InitialArchivedQuery = { __typename?: 'Query', initialArchived?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null };
 
 
 export const ArchiveFeedbackDocument = gql`
@@ -219,4 +226,22 @@ export const FeedbacksDocument = gql`
 
 export function useFeedbacksQuery(options?: Omit<Urql.UseQueryArgs<FeedbacksQueryVariables>, 'query'>) {
   return Urql.useQuery<FeedbacksQuery, FeedbacksQueryVariables>({ query: FeedbacksDocument, ...options });
+};
+export const InitialArchivedDocument = gql`
+    query InitialArchived {
+  initialArchived {
+    id
+    title
+    description
+    create_date
+    category {
+      id
+      title
+    }
+  }
+}
+    `;
+
+export function useInitialArchivedQuery(options?: Omit<Urql.UseQueryArgs<InitialArchivedQueryVariables>, 'query'>) {
+  return Urql.useQuery<InitialArchivedQuery, InitialArchivedQueryVariables>({ query: InitialArchivedDocument, ...options });
 };

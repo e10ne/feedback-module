@@ -49,4 +49,7 @@ type Query {
 
   """Returns feedbacks that are not archived"""
   feedbacks: [Feedback]
+
+  """Gets the 5 newest created feedbacks that are archived"""
+  initialArchived: [Feedback]
 }

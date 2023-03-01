@@ -112,3 +112,20 @@ export const ArchiveFeedbackMutation = mutationField("archiveFeedback", {
     return false;
   },
 });
+
+export const initialArchivedQuery = queryField("initialArchived", {
+  type: list(Feedback),
+  description: "Gets the 5 newest created feedbacks that are archived",
+  async resolve(_src, _args, ctx) {
+    const result = await ctx.prisma.feedback.findMany({
+      where: {
+        archived: true,
+      },
+      take: 5,
+      orderBy: {
+        id: "desc",
+      },
+    });
+    return result;
+  },
+});

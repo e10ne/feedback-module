@@ -114,7 +114,45 @@ const theme = extendTheme({
             p: "2",
           },
         },
-        archived: {},
+        archived: {
+          root: {
+            fontFamily: "Montserrat",
+          },
+          button: {
+            color: "white",
+            bg: "secondary",
+            fontWeight: "700",
+            justifyContent: "space-between",
+            py: "4",
+            px: "8",
+            _expanded: {
+              color: "primary",
+              bg: "accordionBackground",
+              borderLeftColor: "primary",
+              borderLeftWidth: "3px",
+            },
+            _hover: {
+              bg: "blue.600",
+            },
+          },
+          container: {
+            border: "1px solid #EBEBEB",
+          },
+          panel: {
+            fontWeight: "500",
+            bg: "accordionBackground",
+            px: "8",
+            mb: "8",
+          },
+          icon: {
+            border: "1px solid #D3D3D3",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            borderRadius: "50%",
+            w: "9",
+            h: "9",
+            p: "2",
+          },
+        },
       },
     },
   },

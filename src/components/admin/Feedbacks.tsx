@@ -66,7 +66,10 @@ const Feedbacks: React.FC<FeedbacksProps> = ({}) => {
                           gap={"4"}
                           alignItems={"center"}
                         >
-                          <Text color={"secondary"}>
+                          <Text
+                            color={"secondary"}
+                            fontSize={"15px"}
+                          >
                             {fb!.category!.title} {" | "}
                             {format(new Date(fb.create_date), "dd-MM-yyyy")}
                           </Text>

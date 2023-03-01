@@ -90,3 +90,25 @@ export const ActiveFeedbacksQuery = queryField("feedbacks", {
     return feedbacks;
   },
 });
+
+export const ArchiveFeedbackMutation = mutationField("archiveFeedback", {
+  type: "Boolean",
+  description: "Set feedback as archived",
+  args: {
+    id: nonNull("Int"),
+  },
+  async resolve(_src, args, ctx) {
+    const result = await ctx.prisma.feedback.update({
+      data: {
+        archived: true,
+      },
+      where: {
+        id: args.id,
+      },
+    });
+    if (result) {
+      return true;
+    }
+    return false;
+  },
+});

@@ -1,0 +1,3 @@
+mutation ArchiveFeedback($id: Int!) {
+  archiveFeedback(id: $id)
+}

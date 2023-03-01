@@ -24,6 +24,9 @@ type Feedback {
 }
 
 type Mutation {
+  """Set feedback as archived"""
+  archiveFeedback(id: Int!): Boolean
+
   """Create a new category"""
   createCategory(title: String!): Category
 

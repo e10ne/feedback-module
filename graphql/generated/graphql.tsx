@@ -36,6 +36,8 @@ export type Feedback = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Set feedback as archived */
+  archiveFeedback?: Maybe<Scalars['Boolean']>;
   /** Create a new category */
   createCategory?: Maybe<Category>;
   /** Create feedback */
@@ -44,6 +46,11 @@ export type Mutation = {
   deleteCategory?: Maybe<Category>;
   /** Change the category title */
   updateCategory?: Maybe<Category>;
+};
+
+
+export type MutationArchiveFeedbackArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -84,6 +91,13 @@ export type QueryFeedbackArgs = {
   id: Scalars['Int'];
 };
 
+export type ArchiveFeedbackMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type ArchiveFeedbackMutation = { __typename?: 'Mutation', archiveFeedback?: boolean | null };
+
 export type CreateCategoryMutationVariables = Exact<{
   title: Scalars['String'];
 }>;
@@ -119,6 +133,15 @@ export type FeedbacksQueryVariables = Exact<{ [key: string]: never; }>;
 export type FeedbacksQuery = { __typename?: 'Query', feedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, archived?: boolean | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null };
 
 
+export const ArchiveFeedbackDocument = gql`
+    mutation ArchiveFeedback($id: Int!) {
+  archiveFeedback(id: $id)
+}
+    `;
+
+export function useArchiveFeedbackMutation() {
+  return Urql.useMutation<ArchiveFeedbackMutation, ArchiveFeedbackMutationVariables>(ArchiveFeedbackDocument);
+};
 export const CreateCategoryDocument = gql`
     mutation CreateCategory($title: String!) {
   createCategory(title: $title) {

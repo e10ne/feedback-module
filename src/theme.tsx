@@ -40,7 +40,7 @@ const theme = extendTheme({
     Button: {
       variants: {
         admin: {
-          backgroundColor: "mainBackground",
+          backgroundColor: "transparent",
           borderColor: "primary",
           borderWidth: "1px",
           color: "primary",
@@ -51,6 +51,70 @@ const theme = extendTheme({
             bgColor: "gray.200",
           },
         },
+      },
+    },
+    Select: {
+      variants: {
+        admin: {
+          field: {
+            color: "primary",
+            bgColor: "mainBackground",
+            borderColor: "primary",
+            borderWidth: "1px",
+            fontFamily: "Montserrat",
+            fontWeight: "700",
+            _hover: {
+              bgColor: "gray.200",
+            },
+          },
+          icon: {
+            fontSize: "2em",
+            color: "primary",
+          },
+        },
+      },
+    },
+    Accordion: {
+      variants: {
+        active: {
+          root: {
+            fontFamily: "Montserrat",
+          },
+          button: {
+            color: "#252B42",
+            fontWeight: "700",
+            justifyContent: "space-between",
+            bg: "white",
+            py: "4",
+            px: "8",
+            _expanded: {
+              color: "primary",
+              borderLeftColor: "primary",
+              borderLeftWidth: "3px",
+              bg: "accordionBackground",
+            },
+          },
+          container: {
+            border: "1px solid #EBEBEB",
+          },
+          panel: {
+            fontWeight: "500",
+            display: "flex",
+            flexDirection: "column",
+            gap: "4",
+            bg: "accordionBackground",
+            px: "8",
+          },
+          icon: {
+            border: "1px solid #D3D3D3",
+            borderRadius: "50%",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            w: "9",
+            h: "9",
+            p: "2",
+          },
+        },
+        archived: {},
       },
     },
   },
@@ -73,6 +137,9 @@ const theme = extendTheme({
       },
       headerBackground: {
         default: "#416080",
+      },
+      accordionBackground: {
+        default: "#F7F7F7",
       },
       button: {
         default: "#FAB63D",

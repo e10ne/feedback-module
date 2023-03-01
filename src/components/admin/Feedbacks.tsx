@@ -4,7 +4,6 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Button,
   Flex,
   Heading,
   Select,
@@ -12,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useFeedbacksQuery } from "../../../graphql/generated/graphql";
 import { format } from "date-fns";
-import { FaFileDownload } from "react-icons/fa";
+import FeedbackButtons from "./feedback/FeedbackButtons";
 
 interface FeedbacksProps {}
 
@@ -82,17 +81,22 @@ const Feedbacks: React.FC<FeedbacksProps> = ({}) => {
                     </h5>
                     <AccordionPanel>
                       <Text w={"95%"}>{fb.description}</Text>
+
                       <Flex
                         alignSelf={"end"}
                         gap={"4"}
                       >
-                        <Button
+                        <FeedbackButtons
+                          id={fb.id}
+                          title={fb.title!}
+                        />
+                        {/* <Button
                           variant={"admin"}
                           rightIcon={<FaFileDownload />}
                         >
                           Downloaden
                         </Button>
-                        <Button variant={"admin"}>Afronden</Button>
+                        <Button variant={"admin"}>Afronden</Button> */}
                       </Flex>
                     </AccordionPanel>
                   </>

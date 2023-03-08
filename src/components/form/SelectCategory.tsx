@@ -50,7 +50,7 @@ const SelectCategory: React.FC<SelectProps> = ({
           -- Selecteer een categorie --
         </option>
 
-        {categories?.allCategories?.map((cat) =>
+        {categories?.categories?.map((cat) =>
           !cat ? null : (
             <option
               key={`${cat.id}${cat.title}`}

@@ -1,5 +1,5 @@
 query Categories {
-  allCategories {
+  categories {
     id
     title
   }

@@ -26,7 +26,7 @@ export const Category = objectType({
   },
 });
 
-export const CategoriesQuery = queryField("allCategories", {
+export const CategoriesQuery = queryField("categories", {
   type: list(Category),
   description: "Gets all categories",
   async resolve(_src, _args, ctx) {
@@ -79,17 +79,17 @@ export const UpdateCategoryMutation = mutationField("updateCategory", {
 });
 
 export const DeleteCategoryMutation = mutationField("deleteCategory", {
-  type: Category,
+  type: "Boolean",
   description: "Delete an category",
   args: {
     id: nonNull("Int"),
   },
   async resolve(_src, args, ctx) {
-    const deletedCategory = await ctx.prisma.category.delete({
+    await ctx.prisma.category.delete({
       where: {
         id: args.id,
       },
     });
-    return deletedCategory;
+    return true;
   },
 });

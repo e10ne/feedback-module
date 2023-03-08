@@ -1,11 +1,18 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql";
+import {
+  useCategoriesQuery,
+  // useFeedbacksQuery,
+} from "../../graphql/generated/graphql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
 import Categories from "../components/admin/Categories";
 import Feedbacks from "../components/admin/Feedbacks";
 import Layout from "../components/layout/Layout";
 
 const AdminPage: React.FC<{}> = () => {
+  // const [{ data: feedbacks, fetching: feedBackFetching }] = useFeedbacksQuery();
+  const [{ data: categories }] = useCategoriesQuery();
+
   return (
     <Layout>
       <Flex
@@ -17,7 +24,7 @@ const AdminPage: React.FC<{}> = () => {
 
         <Text>Searchbar here...</Text>
 
-        <Categories />
+        <Categories data={categories} />
 
         <Feedbacks />
 
@@ -28,4 +35,4 @@ const AdminPage: React.FC<{}> = () => {
   );
 };
 
-export default withUrqlClient(createUrqlClient)(AdminPage);
+export default withUrqlClient(createUrqlClient, { ssr: true })(AdminPage);

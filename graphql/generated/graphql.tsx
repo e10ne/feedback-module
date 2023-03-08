@@ -79,7 +79,7 @@ export type MutationUpdateCategoryArgs = {
 export type Query = {
   __typename?: 'Query';
   /** Gets all categories */
-  allCategories?: Maybe<Array<Maybe<Category>>>;
+  categories?: Maybe<Array<Maybe<Category>>>;
   /** Get a specific feedback */
   feedback?: Maybe<Feedback>;
   /** Returns feedbacks that are not archived */
@@ -127,7 +127,7 @@ export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory?:
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', allCategories?: Array<{ __typename?: 'Category', id: number, title?: string | null } | null> | null };
+export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id: number, title?: string | null } | null> | null };
 
 export type FeedbacksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -198,7 +198,7 @@ export function useUpdateCategoryMutation() {
 };
 export const CategoriesDocument = gql`
     query Categories {
-  allCategories {
+  categories {
     id
     title
   }

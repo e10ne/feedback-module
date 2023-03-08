@@ -29,7 +29,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({
   handleSubmit,
 }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const category = categories?.allCategories?.find((cat) => {
+  const category = categories?.categories?.find((cat) => {
     return cat?.id == parseInt(values.category_id);
   });
   return (

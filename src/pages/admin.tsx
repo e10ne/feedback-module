@@ -7,6 +7,7 @@ import {
 import { createUrqlClient } from "../../lib/createUrqlClient";
 import Categories from "../components/admin/Categories";
 import Feedbacks from "../components/admin/Feedbacks";
+import Searchbar from "../components/admin/SearchBar";
 import Layout from "../components/layout/Layout";
 
 const AdminPage: React.FC<{}> = () => {
@@ -22,7 +23,8 @@ const AdminPage: React.FC<{}> = () => {
       >
         <Heading variant={"pageHeader"}>Feedback beheerderpagina</Heading>
 
-        <Text>Searchbar here...</Text>
+        {/* <Text>Searchbar here...</Text> */}
+        <Searchbar categories={categories} />
 
         <Categories data={categories} />
 

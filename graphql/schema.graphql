@@ -3,6 +3,7 @@
 
 
 type Category {
+  active_feedbacks: Boolean
   feedbacks: [Feedback]
   id: Int!
   title: String

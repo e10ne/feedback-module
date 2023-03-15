@@ -13,6 +13,23 @@ export const Category = objectType({
   definition(t) {
     t.nonNull.int("id"),
       t.string("title"),
+      t.boolean("active_feedbacks", {
+        async resolve(src, _args, ctx, _info) {
+          const hasActive = await ctx.prisma.feedback.findFirst({
+            where: {
+              category_id: src.id,
+              AND: {
+                archived: false,
+              },
+            },
+          });
+          if (hasActive) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      }),
       t.list.field("feedbacks", {
         type: Feedback,
         async resolve(src, _args, ctx) {

@@ -13,6 +13,7 @@ datasource db {
 model Category {
   id Int @id @default(autoincrement())
   title String
+  active_feedbacks Boolean @default(false)
   feedbacks Feedback[]
   @@map("categories")
 }
@@ -21,8 +22,8 @@ model Feedback {
   id Int @id @default(autoincrement())
   title String
   description String @db.Text
-  category Category @relation(fields: [category_id], references: [id])
-  category_id Int
+  category Category? @relation(fields: [category_id], references: [id], onDelete: SetNull)
+  category_id Int?
   create_date DateTime @default(now())
   archived Boolean @default(false)
   @@map("feedbacks")

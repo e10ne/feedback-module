@@ -32,7 +32,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
           console.log("values: ", values);
 
           const result = feedbacksFilter({
-            feedbacks: feedbacks,
+            data: feedbacks,
             category: values.category,
             text: values.text,
           });

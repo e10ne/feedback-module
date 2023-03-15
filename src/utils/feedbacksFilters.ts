@@ -1,17 +1,17 @@
 import { FeedbacksQuery } from "../../graphql/generated/graphql";
 
 interface feedbackValues {
-  feedbacks: FeedbacksQuery | undefined;
+  data: FeedbacksQuery | undefined;
   text: string;
   category: string;
 }
 
 export function feedbacksFilter(values: feedbackValues): Array<any> {
-  if (!values.feedbacks || !values.feedbacks.feedbacks) {
+  if (!values.data || !values.data.feedbacks) {
     return [];
   }
 
-  const oldFeedbacks = values.feedbacks.feedbacks;
+  const oldFeedbacks = values.data.feedbacks;
   let result: Array<any> = [];
 
   if (!values.text && !values.category) {

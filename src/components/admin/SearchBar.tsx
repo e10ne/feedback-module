@@ -1,13 +1,26 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { Flex, IconButton, Input, Select } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
-import { CategoriesQuery } from "../../../graphql/generated/graphql";
+import { Dispatch, SetStateAction } from "react";
+import {
+  CategoriesQuery,
+  FeedbacksQuery,
+} from "../../../graphql/generated/graphql";
+import { feedbacksFilter } from "../../utils/feedbacksFilters";
 
 interface SearchbarProps {
+  feedbacks: FeedbacksQuery | undefined;
   categories: CategoriesQuery | undefined;
+  setSearchResult: Dispatch<SetStateAction<any[]>>;
+  setHasSearched: Dispatch<SetStateAction<boolean>>;
 }
 
-const Searchbar: React.FC<SearchbarProps> = ({ categories }) => {
+const Searchbar: React.FC<SearchbarProps> = ({
+  feedbacks,
+  categories,
+  setSearchResult,
+  setHasSearched,
+}) => {
   return (
     <>
       <Formik
@@ -17,7 +30,15 @@ const Searchbar: React.FC<SearchbarProps> = ({ categories }) => {
         }}
         onSubmit={async (values) => {
           console.log("values: ", values);
-          // setSubmitting(false);
+
+          const result = feedbacksFilter({
+            feedbacks: feedbacks,
+            category: values.category,
+            text: values.text,
+          });
+
+          setSearchResult(result);
+          setHasSearched(true);
         }}
       >
         {({ isSubmitting }) => (

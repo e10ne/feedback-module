@@ -18,7 +18,7 @@ const Categories: React.FC<CategoriesProps> = ({ data }) => {
         <Heading variant={"subHeader"}>Categorieën</Heading>
         <CreateCategory />
       </Flex>
-      <Stack spacing={"4"}>
+      <Stack spacing={"1"}>
         {data?.categories?.map((cat) =>
           !cat ? null : (
             <Flex

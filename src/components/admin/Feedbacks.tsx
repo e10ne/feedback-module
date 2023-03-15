@@ -1,23 +1,23 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Flex,
-  Heading,
-  Select,
-  Text,
-} from "@chakra-ui/react";
-import { useFeedbacksQuery } from "../../../graphql/generated/graphql";
-import { format } from "date-fns";
-import FeedbackButtons from "./feedback/FeedbackButtons";
+import { Flex, Heading, Select, Text } from "@chakra-ui/react";
+import { FeedbacksQuery } from "../../../graphql/generated/graphql";
+import { CombinedError } from "@urql/core";
+import FeedbackList from "./feedback/FeedbackList";
 
-interface FeedbacksProps {}
+interface FeedbacksProps {
+  searchResult: any[];
+  error: CombinedError | undefined;
+  fetching: boolean;
+  data: FeedbacksQuery | undefined;
+  hasSearched: boolean;
+}
 
-const Feedbacks: React.FC<FeedbacksProps> = ({}) => {
-  const [{ fetching, data, error }] = useFeedbacksQuery();
-
+const Feedbacks: React.FC<FeedbacksProps> = ({
+  searchResult,
+  error,
+  data,
+  fetching,
+  hasSearched,
+}) => {
   if (error) {
     return (
       <>
@@ -48,63 +48,10 @@ const Feedbacks: React.FC<FeedbacksProps> = ({}) => {
       {!data && fetching ? (
         <Text>Feedbacks ophalen</Text>
       ) : (
-        <Accordion
-          allowToggle
-          variant={"active"}
-        >
-          {data?.feedbacks?.map((fb) =>
-            !fb ? null : (
-              <AccordionItem key={`${fb.create_date}${fb.id}`}>
-                {({ isExpanded }) => (
-                  <>
-                    <h5>
-                      <AccordionButton>
-                        <Text>{fb.title}</Text>
-
-                        <Flex
-                          gap={"4"}
-                          alignItems={"center"}
-                        >
-                          <Text
-                            color={"secondary"}
-                            fontSize={"15px"}
-                          >
-                            {fb!.category!.title} {" | "}
-                            {format(new Date(fb.create_date), "dd-MM-yyyy")}
-                          </Text>
-                          <AccordionIcon
-                            color={!isExpanded ? "#737373" : "white"}
-                            bg={!isExpanded ? "white" : "primary"}
-                          />
-                        </Flex>
-                      </AccordionButton>
-                    </h5>
-                    <AccordionPanel>
-                      <Text w={"95%"}>{fb.description}</Text>
-
-                      <Flex
-                        alignSelf={"end"}
-                        gap={"4"}
-                      >
-                        <FeedbackButtons
-                          id={fb.id}
-                          title={fb.title!}
-                        />
-                        {/* <Button
-                          variant={"admin"}
-                          rightIcon={<FaFileDownload />}
-                        >
-                          Downloaden
-                        </Button>
-                        <Button variant={"admin"}>Afronden</Button> */}
-                      </Flex>
-                    </AccordionPanel>
-                  </>
-                )}
-              </AccordionItem>
-            )
-          )}
-        </Accordion>
+        <FeedbackList
+          hasSearched={hasSearched}
+          data={hasSearched ? searchResult : data?.feedbacks!}
+        />
       )}
     </>
   );

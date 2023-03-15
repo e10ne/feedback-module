@@ -15,11 +15,10 @@ export function feedbacksFilter(values: feedbackValues): Array<any> {
   let result: Array<any> = [];
 
   if (!values.text && !values.category) {
-    console.log(oldFeedbacks);
-    return oldFeedbacks;
+    result = oldFeedbacks;
   } else if (values.category && !values.text) {
     result = oldFeedbacks.filter(
-      (fb) => fb?.category?.id === parseInt(values.category!)
+      (fb) => fb?.category?.id === parseInt(values.category)
     );
   } else if (values.text && !values.category) {
     result = oldFeedbacks.filter(

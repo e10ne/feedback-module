@@ -47,9 +47,9 @@ type Query {
   """Get a specific feedback"""
   feedback(id: Int!): Feedback
 
-  """Returns feedbacks that are not archived"""
+  """Returns all feedbacks that are not archived"""
   feedbacks: [Feedback]
 
-  """Gets the 5 newest created feedbacks that are archived"""
+  """Gets the 5 most recent created feedbacks that are archived"""
   initialArchived: [Feedback]
 }

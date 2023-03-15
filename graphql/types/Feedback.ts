@@ -76,7 +76,7 @@ export const FeedbackQuery = queryField("feedback", {
 
 export const ActiveFeedbacksQuery = queryField("feedbacks", {
   type: list(Feedback),
-  description: "Returns feedbacks that are not archived",
+  description: "Returns all feedbacks that are not archived",
   async resolve(_src, _args, ctx) {
     const feedbacks = await ctx.prisma.feedback.findMany({
       where: {
@@ -115,7 +115,7 @@ export const ArchiveFeedbackMutation = mutationField("archiveFeedback", {
 
 export const initialArchivedQuery = queryField("initialArchived", {
   type: list(Feedback),
-  description: "Gets the 5 newest created feedbacks that are archived",
+  description: "Gets the 5 most recent created feedbacks that are archived",
   async resolve(_src, _args, ctx) {
     const result = await ctx.prisma.feedback.findMany({
       where: {

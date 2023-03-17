@@ -1,5 +1,5 @@
 import { IconButton } from "@chakra-ui/react";
-import { FaTrash } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import { useDeleteCategoryMutation } from "../../../../graphql/generated/graphql";
 
 interface DeleteCategoryButtonProps {
@@ -23,7 +23,7 @@ const DeleteCategoryButton: React.FC<DeleteCategoryButtonProps> = ({
     <>
       <IconButton
         aria-label="Delete Category"
-        icon={<FaTrash />}
+        icon={<FaTrashAlt />}
         colorScheme={"red"}
         onClick={() => {
           deleteCategory({

@@ -7,7 +7,7 @@ export const Feedback = objectType({
     t.nonNull.int("id"),
       t.string("title"),
       t.string("description"),
-      t.nonNull.int("category_id"),
+      t.int("category_id"),
       t.boolean("archived"),
       t.field("create_date", {
         type: "DateTime",
@@ -15,11 +15,14 @@ export const Feedback = objectType({
       t.field("category", {
         type: Category,
         async resolve(src, _args, ctx) {
-          return await ctx.prisma.category.findUnique({
-            where: {
-              id: src.category_id,
-            },
-          });
+          if (src.category_id) {
+            return await ctx.prisma.category.findUnique({
+              where: {
+                id: src.category_id,
+              },
+            });
+          }
+          return null;
         },
       });
   },

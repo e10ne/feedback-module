@@ -17,7 +17,7 @@ scalar DateTime
 type Feedback {
   archived: Boolean
   category: Category
-  category_id: Int!
+  category_id: Int
   create_date: DateTime
   description: String
   id: Int!
@@ -35,7 +35,7 @@ type Mutation {
   createFeedback(category_id: Int!, description: String!, title: String!): Feedback
 
   """Delete an category"""
-  deleteCategory(id: Int!): Boolean
+  deleteCategory(hasActive: Boolean!, id: Int!): Boolean
 
   """Change the category title"""
   updateCategory(id: Int!, title: String!): Category

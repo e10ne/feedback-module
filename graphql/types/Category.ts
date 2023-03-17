@@ -100,13 +100,16 @@ export const DeleteCategoryMutation = mutationField("deleteCategory", {
   description: "Delete an category",
   args: {
     id: nonNull("Int"),
+    hasActive: nonNull("Boolean"),
   },
   async resolve(_src, args, ctx) {
-    await ctx.prisma.category.delete({
-      where: {
-        id: args.id,
-      },
-    });
+    if (!args.hasActive) {
+      await ctx.prisma.category.delete({
+        where: {
+          id: args.id,
+        },
+      });
+    }
     return true;
   },
 });

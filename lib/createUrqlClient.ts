@@ -34,6 +34,9 @@ export const createUrqlClient = (ssrExchange: any) => {
                 (args as ArchiveFeedbackMutationVariables).id
               );
             },
+            deleteCategory: (_result, args, cache, _info) => {
+              invalidateCache(cache, "Category", args.id as number);
+            },
           },
         },
       }),

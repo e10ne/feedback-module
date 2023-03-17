@@ -18,6 +18,7 @@ export type Scalars = {
 
 export type Category = {
   __typename?: 'Category';
+  active_feedbacks?: Maybe<Scalars['Boolean']>;
   feedbacks?: Maybe<Array<Maybe<Feedback>>>;
   id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
@@ -27,7 +28,7 @@ export type Feedback = {
   __typename?: 'Feedback';
   archived?: Maybe<Scalars['Boolean']>;
   category?: Maybe<Category>;
-  category_id: Scalars['Int'];
+  category_id?: Maybe<Scalars['Int']>;
   create_date?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
@@ -43,7 +44,7 @@ export type Mutation = {
   /** Create feedback */
   createFeedback?: Maybe<Feedback>;
   /** Delete an category */
-  deleteCategory?: Maybe<Category>;
+  deleteCategory?: Maybe<Scalars['Boolean']>;
   /** Change the category title */
   updateCategory?: Maybe<Category>;
 };
@@ -67,6 +68,7 @@ export type MutationCreateFeedbackArgs = {
 
 
 export type MutationDeleteCategoryArgs = {
+  hasActive: Scalars['Boolean'];
   id: Scalars['Int'];
 };
 
@@ -82,9 +84,9 @@ export type Query = {
   categories?: Maybe<Array<Maybe<Category>>>;
   /** Get a specific feedback */
   feedback?: Maybe<Feedback>;
-  /** Returns feedbacks that are not archived */
+  /** Returns all feedbacks that are not archived */
   feedbacks?: Maybe<Array<Maybe<Feedback>>>;
-  /** Gets the 5 newest created feedbacks that are archived */
+  /** Gets the 5 most recent created feedbacks that are archived */
   initialArchived?: Maybe<Array<Maybe<Feedback>>>;
 };
 
@@ -114,7 +116,15 @@ export type CreateFeedbackMutationVariables = Exact<{
 }>;
 
 
-export type CreateFeedbackMutation = { __typename?: 'Mutation', createFeedback?: { __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category_id: number, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null };
+export type CreateFeedbackMutation = { __typename?: 'Mutation', createFeedback?: { __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category_id?: number | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null };
+
+export type DeleteCategoryMutationVariables = Exact<{
+  deleteCategoryId: Scalars['Int'];
+  hasActive: Scalars['Boolean'];
+}>;
+
+
+export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory?: boolean | null };
 
 export type UpdateCategoryMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -183,6 +193,15 @@ export const CreateFeedbackDocument = gql`
 
 export function useCreateFeedbackMutation() {
   return Urql.useMutation<CreateFeedbackMutation, CreateFeedbackMutationVariables>(CreateFeedbackDocument);
+};
+export const DeleteCategoryDocument = gql`
+    mutation DeleteCategory($deleteCategoryId: Int!, $hasActive: Boolean!) {
+  deleteCategory(id: $deleteCategoryId, hasActive: $hasActive)
+}
+    `;
+
+export function useDeleteCategoryMutation() {
+  return Urql.useMutation<DeleteCategoryMutation, DeleteCategoryMutationVariables>(DeleteCategoryDocument);
 };
 export const UpdateCategoryDocument = gql`
     mutation UpdateCategory($id: Int!, $title: String!) {

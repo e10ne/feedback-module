@@ -84,11 +84,13 @@ const EditCategory: React.FC<EditCategoryProps> = ({
                   />
                 </ModalBody>
                 <ModalFooter justifyContent={"space-between"}>
-                  <DeleteCategoryButton
-                    hasActiveFeedback={hasActive}
-                    id={id}
-                    onClose={onClose}
-                  />
+                  <Flex>
+                    <DeleteCategoryButton
+                      hasActiveFeedback={hasActive}
+                      id={id}
+                      onClose={onClose}
+                    />
+                  </Flex>
                   <Flex gap={"4"}>
                     <Button
                       type={"reset"}

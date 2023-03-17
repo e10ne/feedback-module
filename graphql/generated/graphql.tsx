@@ -137,7 +137,7 @@ export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory?:
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id: number, title?: string | null } | null> | null };
+export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id: number, title?: string | null, active_feedbacks?: boolean | null } | null> | null };
 
 export type FeedbacksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -220,6 +220,7 @@ export const CategoriesDocument = gql`
   categories {
     id
     title
+    active_feedbacks
   }
 }
     `;

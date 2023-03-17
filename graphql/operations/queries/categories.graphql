@@ -2,5 +2,6 @@ query Categories {
   categories {
     id
     title
+    active_feedbacks
   }
 }

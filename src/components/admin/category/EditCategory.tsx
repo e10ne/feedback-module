@@ -1,5 +1,6 @@
 import {
   Button,
+  Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,13 +15,19 @@ import { Form, Formik } from "formik";
 import { useUpdateCategoryMutation } from "../../../../graphql/generated/graphql";
 import { categoryValidation } from "../../../utils/validation";
 import InputText from "../../form/InputText";
+import DeleteCategoryButton from "./DeleteCategoryButton";
 
 interface EditCategoryProps {
   id: number;
   title: string;
+  hasActive: boolean;
 }
 
-const EditCategory: React.FC<EditCategoryProps> = ({ id, title }) => {
+const EditCategory: React.FC<EditCategoryProps> = ({
+  id,
+  title,
+  hasActive,
+}) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const [, updateCategory] = useUpdateCategoryMutation();
   const toast = useToast({
@@ -76,21 +83,36 @@ const EditCategory: React.FC<EditCategoryProps> = ({ id, title }) => {
                     autoComplete="off"
                   />
                 </ModalBody>
-                <ModalFooter>
-                  <Button
-                    type={"reset"}
-                    bgColor={"modalCancel"}
-                    onClick={onClose}
-                  >
-                    Annuleren
-                  </Button>
-                  <Button
-                    type={"submit"}
-                    bgColor={"modalConfirm"}
-                    isLoading={isSubmitting}
-                  >
-                    Opslaan
-                  </Button>
+                <ModalFooter justifyContent={"space-between"}>
+                  <DeleteCategoryButton
+                    hasActiveFeedback={hasActive}
+                    id={id}
+                    onClose={onClose}
+                  />
+                  <Flex gap={"4"}>
+                    <Button
+                      type={"reset"}
+                      bgColor={"modalCancel"}
+                      color={"white"}
+                      onClick={onClose}
+                      _hover={{
+                        bg: "red.500",
+                      }}
+                    >
+                      Annuleren
+                    </Button>
+                    <Button
+                      type={"submit"}
+                      bgColor={"modalConfirm"}
+                      isLoading={isSubmitting}
+                      color={"white"}
+                      _hover={{
+                        bg: "blue.500",
+                      }}
+                    >
+                      Opslaan
+                    </Button>
+                  </Flex>
                 </ModalFooter>
               </Form>
             )}

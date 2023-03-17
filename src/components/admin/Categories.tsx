@@ -47,6 +47,7 @@ const Categories: React.FC<CategoriesProps> = ({ data }) => {
                 <EditCategory
                   id={cat.id}
                   title={cat.title as string}
+                  hasActive={cat.active_feedbacks as boolean}
                 />
               </Flex>
             </Flex>

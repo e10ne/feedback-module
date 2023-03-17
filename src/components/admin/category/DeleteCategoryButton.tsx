@@ -23,6 +23,8 @@ const DeleteCategoryButton: React.FC<DeleteCategoryButtonProps> = ({
     <>
       <IconButton
         aria-label="Delete Category"
+        variant={"ghost"}
+        fontSize={"1.5em"}
         icon={<FaTrashAlt />}
         colorScheme={"red"}
         onClick={() => {

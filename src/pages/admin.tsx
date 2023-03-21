@@ -43,6 +43,8 @@ const AdminPage: React.FC<{}> = () => {
           error={feedBackError}
           fetching={feedBackFetching}
           hasSearched={hasSearched}
+          setSearchResult={setSearchResult}
+          setHasSearched={setHasSearched}
         />
 
         <Heading variant={"subHeader"}>Archief feedback</Heading>

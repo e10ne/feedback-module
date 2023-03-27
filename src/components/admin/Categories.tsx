@@ -2,13 +2,17 @@ import { FaFileDownload } from "react-icons/fa";
 import { Flex, Heading, IconButton, Stack, Text } from "@chakra-ui/react";
 import EditCategory from "./category/EditCategory";
 import CreateCategory from "./category/CreateCategory";
-import { CategoriesQuery } from "../../../graphql/generated/graphql";
+import {
+  CategoriesQuery,
+  FeedbacksQuery,
+} from "../../../graphql/generated/graphql";
 
 interface CategoriesProps {
   data: CategoriesQuery | undefined;
+  feedbacks: FeedbacksQuery | undefined;
 }
 
-const Categories: React.FC<CategoriesProps> = ({ data }) => {
+const Categories: React.FC<CategoriesProps> = ({ data, feedbacks }) => {
   return (
     <>
       <Flex
@@ -43,6 +47,7 @@ const Categories: React.FC<CategoriesProps> = ({ data }) => {
                   bgColor={"adminWhite"}
                   fontSize={"2xl"}
                   p={"4"}
+                  onClick={() => console.log("feedbacks: ", feedbacks)}
                 />
                 <EditCategory
                   id={cat.id}

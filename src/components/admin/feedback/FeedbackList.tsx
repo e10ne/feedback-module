@@ -14,9 +14,14 @@ import FeedbackButtons from "./FeedbackButtons";
 interface FeedbackListProps {
   data: Feedback[];
   hasSearched: boolean;
+  isClient: boolean;
 }
 
-const FeedbackList: React.FC<FeedbackListProps> = ({ data, hasSearched }) => {
+const FeedbackList: React.FC<FeedbackListProps> = ({
+  data,
+  hasSearched,
+  isClient,
+}) => {
   if (data.length <= 0 && !hasSearched) {
     return <Text>Er zijn geen feedbacks</Text>;
   } else if (data.length <= 0 && hasSearched) {
@@ -55,15 +60,20 @@ const FeedbackList: React.FC<FeedbackListProps> = ({ data, hasSearched }) => {
                   </AccordionButton>
                 </h5>
                 <AccordionPanel>
-                  <Text w={"95%"}>{fb.description}</Text>
+                  <Text
+                    w={"95%"}
+                    maxH={"20"}
+                  >
+                    {fb.description}
+                  </Text>
 
                   <Flex
                     alignSelf={"end"}
                     gap={"4"}
                   >
                     <FeedbackButtons
-                      id={fb.id}
-                      title={fb.title!}
+                      feedback={fb}
+                      isClient={isClient}
                     />
                   </Flex>
                 </AccordionPanel>

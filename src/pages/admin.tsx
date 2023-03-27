@@ -1,6 +1,6 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useCategoriesQuery,
   useFeedbacksQuery,
@@ -18,6 +18,11 @@ const AdminPage: React.FC<{}> = () => {
   const [{ data: categories }] = useCategoriesQuery();
   const [searchResult, setSearchResult] = useState<any[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <Layout>
@@ -35,7 +40,10 @@ const AdminPage: React.FC<{}> = () => {
           setSearchResult={setSearchResult}
         />
 
-        <Categories data={categories} />
+        <Categories
+          data={categories}
+          feedbacks={feedbacks}
+        />
 
         <Feedbacks
           searchResult={searchResult}
@@ -45,6 +53,7 @@ const AdminPage: React.FC<{}> = () => {
           hasSearched={hasSearched}
           setSearchResult={setSearchResult}
           setHasSearched={setHasSearched}
+          isClient={isClient}
         />
 
         <Heading variant={"subHeader"}>Archief feedback</Heading>

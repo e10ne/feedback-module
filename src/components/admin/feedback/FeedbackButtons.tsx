@@ -9,16 +9,24 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useArchiveFeedbackMutation } from "../../../../graphql/generated/graphql";
+import {
+  Feedback,
+  useArchiveFeedbackMutation,
+} from "../../../../graphql/generated/graphql";
 import { FaFileDownload } from "react-icons/fa";
 import { useRef } from "react";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { FeedbackPDF } from "./FeedbackPDF";
 
 interface FeedbackButtonsProps {
-  id: number;
-  title: string;
+  feedback: Feedback;
+  isClient: boolean;
 }
 
-const FeedbackButtons: React.FC<FeedbackButtonsProps> = ({ id, title }) => {
+const FeedbackButtons: React.FC<FeedbackButtonsProps> = ({
+  feedback,
+  isClient,
+}) => {
   const [, archiveFeedback] = useArchiveFeedbackMutation();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const cancelRef = useRef(null);
@@ -29,7 +37,14 @@ const FeedbackButtons: React.FC<FeedbackButtonsProps> = ({ id, title }) => {
         variant={"admin"}
         rightIcon={<FaFileDownload />}
       >
-        Download
+        {isClient && (
+          <PDFDownloadLink
+            document={<FeedbackPDF feedback={feedback} />}
+            fileName={`${feedback.title}.pdf`}
+          >
+            download
+          </PDFDownloadLink>
+        )}
       </Button>
       <Button
         variant={"admin"}
@@ -49,7 +64,7 @@ const FeedbackButtons: React.FC<FeedbackButtonsProps> = ({ id, title }) => {
             <AlertDialogCloseButton />
 
             <AlertDialogBody>
-              {`Is de feedback: ${title} afgerond?`}
+              {`Is de feedback: ${feedback.title} afgerond?`}
             </AlertDialogBody>
 
             <AlertDialogFooter gap={"10"}>
@@ -65,7 +80,7 @@ const FeedbackButtons: React.FC<FeedbackButtonsProps> = ({ id, title }) => {
                 bg={"modalCancel"}
                 color={"white"}
                 onClick={() => {
-                  archiveFeedback({ id });
+                  archiveFeedback({ id: feedback.id });
                   onClose();
                 }}
               >

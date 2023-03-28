@@ -1,7 +1,6 @@
 import { Document, Page, StyleSheet, Text } from "@react-pdf/renderer";
-import { format } from "date-fns";
-import { nl } from "date-fns/locale";
 import { Feedback } from "../../../../graphql/generated/graphql";
+import { fullFormat } from "../../../utils/formatDate";
 
 const styles = StyleSheet.create({
   page: {
@@ -23,9 +22,6 @@ interface FeedbackPdfProps {
 }
 
 export const FeedbackPDF: React.FC<FeedbackPdfProps> = ({ feedback }) => {
-  const formattedDate = format(new Date(feedback.create_date!), "PPPP", {
-    locale: nl,
-  });
   return (
     <Document title={feedback.title!}>
       <Page
@@ -39,7 +35,9 @@ export const FeedbackPDF: React.FC<FeedbackPdfProps> = ({ feedback }) => {
           Titel: <Text style={styles.title}>{feedback.title}</Text>
         </Text>
         <Text style={styles.text}>Categorie: {feedback.category?.title}</Text>
-        <Text style={styles.text}>Datum aangemaakt: {formattedDate}</Text>
+        <Text style={styles.text}>
+          Datum aangemaakt: {fullFormat(feedback.create_date!)}
+        </Text>
         <Text style={styles.text}>Omschijving: {feedback.description}</Text>
       </Page>
     </Document>

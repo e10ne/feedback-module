@@ -8,8 +8,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Feedback } from "../../../../graphql/generated/graphql";
-import format from "date-fns/format";
 import FeedbackButtons from "./FeedbackButtons";
+import { normalFormat } from "../../../utils/formatDate";
 
 interface FeedbackListProps {
   data: Feedback[];
@@ -50,7 +50,7 @@ const FeedbackList: React.FC<FeedbackListProps> = ({
                         fontSize={"15px"}
                       >
                         {fb!.category!.title} {" | "}
-                        {format(new Date(fb.create_date), "dd-MM-yyyy")}
+                        {normalFormat(fb.create_date)}
                       </Text>
                       <AccordionIcon
                         color={!isExpanded ? "#737373" : "white"}

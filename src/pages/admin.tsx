@@ -43,6 +43,7 @@ const AdminPage: React.FC<{}> = () => {
         <Categories
           data={categories}
           feedbacks={feedbacks}
+          isClient={isClient}
         />
 
         <Feedbacks

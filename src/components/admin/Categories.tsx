@@ -6,13 +6,20 @@ import {
   CategoriesQuery,
   FeedbacksQuery,
 } from "../../../graphql/generated/graphql";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { CategoryPDF } from "./category/CategoryPDF";
 
 interface CategoriesProps {
   data: CategoriesQuery | undefined;
   feedbacks: FeedbacksQuery | undefined;
+  isClient: boolean;
 }
 
-const Categories: React.FC<CategoriesProps> = ({ data, feedbacks }) => {
+const Categories: React.FC<CategoriesProps> = ({
+  data,
+  feedbacks,
+  isClient,
+}) => {
   return (
     <>
       <Flex
@@ -41,14 +48,25 @@ const Categories: React.FC<CategoriesProps> = ({ data, feedbacks }) => {
                 {cat.title}
               </Text>
               <Flex gap={"4"}>
-                <IconButton
-                  aria-label="Exporteren naar pdf"
-                  icon={<FaFileDownload />}
-                  bgColor={"adminWhite"}
-                  fontSize={"2xl"}
-                  p={"4"}
-                  onClick={() => console.log("feedbacks: ", feedbacks)}
-                />
+                {isClient && cat.active_feedbacks && (
+                  <PDFDownloadLink
+                    document={
+                      <CategoryPDF
+                        category={cat}
+                        feedbacks={feedbacks!}
+                      />
+                    }
+                  >
+                    <IconButton
+                      aria-label="Exporteren naar pdf"
+                      icon={<FaFileDownload />}
+                      bgColor={"adminWhite"}
+                      fontSize={"2xl"}
+                      p={"4"}
+                    />
+                  </PDFDownloadLink>
+                )}
+
                 <EditCategory
                   id={cat.id}
                   title={cat.title as string}

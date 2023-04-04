@@ -41,7 +41,16 @@ type Mutation {
   updateCategory(id: Int!, title: String!): Category
 }
 
+type PaginatedArchive {
+  ArchivedFeedbacks: [Feedback]
+  hasMore: Boolean
+  nextPointer: Int
+}
+
 type Query {
+  """Gets a list of 5 feedbacks that are archived"""
+  archivedQuery(cursor: Int): PaginatedArchive
+
   """Gets all categories"""
   categories: [Category]
 
@@ -50,7 +59,4 @@ type Query {
 
   """Returns all feedbacks that are not archived"""
   feedbacks: [Feedback]
-
-  """Gets the 5 most recent created feedbacks that are archived"""
-  initialArchived: [Feedback]
 }

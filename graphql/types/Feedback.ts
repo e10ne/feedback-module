@@ -28,6 +28,17 @@ export const Feedback = objectType({
   },
 });
 
+export const PaginatedArchive = objectType({
+  name: "PaginatedArchive",
+  definition(t) {
+    t.list.field("ArchivedFeedbacks", {
+      type: Feedback,
+    }),
+      t.boolean("hasMore"),
+      t.int("nextPointer");
+  },
+});
+
 export const CreateFeedbackMutation = mutationField("createFeedback", {
   type: Feedback,
   description: "Create feedback",
@@ -116,19 +127,45 @@ export const ArchiveFeedbackMutation = mutationField("archiveFeedback", {
   },
 });
 
-export const initialArchivedQuery = queryField("initialArchived", {
-  type: list(Feedback),
-  description: "Gets the 5 most recent created feedbacks that are archived",
-  async resolve(_src, _args, ctx) {
-    const result = await ctx.prisma.feedback.findMany({
-      where: {
-        archived: true,
-      },
-      take: 5,
-      orderBy: {
-        id: "desc",
-      },
-    });
-    return result;
+export const ArchivedQuery = queryField("archivedQuery", {
+  type: PaginatedArchive,
+  description: "Gets a list of 5 feedbacks that are archived",
+  args: {
+    cursor: "Int",
+  },
+  async resolve(_src, args, ctx) {
+    let result;
+    if (args.cursor) {
+      result = await ctx.prisma.feedback.findMany({
+        take: 6,
+        cursor: {
+          id: args.cursor,
+        },
+        where: {
+          archived: true,
+        },
+        orderBy: {
+          id: "desc",
+        },
+      });
+    } else {
+      result = await ctx.prisma.feedback.findMany({
+        take: 6,
+        where: {
+          archived: true,
+        },
+        orderBy: {
+          id: "desc",
+        },
+      });
+    }
+
+    const hasMore = result.length === 6;
+
+    return {
+      ArchivedFeedbacks: result.slice(0, 5),
+      hasMore: hasMore,
+      nextPointer: hasMore ? result[5].id : null,
+    };
   },
 });

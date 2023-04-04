@@ -78,16 +78,28 @@ export type MutationUpdateCategoryArgs = {
   title: Scalars['String'];
 };
 
+export type PaginatedArchive = {
+  __typename?: 'PaginatedArchive';
+  ArchivedFeedbacks?: Maybe<Array<Maybe<Feedback>>>;
+  hasMore?: Maybe<Scalars['Boolean']>;
+  nextCursor?: Maybe<Scalars['Int']>;
+};
+
 export type Query = {
   __typename?: 'Query';
+  /** Gets a list of 5 feedbacks that are archived */
+  archivedQuery?: Maybe<PaginatedArchive>;
   /** Gets all categories */
   categories?: Maybe<Array<Maybe<Category>>>;
   /** Get a specific feedback */
   feedback?: Maybe<Feedback>;
   /** Returns all feedbacks that are not archived */
   feedbacks?: Maybe<Array<Maybe<Feedback>>>;
-  /** Gets the 5 most recent created feedbacks that are archived */
-  initialArchived?: Maybe<Array<Maybe<Feedback>>>;
+};
+
+
+export type QueryArchivedQueryArgs = {
+  cursor?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -143,11 +155,6 @@ export type FeedbacksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FeedbacksQuery = { __typename?: 'Query', feedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, archived?: boolean | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null };
-
-export type InitialArchivedQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type InitialArchivedQuery = { __typename?: 'Query', initialArchived?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null };
 
 
 export const ArchiveFeedbackDocument = gql`
@@ -246,22 +253,4 @@ export const FeedbacksDocument = gql`
 
 export function useFeedbacksQuery(options?: Omit<Urql.UseQueryArgs<FeedbacksQueryVariables>, 'query'>) {
   return Urql.useQuery<FeedbacksQuery, FeedbacksQueryVariables>({ query: FeedbacksDocument, ...options });
-};
-export const InitialArchivedDocument = gql`
-    query InitialArchived {
-  initialArchived {
-    id
-    title
-    description
-    create_date
-    category {
-      id
-      title
-    }
-  }
-}
-    `;
-
-export function useInitialArchivedQuery(options?: Omit<Urql.UseQueryArgs<InitialArchivedQueryVariables>, 'query'>) {
-  return Urql.useQuery<InitialArchivedQuery, InitialArchivedQueryVariables>({ query: InitialArchivedDocument, ...options });
 };

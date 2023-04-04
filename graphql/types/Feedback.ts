@@ -35,7 +35,7 @@ export const PaginatedArchive = objectType({
       type: Feedback,
     }),
       t.boolean("hasMore"),
-      t.int("nextPointer");
+      t.int("nextCursor");
   },
 });
 
@@ -165,7 +165,7 @@ export const ArchivedQuery = queryField("archivedQuery", {
     return {
       ArchivedFeedbacks: result.slice(0, 5),
       hasMore: hasMore,
-      nextPointer: hasMore ? result[5].id : null,
+      nextCursor: hasMore ? result[5].id : null,
     };
   },
 });

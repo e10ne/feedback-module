@@ -44,7 +44,7 @@ type Mutation {
 type PaginatedArchive {
   ArchivedFeedbacks: [Feedback]
   hasMore: Boolean
-  nextPointer: Int
+  nextCursor: Int
 }
 
 type Query {

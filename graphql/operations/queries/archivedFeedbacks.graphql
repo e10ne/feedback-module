@@ -1,4 +1,4 @@
-query ArchivedQuery($cursor: Int) {
+query ArchivedFeedbacks($cursor: Int) {
   archivedFeedbacks(cursor: $cursor) {
     ArchivedFeedbacks {
       id

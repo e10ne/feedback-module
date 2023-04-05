@@ -146,12 +146,12 @@ export type UpdateCategoryMutationVariables = Exact<{
 
 export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory?: { __typename?: 'Category', id: number, title?: string | null } | null };
 
-export type ArchivedQueryQueryVariables = Exact<{
+export type ArchivedFeedbacksQueryVariables = Exact<{
   cursor?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type ArchivedQueryQuery = { __typename?: 'Query', archivedFeedbacks?: { __typename?: 'PaginatedArchive', hasMore?: boolean | null, nextCursor?: number | null, ArchivedFeedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null } | null };
+export type ArchivedFeedbacksQuery = { __typename?: 'Query', archivedFeedbacks?: { __typename?: 'PaginatedArchive', hasMore?: boolean | null, nextCursor?: number | null, ArchivedFeedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null } | null };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -229,8 +229,8 @@ export const UpdateCategoryDocument = gql`
 export function useUpdateCategoryMutation() {
   return Urql.useMutation<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument);
 };
-export const ArchivedQueryDocument = gql`
-    query ArchivedQuery($cursor: Int) {
+export const ArchivedFeedbacksDocument = gql`
+    query ArchivedFeedbacks($cursor: Int) {
   archivedFeedbacks(cursor: $cursor) {
     ArchivedFeedbacks {
       id
@@ -248,8 +248,8 @@ export const ArchivedQueryDocument = gql`
 }
     `;
 
-export function useArchivedQueryQuery(options?: Omit<Urql.UseQueryArgs<ArchivedQueryQueryVariables>, 'query'>) {
-  return Urql.useQuery<ArchivedQueryQuery, ArchivedQueryQueryVariables>({ query: ArchivedQueryDocument, ...options });
+export function useArchivedFeedbacksQuery(options?: Omit<Urql.UseQueryArgs<ArchivedFeedbacksQueryVariables>, 'query'>) {
+  return Urql.useQuery<ArchivedFeedbacksQuery, ArchivedFeedbacksQueryVariables>({ query: ArchivedFeedbacksDocument, ...options });
 };
 export const CategoriesDocument = gql`
     query Categories {

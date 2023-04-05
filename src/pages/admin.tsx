@@ -1,4 +1,4 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql";
 import { useEffect, useState } from "react";
 import {
@@ -6,6 +6,7 @@ import {
   useFeedbacksQuery,
 } from "../../graphql/generated/graphql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
+import Archived from "../components/admin/Archived";
 import Categories from "../components/admin/Categories";
 import Feedbacks from "../components/admin/Feedbacks";
 import Searchbar from "../components/admin/SearchBar";
@@ -58,7 +59,7 @@ const AdminPage: React.FC<{}> = () => {
         />
 
         <Heading variant={"subHeader"}>Archief feedback</Heading>
-        <Text>Archived feedback here...</Text>
+        <Archived />
       </Flex>
     </Layout>
   );

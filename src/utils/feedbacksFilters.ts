@@ -35,7 +35,7 @@ export function feedbacksFilter(values: feedbackValues): Array<any> {
     );
   }
 
-  console.log(result);
+  // console.log(result);
 
   return result;
 }

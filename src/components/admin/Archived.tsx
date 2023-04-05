@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -79,6 +80,10 @@ const Archived: React.FC<{}> = () => {
           </Accordion>
           {data && data.archivedFeedbacks && data.archivedFeedbacks.hasMore ? (
             <Button
+              variant={"admin"}
+              w={"max-content"}
+              alignSelf={"center"}
+              rightIcon={<ChevronDownIcon fontSize={"2xl"} />}
               isLoading={fetching}
               onClick={() => {
                 setCursor(data!.archivedFeedbacks!.nextCursor as number | null);

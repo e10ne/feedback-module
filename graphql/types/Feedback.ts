@@ -127,7 +127,7 @@ export const ArchiveFeedbackMutation = mutationField("archiveFeedback", {
   },
 });
 
-export const ArchivedQuery = queryField("archivedQuery", {
+export const ArchivedQuery = queryField("archivedFeedbacks", {
   type: PaginatedArchive,
   description: "Gets a list of 5 feedbacks that are archived",
   args: {

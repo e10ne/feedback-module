@@ -21,7 +21,7 @@
     "@fontsource/open-sans": "^4.5.14",
     "@prisma/client": "^4.8.0",
     "@react-pdf/renderer": "^3.1.8",
-    "@urql/exchange-auth": "^1.0.0",
+    "@urql/exchange-auth": "^2.1.0",
     "@urql/exchange-graphcache": "^5.0.8",
     "argon2": "^0.30.2",
     "date-fns": "^2.29.3",

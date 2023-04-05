@@ -1,0 +1,16 @@
+query ArchivedQuery($cursor: Int) {
+  archivedFeedbacks(cursor: $cursor) {
+    ArchivedFeedbacks {
+      id
+      title
+      description
+      create_date
+      category {
+        id
+        title
+      }
+    }
+    hasMore
+    nextCursor
+  }
+}

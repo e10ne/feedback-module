@@ -88,7 +88,7 @@ export type PaginatedArchive = {
 export type Query = {
   __typename?: 'Query';
   /** Gets a list of 5 feedbacks that are archived */
-  archivedQuery?: Maybe<PaginatedArchive>;
+  archivedFeedbacks?: Maybe<PaginatedArchive>;
   /** Gets all categories */
   categories?: Maybe<Array<Maybe<Category>>>;
   /** Get a specific feedback */
@@ -98,7 +98,7 @@ export type Query = {
 };
 
 
-export type QueryArchivedQueryArgs = {
+export type QueryArchivedFeedbacksArgs = {
   cursor?: InputMaybe<Scalars['Int']>;
 };
 
@@ -145,6 +145,13 @@ export type UpdateCategoryMutationVariables = Exact<{
 
 
 export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory?: { __typename?: 'Category', id: number, title?: string | null } | null };
+
+export type ArchivedQueryQueryVariables = Exact<{
+  cursor?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type ArchivedQueryQuery = { __typename?: 'Query', archivedFeedbacks?: { __typename?: 'PaginatedArchive', hasMore?: boolean | null, nextCursor?: number | null, ArchivedFeedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null } | null };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -221,6 +228,28 @@ export const UpdateCategoryDocument = gql`
 
 export function useUpdateCategoryMutation() {
   return Urql.useMutation<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument);
+};
+export const ArchivedQueryDocument = gql`
+    query ArchivedQuery($cursor: Int) {
+  archivedFeedbacks(cursor: $cursor) {
+    ArchivedFeedbacks {
+      id
+      title
+      description
+      create_date
+      category {
+        id
+        title
+      }
+    }
+    hasMore
+    nextCursor
+  }
+}
+    `;
+
+export function useArchivedQueryQuery(options?: Omit<Urql.UseQueryArgs<ArchivedQueryQueryVariables>, 'query'>) {
+  return Urql.useQuery<ArchivedQueryQuery, ArchivedQueryQueryVariables>({ query: ArchivedQueryDocument, ...options });
 };
 export const CategoriesDocument = gql`
     query Categories {

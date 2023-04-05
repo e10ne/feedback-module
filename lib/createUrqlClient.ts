@@ -20,8 +20,6 @@ const invalidateCache = (cache: Cache, name: string, id?: number) => {
 
 const cursorPagination = (): Resolver => {
   return (_parent, fieldArgs, cache, info) => {
-    console.log("parent: ", _parent);
-
     const { parentKey: entityKey, fieldName } = info;
     const allFields = cache.inspectFields(entityKey);
     const fieldInfos = allFields.filter((info) => info.fieldName === fieldName);
@@ -42,11 +40,9 @@ const cursorPagination = (): Resolver => {
       const data = cache.resolve(key, "ArchivedFeedbacks") as string[];
       const _hasMore = cache.resolve(key, "hasMore");
       const cursor = cache.resolve(key, "nextCursor") as number | null;
-
       if (!_hasMore) {
         hasMore = _hasMore as boolean;
       }
-
       if (cursor) {
         nextCursor = cursor;
       }

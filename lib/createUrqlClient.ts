@@ -37,7 +37,7 @@ const cursorPagination = (): Resolver => {
 
     fieldInfos.forEach((fi) => {
       const key = cache.resolve(entityKey, fi.fieldKey) as string;
-      const data = cache.resolve(key, "ArchivedFeedbacks") as string[];
+      const data = cache.resolve(key, "feedbacks") as string[];
       const _hasMore = cache.resolve(key, "hasMore");
       const cursor = cache.resolve(key, "nextCursor") as number | null;
       if (!_hasMore) {
@@ -54,7 +54,7 @@ const cursorPagination = (): Resolver => {
       __typename: "PaginatedArchive",
       hasMore,
       nextCursor,
-      ArchivedFeedbacks: results,
+      feedbacks: results,
     };
   };
 };

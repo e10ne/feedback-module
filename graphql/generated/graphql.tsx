@@ -80,7 +80,7 @@ export type MutationUpdateCategoryArgs = {
 
 export type PaginatedArchive = {
   __typename?: 'PaginatedArchive';
-  ArchivedFeedbacks?: Maybe<Array<Maybe<Feedback>>>;
+  feedbacks?: Maybe<Array<Maybe<Feedback>>>;
   hasMore?: Maybe<Scalars['Boolean']>;
   nextCursor?: Maybe<Scalars['Int']>;
 };
@@ -151,7 +151,7 @@ export type ArchivedFeedbacksQueryVariables = Exact<{
 }>;
 
 
-export type ArchivedFeedbacksQuery = { __typename?: 'Query', archivedFeedbacks?: { __typename?: 'PaginatedArchive', hasMore?: boolean | null, nextCursor?: number | null, ArchivedFeedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null } | null };
+export type ArchivedFeedbacksQuery = { __typename?: 'Query', archivedFeedbacks?: { __typename?: 'PaginatedArchive', hasMore?: boolean | null, nextCursor?: number | null, feedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null } | null };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -232,7 +232,7 @@ export function useUpdateCategoryMutation() {
 export const ArchivedFeedbacksDocument = gql`
     query ArchivedFeedbacks($cursor: Int) {
   archivedFeedbacks(cursor: $cursor) {
-    ArchivedFeedbacks {
+    feedbacks {
       id
       title
       description

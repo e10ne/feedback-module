@@ -38,7 +38,7 @@ const Archived: React.FC<{}> = () => {
             variant={"archived"}
             allowToggle
           >
-            {data!.archivedFeedbacks?.ArchivedFeedbacks?.map((fb) =>
+            {data!.archivedFeedbacks?.feedbacks?.map((fb) =>
               !fb ? null : (
                 <AccordionItem key={`${fb.id}${fb.title}`}>
                   {({ isExpanded }) => (

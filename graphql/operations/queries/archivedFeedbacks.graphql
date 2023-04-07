@@ -1,6 +1,6 @@
 query ArchivedFeedbacks($cursor: Int) {
   archivedFeedbacks(cursor: $cursor) {
-    ArchivedFeedbacks {
+    feedbacks {
       id
       title
       description

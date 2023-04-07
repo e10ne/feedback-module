@@ -42,7 +42,7 @@ type Mutation {
 }
 
 type PaginatedArchive {
-  ArchivedFeedbacks: [Feedback]
+  feedbacks: [Feedback]
   hasMore: Boolean
   nextCursor: Int
 }

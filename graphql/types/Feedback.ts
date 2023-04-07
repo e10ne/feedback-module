@@ -31,7 +31,7 @@ export const Feedback = objectType({
 export const PaginatedArchive = objectType({
   name: "PaginatedArchive",
   definition(t) {
-    t.list.field("ArchivedFeedbacks", {
+    t.list.field("feedbacks", {
       type: Feedback,
     }),
       t.boolean("hasMore"),
@@ -163,7 +163,7 @@ export const ArchivedQuery = queryField("archivedFeedbacks", {
     const hasMore = result.length === 6;
 
     return {
-      ArchivedFeedbacks: result.slice(0, 5),
+      feedbacks: result.slice(0, 5),
       hasMore: hasMore,
       nextCursor: hasMore ? result[5].id : null,
     };

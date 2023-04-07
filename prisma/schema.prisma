@@ -13,7 +13,6 @@ datasource db {
 model Category {
   id Int @id @default(autoincrement())
   title String
-  active_feedbacks Boolean @default(false)
   feedbacks Feedback[]
   @@map("categories")
 }

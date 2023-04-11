@@ -45,6 +45,7 @@ export type Mutation = {
   createFeedback?: Maybe<Feedback>;
   /** Delete an category */
   deleteCategory?: Maybe<Scalars['Boolean']>;
+  login?: Maybe<User>;
   /** Change the category title */
   updateCategory?: Maybe<Category>;
 };
@@ -70,6 +71,12 @@ export type MutationCreateFeedbackArgs = {
 export type MutationDeleteCategoryArgs = {
   hasActive: Scalars['Boolean'];
   id: Scalars['Int'];
+};
+
+
+export type MutationLoginArgs = {
+  name: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
@@ -107,6 +114,12 @@ export type QueryFeedbackArgs = {
   id: Scalars['Int'];
 };
 
+export type User = {
+  __typename?: 'User';
+  id: Scalars['Int'];
+  username: Scalars['String'];
+};
+
 export type ArchiveFeedbackMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -137,6 +150,14 @@ export type DeleteCategoryMutationVariables = Exact<{
 
 
 export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory?: boolean | null };
+
+export type LoginMutationVariables = Exact<{
+  name: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'User', id: number, username: string } | null };
 
 export type UpdateCategoryMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -216,6 +237,18 @@ export const DeleteCategoryDocument = gql`
 
 export function useDeleteCategoryMutation() {
   return Urql.useMutation<DeleteCategoryMutation, DeleteCategoryMutationVariables>(DeleteCategoryDocument);
+};
+export const LoginDocument = gql`
+    mutation Login($name: String!, $password: String!) {
+  login(name: $name, password: $password) {
+    id
+    username
+  }
+}
+    `;
+
+export function useLoginMutation() {
+  return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
 };
 export const UpdateCategoryDocument = gql`
     mutation UpdateCategory($id: Int!, $title: String!) {

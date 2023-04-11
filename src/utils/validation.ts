@@ -31,3 +31,17 @@ export const categoryValidation = (title: string) => {
 
   return errors;
 };
+
+export const loginValidation = (userName: string, password: string) => {
+  const errors: Record<string, string> = {};
+
+  if (userName.length < 1) {
+    errors.userName = "Naam kan niet leeg zijn";
+  }
+
+  if (password.length < 1) {
+    errors.password = "Wachtwoord kan niet leeg zijn";
+  }
+
+  return errors;
+};

@@ -1,7 +1,7 @@
 import {
   dedupExchange,
-  errorExchange,
   fetchExchange,
+  mapExchange,
   stringifyVariables,
 } from "urql";
 import { cacheExchange, Cache, Resolver } from "@urql/exchange-graphcache";
@@ -92,8 +92,14 @@ export const createUrqlClient = (ssrExchange: any) => {
           },
         },
       }),
-      errorExchange({}),
+      mapExchange({
+        onError(error) {
+          console.error(error);
+        },
+      }),
+      // other synchronous exchanges
       ssrExchange,
+      // other asynchronous exchanges
       fetchExchange,
     ],
   };

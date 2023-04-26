@@ -46,7 +46,7 @@ export type Mutation = {
   /** Delete an category */
   deleteCategory?: Maybe<Scalars['Boolean']>;
   /** Login */
-  login?: Maybe<UserResponse>;
+  login?: Maybe<User>;
   logout?: Maybe<Scalars['Boolean']>;
   /** Change the category title */
   updateCategory?: Maybe<Category>;
@@ -123,12 +123,6 @@ export type User = {
   username: Scalars['String'];
 };
 
-export type UserResponse = {
-  __typename?: 'UserResponse';
-  errorMessage?: Maybe<Scalars['String']>;
-  user?: Maybe<User>;
-};
-
 export type ArchiveFeedbackMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -166,7 +160,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'UserResponse', errorMessage?: string | null, user?: { __typename?: 'User', id: number, username: string } | null } | null };
+export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'User', id: number, username: string } | null };
 
 export type UpdateCategoryMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -250,11 +244,8 @@ export function useDeleteCategoryMutation() {
 export const LoginDocument = gql`
     mutation Login($name: String!, $password: String!) {
   login(name: $name, password: $password) {
-    user {
-      id
-      username
-    }
-    errorMessage
+    id
+    username
   }
 }
     `;

@@ -12,18 +12,8 @@ export const User = objectType({
   },
 });
 
-export const UserResponse = objectType({
-  name: "UserResponse",
-  definition(t) {
-    t.field("user", {
-      type: User,
-    });
-    t.string("errorMessage");
-  },
-});
-
 export const Login = mutationField("login", {
-  type: UserResponse,
+  type: User,
   description: "Login",
   args: {
     name: nonNull("String"),
@@ -36,19 +26,11 @@ export const Login = mutationField("login", {
       },
     });
 
-    if (!user) {
-      return {
-        errorMessage: "Naam/Wachtwoord onjuist",
-      };
-    }
+    if (!user) return null;
 
     const valid = await argon2.verify(user.password, args.password);
 
-    if (!valid) {
-      return {
-        errorMessage: "Naam/Wachtwoord onjuist",
-      };
-    }
+    if (!valid) return null;
 
     const token = jwt.sign(
       { userId: user.id },
@@ -67,9 +49,7 @@ export const Login = mutationField("login", {
       })
     );
 
-    return {
-      user,
-    };
+    return user;
   },
 });
 

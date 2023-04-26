@@ -7,10 +7,12 @@ import { createUrqlClient } from "../../lib/createUrqlClient";
 import InputText from "../components/form/InputText";
 import Layout from "../components/layout/Layout";
 import { loginValidation } from "../utils/validation";
+import { useRouter } from "next/router";
 
 const LoginPage: React.FC<{}> = () => {
   const [, login] = useLoginMutation();
   const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const router = useRouter();
   return (
     <Layout>
       <Formik
@@ -19,22 +21,20 @@ const LoginPage: React.FC<{}> = () => {
         validateOnChange={false}
         validate={(values) => loginValidation(values.userName, values.password)}
         onSubmit={async (values) => {
-          const response = await login({
+          const { data: response } = await login({
             name: values.userName,
             password: values.password,
           });
 
-          if (!response.data?.login) {
+          if (!response?.login) {
             setInvalidCredentials(true);
           } else {
             setInvalidCredentials(false);
 
-            if (response.data.login.username === "medient") {
-              console.log("Dit is een medient");
-              // router redirect to create-feedback
-            } else if (response.data.login.username === "admin") {
-              console.log("Dit is een admin");
-              // router redirect to admin
+            if (response.login.username === "medient") {
+              router.push("/create-feedback");
+            } else if (response.login.username === "admin") {
+              router.push("/admin");
             }
           }
         }}

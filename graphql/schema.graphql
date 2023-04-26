@@ -36,7 +36,10 @@ type Mutation {
 
   """Delete an category"""
   deleteCategory(hasActive: Boolean!, id: Int!): Boolean
-  login(name: String!, password: String!): User
+
+  """Login"""
+  login(name: String!, password: String!): UserResponse
+  logout: Boolean
 
   """Change the category title"""
   updateCategory(id: Int!, title: String!): Category
@@ -60,9 +63,15 @@ type Query {
 
   """Returns all feedbacks that are not archived"""
   feedbacks: [Feedback]
+  me: User
 }
 
 type User {
   id: Int!
   username: String!
+}
+
+type UserResponse {
+  errorMessage: String
+  user: User
 }

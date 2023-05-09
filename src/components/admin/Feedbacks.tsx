@@ -13,7 +13,6 @@ interface FeedbacksProps {
   hasSearched: boolean;
   setSearchResult: Dispatch<SetStateAction<any[]>>;
   setHasSearched: Dispatch<SetStateAction<boolean>>;
-  isClient: boolean;
 }
 
 const Feedbacks: React.FC<FeedbacksProps> = ({
@@ -24,7 +23,6 @@ const Feedbacks: React.FC<FeedbacksProps> = ({
   hasSearched,
   setSearchResult,
   setHasSearched,
-  isClient,
 }) => {
   if (error) {
     return (
@@ -70,7 +68,6 @@ const Feedbacks: React.FC<FeedbacksProps> = ({
         <FeedbackList
           hasSearched={hasSearched}
           data={feedbacks}
-          isClient={isClient}
         />
       )}
     </>

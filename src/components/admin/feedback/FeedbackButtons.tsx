@@ -14,22 +14,23 @@ import {
   useArchiveFeedbackMutation,
 } from "../../../../graphql/generated/graphql";
 import { FaFileDownload } from "react-icons/fa";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { FeedbackPDF } from "./FeedbackPDF";
 
 interface FeedbackButtonsProps {
   feedback: Feedback;
-  isClient: boolean;
 }
 
-const FeedbackButtons: React.FC<FeedbackButtonsProps> = ({
-  feedback,
-  isClient,
-}) => {
+const FeedbackButtons: React.FC<FeedbackButtonsProps> = ({ feedback }) => {
   const [, archiveFeedback] = useArchiveFeedbackMutation();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const cancelRef = useRef(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <>

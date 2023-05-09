@@ -8,18 +8,20 @@ import {
 } from "../../../graphql/generated/graphql";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { CategoryPDF } from "./category/CategoryPDF";
+import { useEffect, useState } from "react";
 
 interface CategoriesProps {
   data: CategoriesQuery | undefined;
   feedbacks: FeedbacksQuery | undefined;
-  isClient: boolean;
 }
 
-const Categories: React.FC<CategoriesProps> = ({
-  data,
-  feedbacks,
-  isClient,
-}) => {
+const Categories: React.FC<CategoriesProps> = ({ data, feedbacks }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <>
       <Flex

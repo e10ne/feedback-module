@@ -14,14 +14,9 @@ import { normalFormat } from "../../../utils/formatDate";
 interface FeedbackListProps {
   data: Feedback[];
   hasSearched: boolean;
-  isClient: boolean;
 }
 
-const FeedbackList: React.FC<FeedbackListProps> = ({
-  data,
-  hasSearched,
-  isClient,
-}) => {
+const FeedbackList: React.FC<FeedbackListProps> = ({ data, hasSearched }) => {
   if (data.length <= 0 && !hasSearched) {
     return <Text>Er zijn geen feedbacks</Text>;
   } else if (data.length <= 0 && hasSearched) {
@@ -71,10 +66,7 @@ const FeedbackList: React.FC<FeedbackListProps> = ({
                     alignSelf={"end"}
                     gap={"4"}
                   >
-                    <FeedbackButtons
-                      feedback={fb}
-                      isClient={isClient}
-                    />
+                    <FeedbackButtons feedback={fb} />
                   </Flex>
                 </AccordionPanel>
               </>

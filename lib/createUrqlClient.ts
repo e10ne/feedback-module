@@ -6,6 +6,7 @@ import {
 } from "urql";
 import { cacheExchange, Cache, Resolver } from "@urql/exchange-graphcache";
 import { ArchiveFeedbackMutationVariables } from "../graphql/generated/graphql";
+import { isServer } from "../src/utils/isServer";
 
 const invalidateCache = (cache: Cache, name: string, id?: number) => {
   id
@@ -59,10 +60,19 @@ const cursorPagination = (): Resolver => {
   };
 };
 
-export const createUrqlClient = (ssrExchange: any) => {
+export const createUrqlClient = (ssrExchange: any, ctx: any) => {
   return {
     url: process.env.NEXT_PUBLIC_API_URL as string,
-    fetchOptions: {},
+    fetchOptions: {
+      headers: {
+        cookie:
+          ctx && ctx.req
+            ? ctx.req.headers.cookie
+            : !isServer
+            ? document.cookie
+            : "",
+      }, // ReferenceError: document is not defined
+    },
     exchanges: [
       dedupExchange,
       cacheExchange({

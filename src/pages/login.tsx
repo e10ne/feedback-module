@@ -32,9 +32,9 @@ const LoginPage: React.FC<{}> = () => {
             setInvalidCredentials(false);
 
             if (response.login.username === "medient") {
-              router.push("/create-feedback");
+              router.replace("/create-feedback");
             } else if (response.login.username === "admin") {
-              router.push("/admin");
+              router.replace("/admin");
             }
           }
         }}

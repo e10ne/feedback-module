@@ -1,21 +1,10 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
 import Layout from "../components/layout/Layout";
 import NextLink from "next/link";
-import { useMeQuery } from "../../graphql/generated/graphql";
-import { useRouter } from "next/router";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
 
 const Index = ({}) => {
-  const [{ data, fetching }] = useMeQuery();
-  const router = useRouter();
-
-  if (!fetching && !data?.me) {
-    router.push("/login");
-  }
-
-  if (!data?.me) return null;
-
   return (
     <Layout>
       <Text color="text">

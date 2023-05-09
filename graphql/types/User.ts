@@ -3,6 +3,7 @@ import argon2 from "argon2";
 import * as jwt from "jsonwebtoken";
 import cookie from "cookie";
 import { Token } from "../../lib/types";
+import { Context } from "../context";
 
 export const User = objectType({
   name: "User",
@@ -20,6 +21,8 @@ export const Login = mutationField("login", {
     password: nonNull("String"),
   },
   async resolve(_src, args, ctx) {
+    unsetCookie(ctx);
+
     const user = await ctx.prisma.user.findFirst({
       where: {
         username: args.name,
@@ -56,16 +59,7 @@ export const Login = mutationField("login", {
 export const Logout = mutationField("logout", {
   type: "Boolean",
   async resolve(_src, _args, ctx) {
-    ctx.res.setHeader(
-      "Set-Cookie",
-      cookie.serialize("token", "", {
-        httpOnly: true,
-        expires: new Date(0),
-        path: "/",
-        secure: process.env.NODE_ENV !== "development",
-        sameSite: "strict",
-      })
-    );
+    unsetCookie(ctx);
 
     return true;
   },
@@ -74,8 +68,9 @@ export const Logout = mutationField("logout", {
 export const Me = queryField("me", {
   type: User,
   async resolve(_src, _args, ctx) {
+    // console.log("all cookies: ", ctx.req.cookies);
     const userCookie = ctx.req.cookies["token"];
-
+    // console.log("userCookie: ", userCookie);
     if (!userCookie) return null;
 
     let decodedJwt;
@@ -87,19 +82,10 @@ export const Me = queryField("me", {
       ) as Token;
     } catch (err) {
       // cookie has been tampered with
-      ctx.res.setHeader(
-        "Set-Cookie",
-        cookie.serialize("token", "", {
-          httpOnly: true,
-          expires: new Date(0),
-          path: "/",
-          secure: process.env.NODE_ENV !== "development",
-          sameSite: "strict",
-        })
-      );
+      unsetCookie(ctx);
       return null;
     }
-
+    // console.log("decoded cookie: ", decodedJwt);
     if (!decodedJwt.userId) return null;
 
     const user = await ctx.prisma.user.findUnique({
@@ -107,7 +93,21 @@ export const Me = queryField("me", {
         id: decodedJwt.userId,
       },
     });
+    // console.log("user: ", user);
 
     return user;
   },
 });
+
+function unsetCookie(ctx: Context) {
+  ctx.res.setHeader(
+    "Set-Cookie",
+    cookie.serialize("token", "", {
+      httpOnly: true,
+      expires: new Date(0),
+      path: "/",
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+    })
+  );
+}

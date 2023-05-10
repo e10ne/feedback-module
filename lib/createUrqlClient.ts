@@ -5,8 +5,15 @@ import {
   stringifyVariables,
 } from "urql";
 import { cacheExchange, Cache, Resolver } from "@urql/exchange-graphcache";
-import { ArchiveFeedbackMutationVariables } from "../graphql/generated/graphql";
+import {
+  ArchiveFeedbackMutationVariables,
+  LoginMutation,
+  LogoutMutation,
+  MeDocument,
+  MeQuery,
+} from "../graphql/generated/graphql";
 import { isServer } from "../src/utils/isServer";
+import { betterUpdateQuery } from "./betterUpdateQuery";
 
 const invalidateCache = (cache: Cache, name: string, id?: number) => {
   id
@@ -61,17 +68,16 @@ const cursorPagination = (): Resolver => {
 };
 
 export const createUrqlClient = (ssrExchange: any, ctx: any) => {
+  let cookie = "";
+  if (isServer()) {
+    cookie = ctx?.req?.headers?.cookie;
+  }
+
   return {
     url: process.env.NEXT_PUBLIC_API_URL as string,
     fetchOptions: {
-      headers: {
-        cookie:
-          ctx && ctx.req
-            ? ctx.req.headers.cookie
-            : !isServer
-            ? document.cookie
-            : "",
-      }, // ReferenceError: document is not defined
+      credentials: "include" as const,
+      headers: cookie ? { cookie } : undefined,
     },
     exchanges: [
       dedupExchange,
@@ -99,12 +105,35 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
             deleteCategory: (_result, args, cache, _info) => {
               invalidateCache(cache, "Category", args.id as number);
             },
+            login: (_result, _args, cache, _info) => {
+              console.log("cache: ", cache);
+              betterUpdateQuery<LoginMutation, MeQuery>(
+                cache,
+                { query: MeDocument },
+                _result,
+                (result, query) => {
+                  if (!result.login?.username) {
+                    return query;
+                  } else {
+                    return { me: result.login };
+                  }
+                }
+              );
+            },
+            logout: (_result, _args, cache, _info) => {
+              betterUpdateQuery<LogoutMutation, MeQuery>(
+                cache,
+                { query: MeDocument },
+                _result,
+                () => ({ me: null })
+              );
+            },
           },
         },
       }),
       mapExchange({
         onError(error) {
-          console.error(error);
+          console.error("error: ", error.message);
         },
       }),
       // other synchronous exchanges

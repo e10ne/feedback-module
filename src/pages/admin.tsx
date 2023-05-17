@@ -24,44 +24,42 @@ const AdminPage: React.FC<{}> = () => {
   const [searchResult, setSearchResult] = useState<any[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 
+  if (isLoading) return null;
+
   return (
     <Layout>
-      {isLoading ? null : (
-        <>
-          <Flex
-            flexDirection={"column"}
-            gap={"4"}
-            pb={"3em"}
-          >
-            <Heading variant={"pageHeader"}>Feedback beheerderpagina</Heading>
+      <Flex
+        flexDirection={"column"}
+        gap={"4"}
+        pb={"3em"}
+      >
+        <Heading variant={"pageHeader"}>Feedback beheerderpagina</Heading>
 
-            <Searchbar
-              setHasSearched={setHasSearched}
-              categories={categories}
-              feedbacks={feedbacks}
-              setSearchResult={setSearchResult}
-            />
+        <Searchbar
+          setHasSearched={setHasSearched}
+          categories={categories}
+          feedbacks={feedbacks}
+          setSearchResult={setSearchResult}
+        />
 
-            <Categories
-              data={categories}
-              feedbacks={feedbacks}
-            />
+        <Categories
+          data={categories}
+          feedbacks={feedbacks}
+        />
 
-            <Feedbacks
-              searchResult={searchResult}
-              data={feedbacks}
-              error={feedBackError}
-              fetching={feedBackFetching}
-              hasSearched={hasSearched}
-              setSearchResult={setSearchResult}
-              setHasSearched={setHasSearched}
-            />
+        <Feedbacks
+          searchResult={searchResult}
+          data={feedbacks}
+          error={feedBackError}
+          fetching={feedBackFetching}
+          hasSearched={hasSearched}
+          setSearchResult={setSearchResult}
+          setHasSearched={setHasSearched}
+        />
 
-            <Heading variant={"subHeader"}>Archief feedback</Heading>
-            <Archived />
-          </Flex>
-        </>
-      )}
+        <Heading variant={"subHeader"}>Archief feedback</Heading>
+        <Archived />
+      </Flex>
     </Layout>
   );
 };

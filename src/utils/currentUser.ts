@@ -16,6 +16,4 @@ export const currentUser = async (
       setUser(data?.me?.username);
     }
   }, [data, fetching]);
-
-  return fetching;
 };

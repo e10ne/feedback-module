@@ -1,7 +1,7 @@
 import { Flex, Heading, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
-import { useState } from "react";
+import { useRouter } from "next/router";
 import { useCategoriesQuery } from "../../graphql/generated/graphql";
 import { useCreateFeedbackMutation } from "../../graphql/generated/graphql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
@@ -10,12 +10,14 @@ import InputText from "../components/form/InputText";
 import SelectCategory from "../components/form/SelectCategory";
 import SubmitModal from "../components/form/SubmitModal";
 import Layout from "../components/layout/Layout";
-import { useIsAuth } from "../utils/useIsAuth";
+import { PageProps } from "../utils/pageProps";
 import { feedbackValidation } from "../utils/validation";
 
-const CreateFeedback: React.FC<{}> = ({}) => {
-  const [isLoading, setIsLoading] = useState(true);
-  useIsAuth(setIsLoading);
+const CreateFeedback: React.FC<PageProps> = ({
+  data: meData,
+  fetching: meFetching,
+}) => {
+  const router = useRouter();
 
   const [{ data: categoriesData, fetching: categoriesFetching }] =
     useCategoriesQuery();
@@ -31,9 +33,16 @@ const CreateFeedback: React.FC<{}> = ({}) => {
     },
   });
 
+  if (!meFetching && !meData?.me) {
+    router.push("/login");
+  }
+
   return (
-    <Layout>
-      {!isLoading && (
+    <Layout
+      data={meData}
+      fetching={meFetching}
+    >
+      {!meFetching && meData?.me?.username && (
         <>
           <Heading
             mt={"8"}

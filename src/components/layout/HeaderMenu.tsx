@@ -7,16 +7,15 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useState } from "react";
-import { currentUser } from "../../utils/currentUser";
+import { MeQuery } from "../../../graphql/generated/graphql";
 
-interface HeaderMenuProps {}
+interface HeaderMenuProps {
+  fetching: boolean;
+  data: MeQuery | undefined;
+}
 
-const HeaderMenu: React.FC<HeaderMenuProps> = ({}) => {
-  const [user, setUser] = useState<string | undefined>();
-  currentUser(setUser);
-  // console.log("user: ", user);
-  if (user === "medient") {
+const HeaderMenu: React.FC<HeaderMenuProps> = ({ data, fetching }) => {
+  if (!fetching && data?.me?.username === "medient") {
     return (
       <Menu>
         <MenuButton
@@ -27,16 +26,13 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({}) => {
           Medient
         </MenuButton>
         <MenuList>
-          <NextLink
-            href={"/create-feedback"}
-            shallow={true}
-          >
+          <NextLink href={"/create-feedback"}>
             <MenuItem>Feedback aanmaken</MenuItem>
           </NextLink>
         </MenuList>
       </Menu>
     );
-  } else if (user === "admin") {
+  } else if (!fetching && data?.me?.username === "admin") {
     return (
       <Menu>
         <MenuButton
@@ -47,17 +43,11 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({}) => {
           Admin
         </MenuButton>
         <MenuList>
-          <NextLink
-            href={"/admin"}
-            shallow={true}
-          >
+          <NextLink href={"/admin"}>
             <MenuItem>Naar admin pagina</MenuItem>
           </NextLink>
           <MenuDivider />
-          <NextLink
-            href={"/create-feedback"}
-            shallow={true}
-          >
+          <NextLink href={"/create-feedback"}>
             <MenuItem>Feedback aanmaken</MenuItem>
           </NextLink>
         </MenuList>
@@ -65,22 +55,11 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({}) => {
     );
   } else {
     return (
-      <NextLink
-        href="/login"
-        shallow={true}
-      >
+      <NextLink href="/login">
         <Button bgColor={"button"}>Inloggen</Button>
       </NextLink>
     );
   }
-
-  // if (!user) {
-  //   body = <Text>inloggen</Text>;
-  // } else if (user === "medient") {
-  //   body = <Text>Medient</Text>;
-  // } else if (user === "admin") {
-  //   body = <Text>Admin</Text>;
-  // }
 };
 
 export default HeaderMenu;

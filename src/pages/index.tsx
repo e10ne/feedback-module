@@ -3,10 +3,14 @@ import Layout from "../components/layout/Layout";
 import NextLink from "next/link";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
+import { PageProps } from "../utils/pageProps";
 
-const Index = ({}) => {
+const Index: React.FC<PageProps> = ({ data, fetching }) => {
   return (
-    <Layout>
+    <Layout
+      data={data}
+      fetching={fetching}
+    >
       <Text color="text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim

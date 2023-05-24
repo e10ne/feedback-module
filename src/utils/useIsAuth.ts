@@ -1,22 +1,16 @@
-import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useMeQuery } from "../../graphql/generated/graphql";
+import { useRouter } from "next/router";
 
 export const useIsAuth = (setIsLoading: Dispatch<SetStateAction<boolean>>) => {
-  const [{ data, fetching, error }] = useMeQuery();
-  const router = useRouter();
+  const [{ fetching, data }] = useMeQuery();
   const [hasCalled, setHasCalled] = useState(false);
-
-  // console.log("data: ", data);
-  // console.log("fetching: ", fetching);
-  // console.log("hasCalled: ", hasCalled);
-  // console.log("router: ", router.pathname);
+  const router = useRouter();
 
   useEffect(() => {
     if (hasCalled) return;
-    if (error) console.log("error: ", error.message);
-    if (!data?.me && !fetching) {
-      // console.log("no user");
+
+    if (!fetching && !data?.me?.username) {
       setHasCalled(true);
       router.replace("/login");
     } else if (
@@ -24,13 +18,11 @@ export const useIsAuth = (setIsLoading: Dispatch<SetStateAction<boolean>>) => {
       data?.me?.username !== "admin" &&
       router.pathname === "/admin"
     ) {
-      // console.log("not admin");
       setHasCalled(true);
       router.replace("/");
-    } else if (!fetching && data?.me) {
+    } else if (!fetching && data?.me?.username) {
       setIsLoading(false);
       setHasCalled(true);
-      // console.log("user: ", data);
     }
   }, [data, fetching]);
 };

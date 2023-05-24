@@ -1,7 +1,6 @@
 import { Flex, Heading, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
-import { useState } from "react";
 import { useCategoriesQuery } from "../../graphql/generated/graphql";
 import { useCreateFeedbackMutation } from "../../graphql/generated/graphql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
@@ -10,13 +9,12 @@ import InputText from "../components/form/InputText";
 import SelectCategory from "../components/form/SelectCategory";
 import SubmitModal from "../components/form/SubmitModal";
 import Layout from "../components/layout/Layout";
-import { useIsAuth } from "../utils/useIsAuth";
 import { feedbackValidation } from "../utils/validation";
+import { useState } from "react";
+import { useIsAuth } from "../utils/useIsAuth";
 
 const CreateFeedback: React.FC<{}> = ({}) => {
   const [isLoading, setIsLoading] = useState(true);
-  useIsAuth(setIsLoading);
-
   const [{ data: categoriesData, fetching: categoriesFetching }] =
     useCategoriesQuery();
   const [, createFeedback] = useCreateFeedbackMutation();
@@ -30,6 +28,8 @@ const CreateFeedback: React.FC<{}> = ({}) => {
       width: "max-content",
     },
   });
+
+  useIsAuth(setIsLoading);
 
   return (
     <Layout>

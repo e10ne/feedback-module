@@ -1,11 +1,9 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import NextImage from "next/image";
-import HeaderButton from "./HeaderButton";
+import HeaderMenu from "./HeaderMenu";
 import logo from "/public/logo.svg";
 
-interface HeaderProps {}
-
-const Header: React.FC<HeaderProps> = ({}) => {
+const Header: React.FC<{}> = ({}) => {
   return (
     <Flex
       alignItems={"center"}
@@ -30,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
           Feedback module Spectrum Multimedia & IT
         </Heading>
       </Flex>
-      <HeaderButton />
+      <HeaderMenu />
     </Flex>
   );
 };

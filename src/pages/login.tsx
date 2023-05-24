@@ -9,7 +9,7 @@ import Layout from "../components/layout/Layout";
 import { loginValidation } from "../utils/validation";
 import { useRouter } from "next/router";
 
-const LoginPage: React.FC<{}> = () => {
+const LoginPage: React.FC<{}> = ({}) => {
   const [, login] = useLoginMutation();
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const router = useRouter();

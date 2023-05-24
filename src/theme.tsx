@@ -155,6 +155,20 @@ const theme = extendTheme({
         },
       },
     },
+    Menu: {
+      variants: {
+        main: {
+          button: {
+            color: "red",
+          },
+          list: {},
+          item: {},
+          groupTitle: {},
+          command: {},
+          devider: {},
+        },
+      },
+    },
   },
   semanticTokens: {
     colors: {

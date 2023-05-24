@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
 
-const Index = ({}) => {
+const Index: React.FC<{}> = ({}) => {
   return (
     <Layout>
       <Text color="text">

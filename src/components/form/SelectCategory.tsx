@@ -17,13 +17,17 @@ type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
 
 const SelectCategory: React.FC<SelectProps> = ({
   label,
-  categories,
+  categories: data,
   fetching,
   ...props
 }) => {
   const [field, { error }] = useField(props);
 
-  if (!categories && !fetching) {
+  if (fetching) {
+    return null;
+  }
+
+  if (!data && !fetching) {
     return <>There are no categories</>;
   }
 
@@ -50,7 +54,7 @@ const SelectCategory: React.FC<SelectProps> = ({
           -- Selecteer een categorie --
         </option>
 
-        {categories?.categories?.map((cat) =>
+        {data?.categories?.map((cat) =>
           !cat ? null : (
             <option
               key={`${cat.id}${cat.title}`}

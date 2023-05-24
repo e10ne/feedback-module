@@ -1,11 +1,9 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import {
   useCategoriesQuery,
   useFeedbacksQuery,
-  useMeQuery,
 } from "../../graphql/generated/graphql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
 import Archived from "../components/admin/Archived";
@@ -13,12 +11,10 @@ import Categories from "../components/admin/Categories";
 import Feedbacks from "../components/admin/Feedbacks";
 import Searchbar from "../components/admin/SearchBar";
 import Layout from "../components/layout/Layout";
-import { isServer } from "../utils/isServer";
+import { useIsAuth } from "../utils/useIsAuth";
 
 const AdminPage: React.FC<{}> = ({}) => {
-  const [{ data: meData, fetching: meFetching }] = useMeQuery();
-  const router = useRouter();
-
+  const [isLoading, setIsLoading] = useState(true);
   const [
     { data: feedbacks, fetching: feedBackFetching, error: feedBackError },
   ] = useFeedbacksQuery();
@@ -26,17 +22,11 @@ const AdminPage: React.FC<{}> = ({}) => {
   const [searchResult, setSearchResult] = useState<any[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 
-  if (!meFetching && !meData?.me && !isServer()) {
-    router.push("/login");
-  }
-
-  if (!meFetching && meData?.me?.username !== "admin" && !isServer()) {
-    router.push("/");
-  }
+  useIsAuth(setIsLoading);
 
   return (
     <Layout>
-      {!meFetching && meData?.me?.username === "admin" && (
+      {!isLoading && (
         <Flex
           flexDirection={"column"}
           gap={"4"}

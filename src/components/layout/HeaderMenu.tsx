@@ -7,14 +7,21 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useMeQuery } from "../../../graphql/generated/graphql";
+import {
+  useLogoutMutation,
+  useMeQuery,
+} from "../../../graphql/generated/graphql";
+import { useRouter } from "next/router";
 
 const HeaderMenu: React.FC<{}> = ({}) => {
   const [{ data, fetching }] = useMeQuery();
+  const [, logout] = useLogoutMutation();
+  const router = useRouter();
   if (!fetching && data?.me?.username === "medient") {
     return (
       <Menu>
         <MenuButton
+          as={Button}
           bgColor={"button"}
           px={4}
           py={2}
@@ -25,6 +32,15 @@ const HeaderMenu: React.FC<{}> = ({}) => {
           <NextLink href={"/create-feedback"}>
             <MenuItem>Feedback aanmaken</MenuItem>
           </NextLink>
+          <MenuDivider />
+          <MenuItem
+            onClick={async () => {
+              const { error } = await logout({});
+              if (!error) router.push("/");
+            }}
+          >
+            log uit
+          </MenuItem>
         </MenuList>
       </Menu>
     );
@@ -32,6 +48,7 @@ const HeaderMenu: React.FC<{}> = ({}) => {
     return (
       <Menu>
         <MenuButton
+          as={Button}
           bgColor={"button"}
           px={4}
           py={2}
@@ -46,6 +63,17 @@ const HeaderMenu: React.FC<{}> = ({}) => {
           <NextLink href={"/create-feedback"}>
             <MenuItem>Feedback aanmaken</MenuItem>
           </NextLink>
+          <MenuDivider />
+          <MenuItem
+            onClick={async () => {
+              const { error } = await logout({});
+              if (!error) {
+                router.push("/");
+              }
+            }}
+          >
+            log uit
+          </MenuItem>
         </MenuList>
       </Menu>
     );

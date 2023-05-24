@@ -100,7 +100,6 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
               invalidateCache(cache, "Category", args.id as number);
             },
             login: (_result, _args, cache, _info) => {
-              console.log("cache: ", cache);
               betterUpdateQuery<LoginMutation, MeQuery>(
                 cache,
                 { query: MeDocument },

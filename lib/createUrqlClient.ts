@@ -1,9 +1,4 @@
-import {
-  dedupExchange,
-  fetchExchange,
-  mapExchange,
-  stringifyVariables,
-} from "urql";
+import { fetchExchange, mapExchange, stringifyVariables } from "urql";
 import { cacheExchange, Cache, Resolver } from "@urql/exchange-graphcache";
 import {
   ArchiveFeedbackMutationVariables,
@@ -80,7 +75,6 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
       headers: cookie ? { cookie } : undefined,
     },
     exchanges: [
-      dedupExchange,
       cacheExchange({
         keys: {
           PaginatedArchive: () => null,

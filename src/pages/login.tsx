@@ -8,17 +8,13 @@ import InputText from "../components/form/InputText";
 import Layout from "../components/layout/Layout";
 import { loginValidation } from "../utils/validation";
 import { useRouter } from "next/router";
-import { PageProps } from "../utils/pageProps";
 
-const LoginPage: React.FC<PageProps> = ({ data, fetching }) => {
+const LoginPage: React.FC<{}> = ({}) => {
   const [, login] = useLoginMutation();
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const router = useRouter();
   return (
-    <Layout
-      data={data}
-      fetching={fetching}
-    >
+    <Layout>
       <Formik
         initialValues={{ userName: "", password: "" }}
         validateOnBlur={false}

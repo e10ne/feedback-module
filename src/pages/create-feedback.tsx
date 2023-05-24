@@ -2,7 +2,10 @@ import { Flex, Heading, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
-import { useCategoriesQuery } from "../../graphql/generated/graphql";
+import {
+  useCategoriesQuery,
+  useMeQuery,
+} from "../../graphql/generated/graphql";
 import { useCreateFeedbackMutation } from "../../graphql/generated/graphql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
 import DescriptionTextarea from "../components/form/DescriptionTextarea";
@@ -10,13 +13,10 @@ import InputText from "../components/form/InputText";
 import SelectCategory from "../components/form/SelectCategory";
 import SubmitModal from "../components/form/SubmitModal";
 import Layout from "../components/layout/Layout";
-import { PageProps } from "../utils/pageProps";
 import { feedbackValidation } from "../utils/validation";
 
-const CreateFeedback: React.FC<PageProps> = ({
-  data: meData,
-  fetching: meFetching,
-}) => {
+const CreateFeedback: React.FC<{}> = ({}) => {
+  const [{ data: meData, fetching: meFetching }] = useMeQuery();
   const router = useRouter();
 
   const [{ data: categoriesData, fetching: categoriesFetching }] =
@@ -38,10 +38,7 @@ const CreateFeedback: React.FC<PageProps> = ({
   }
 
   return (
-    <Layout
-      data={meData}
-      fetching={meFetching}
-    >
+    <Layout>
       {!meFetching && meData?.me?.username && (
         <>
           <Heading

@@ -5,6 +5,7 @@ import { useState } from "react";
 import {
   useCategoriesQuery,
   useFeedbacksQuery,
+  useMeQuery,
 } from "../../graphql/generated/graphql";
 import { createUrqlClient } from "../../lib/createUrqlClient";
 import Archived from "../components/admin/Archived";
@@ -13,13 +14,9 @@ import Feedbacks from "../components/admin/Feedbacks";
 import Searchbar from "../components/admin/SearchBar";
 import Layout from "../components/layout/Layout";
 import { isServer } from "../utils/isServer";
-import { PageProps } from "../utils/pageProps";
 
-const AdminPage: React.FC<PageProps> = ({
-  data: meData,
-  fetching: meFetching,
-}) => {
-  // const [{ data: meData, fetching: meFetching }] = useMeQuery();
+const AdminPage: React.FC<{}> = ({}) => {
+  const [{ data: meData, fetching: meFetching }] = useMeQuery();
   const router = useRouter();
 
   const [
@@ -38,10 +35,7 @@ const AdminPage: React.FC<PageProps> = ({
   }
 
   return (
-    <Layout
-      data={meData}
-      fetching={meFetching}
-    >
+    <Layout>
       {!meFetching && meData?.me?.username === "admin" && (
         <Flex
           flexDirection={"column"}

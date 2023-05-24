@@ -7,14 +7,10 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { MeQuery } from "../../../graphql/generated/graphql";
+import { useMeQuery } from "../../../graphql/generated/graphql";
 
-interface HeaderMenuProps {
-  fetching: boolean;
-  data: MeQuery | undefined;
-}
-
-const HeaderMenu: React.FC<HeaderMenuProps> = ({ data, fetching }) => {
+const HeaderMenu: React.FC<{}> = ({}) => {
+  const [{ data, fetching }] = useMeQuery();
   if (!fetching && data?.me?.username === "medient") {
     return (
       <Menu>

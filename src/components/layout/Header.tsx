@@ -1,15 +1,9 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import NextImage from "next/image";
-import { MeQuery } from "../../../graphql/generated/graphql";
 import HeaderMenu from "./HeaderMenu";
 import logo from "/public/logo.svg";
 
-interface HeaderProps {
-  data: MeQuery | undefined;
-  fetching: boolean;
-}
-
-const Header: React.FC<HeaderProps> = ({ data, fetching }) => {
+const Header: React.FC<{}> = ({}) => {
   return (
     <Flex
       alignItems={"center"}
@@ -34,10 +28,7 @@ const Header: React.FC<HeaderProps> = ({ data, fetching }) => {
           Feedback module Spectrum Multimedia & IT
         </Heading>
       </Flex>
-      <HeaderMenu
-        data={data}
-        fetching={fetching}
-      />
+      <HeaderMenu />
     </Flex>
   );
 };

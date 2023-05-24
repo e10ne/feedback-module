@@ -9,12 +9,8 @@ import "@fontsource/montserrat/700.css";
 import theme from "../theme";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { useMeQuery } from "../../graphql/generated/graphql";
-import { withUrqlClient } from "next-urql";
-import { createUrqlClient } from "../../lib/createUrqlClient";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [{ fetching, data }] = useMeQuery();
   return (
     <ChakraProvider theme={theme}>
       <Head>
@@ -54,13 +50,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="#ffffff"
         />
       </Head>
-      <Component
-        {...pageProps}
-        fetching={fetching}
-        data={data}
-      />
+      <Component {...pageProps} />
     </ChakraProvider>
   );
 }
 
-export default withUrqlClient(createUrqlClient)(MyApp);
+export default MyApp;

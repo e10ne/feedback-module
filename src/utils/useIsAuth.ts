@@ -23,7 +23,6 @@ export const useIsAuth = (setIsLoading: Dispatch<SetStateAction<boolean>>) => {
     } else if (!fetching && data?.me?.username) {
       setIsLoading(false);
       setHasCalled(true);
-      console.log("user: ", data.me.username);
     }
   }, [data, fetching]);
 };

@@ -51,6 +51,16 @@ const theme = extendTheme({
             bgColor: "gray.200",
           },
         },
+        menu: {
+          color: "#000",
+          bg: "button",
+          fontFamily: "Open Sans",
+          px: "2",
+          py: "0",
+          w: "10rem",
+          h: "3rem",
+          fontSize: "lg",
+        },
       },
     },
     Select: {
@@ -158,14 +168,14 @@ const theme = extendTheme({
     Menu: {
       variants: {
         main: {
-          button: {
-            color: "red",
-          },
+          button: {},
           list: {},
           item: {},
           groupTitle: {},
           command: {},
-          devider: {},
+          divider: {
+            borderWidth: "2px",
+          },
         },
       },
     },

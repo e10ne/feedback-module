@@ -9,5 +9,5 @@
 - ~~after login: redirect admin to "admin" page~~
 - ~~add link on admin page to go to "create feedback" page~~
 - ~~finish headermenu~~
-- update styling for feedbacks both active and archived to have the description at a fixed height and be scrollable if it exeeds the height
+- ~~update styling for feedbacks both active and archived to have the description at a fixed height and be scrollable if it exeeds the height~~
 - find way to speed up page loading

@@ -70,7 +70,7 @@ const Archived: React.FC<{}> = () => {
                         </AccordionButton>
                       </h5>
                       <AccordionPanel>
-                        <Text>{fb.description}</Text>
+                        <Text variant={"description"}>{fb.description}</Text>
                       </AccordionPanel>
                     </>
                   )}

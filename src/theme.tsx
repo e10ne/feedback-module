@@ -179,6 +179,14 @@ const theme = extendTheme({
         },
       },
     },
+    Text: {
+      variants: {
+        description: {
+          maxH: "60",
+          overflowY: "auto",
+        },
+      },
+    },
   },
   semanticTokens: {
     colors: {

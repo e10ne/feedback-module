@@ -55,12 +55,7 @@ const FeedbackList: React.FC<FeedbackListProps> = ({ data, hasSearched }) => {
                   </AccordionButton>
                 </h5>
                 <AccordionPanel>
-                  <Text
-                    w={"95%"}
-                    maxH={"20"}
-                  >
-                    {fb.description}
-                  </Text>
+                  <Text variant={"description"}>{fb.description}</Text>
 
                   <Flex
                     alignSelf={"end"}

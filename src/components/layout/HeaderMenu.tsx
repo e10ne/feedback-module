@@ -12,6 +12,8 @@ import {
   useMeQuery,
 } from "../../../graphql/generated/graphql";
 import { useRouter } from "next/router";
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import { MdLogout } from "react-icons/md";
 
 const HeaderMenu: React.FC<{}> = ({}) => {
   const [{ data, fetching }] = useMeQuery();
@@ -19,62 +21,84 @@ const HeaderMenu: React.FC<{}> = ({}) => {
   const router = useRouter();
   if (!fetching && data?.me?.username === "medient") {
     return (
-      <Menu>
-        <MenuButton
-          as={Button}
-          bgColor={"button"}
-          px={4}
-          py={2}
-        >
-          Medient
-        </MenuButton>
-        <MenuList>
-          <NextLink href={"/create-feedback"}>
-            <MenuItem>Feedback aanmaken</MenuItem>
-          </NextLink>
-          <MenuDivider />
-          <MenuItem
-            onClick={async () => {
-              const { error } = await logout({});
-              if (!error) router.push("/");
-            }}
-          >
-            log uit
-          </MenuItem>
-        </MenuList>
+      <Menu variant={"main"}>
+        {({ isOpen }) => (
+          <>
+            <MenuButton
+              as={Button}
+              variant={"menu"}
+              _hover={{ bgColor: "#F9A412" }}
+              rightIcon={
+                isOpen ? (
+                  <ChevronUpIcon fontSize={"2xl"} />
+                ) : (
+                  <ChevronDownIcon fontSize={"2xl"} />
+                )
+              }
+            >
+              Medient
+            </MenuButton>
+            <MenuList>
+              <NextLink href={"/create-feedback"}>
+                <MenuItem>Feedback aanmaken</MenuItem>
+              </NextLink>
+              <MenuDivider />
+              <MenuItem
+                icon={<MdLogout fontSize={"1.2rem"} />}
+                onClick={async () => {
+                  const { error } = await logout({});
+                  if (!error) router.push("/");
+                }}
+              >
+                log uit
+              </MenuItem>
+            </MenuList>
+          </>
+        )}
       </Menu>
     );
   } else if (!fetching && data?.me?.username === "admin") {
     return (
-      <Menu>
-        <MenuButton
-          as={Button}
-          bgColor={"button"}
-          px={4}
-          py={2}
-        >
-          Admin
-        </MenuButton>
-        <MenuList>
-          <NextLink href={"/admin"}>
-            <MenuItem>Naar admin pagina</MenuItem>
-          </NextLink>
-          <MenuDivider />
-          <NextLink href={"/create-feedback"}>
-            <MenuItem>Feedback aanmaken</MenuItem>
-          </NextLink>
-          <MenuDivider />
-          <MenuItem
-            onClick={async () => {
-              const { error } = await logout({});
-              if (!error) {
-                router.push("/");
+      <Menu variant={"main"}>
+        {({ isOpen }) => (
+          <>
+            <MenuButton
+              as={Button}
+              variant={"menu"}
+              _hover={{ bgColor: "#F9A412" }}
+              rightIcon={
+                isOpen ? (
+                  <ChevronUpIcon fontSize={"2xl"} />
+                ) : (
+                  <ChevronDownIcon fontSize={"2xl"} />
+                )
               }
-            }}
-          >
-            log uit
-          </MenuItem>
-        </MenuList>
+            >
+              Admin
+            </MenuButton>
+            <MenuList>
+              <NextLink href={"/admin"}>
+                <MenuItem>Naar admin pagina</MenuItem>
+              </NextLink>
+              <MenuDivider />
+              <NextLink href={"/create-feedback"}>
+                <MenuItem>Feedback aanmaken</MenuItem>
+              </NextLink>
+              <MenuDivider />
+              <MenuItem
+                icon={<MdLogout fontSize={"1.2rem"} />}
+                onClick={async () => {
+                  const { error } = await logout({});
+                  if (!error) {
+                    router.push("/");
+                  }
+                }}
+              >
+                log uit
+              </MenuItem>
+            </MenuList>
+          </>
+        )}
       </Menu>
     );
   } else {

@@ -59,35 +59,6 @@ export const CreateFeedbackMutation = mutationField("createFeedback", {
   },
 });
 
-export const FeedbackQuery = queryField("feedback", {
-  type: Feedback,
-  description: "Get a specific feedback",
-  args: {
-    id: nonNull("Int"),
-  },
-  async resolve(_src, args, ctx) {
-    const singleFeedback = await ctx.prisma.feedback.findUnique({
-      where: {
-        id: args.id,
-      },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        create_date: true,
-        category_id: true,
-        category: {
-          select: {
-            title: true,
-          },
-        },
-      },
-    });
-
-    return singleFeedback;
-  },
-});
-
 export const ActiveFeedbacksQuery = queryField("feedbacks", {
   type: list(Feedback),
   description: "Returns all feedbacks that are not archived",

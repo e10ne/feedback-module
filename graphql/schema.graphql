@@ -58,9 +58,6 @@ type Query {
   """Gets all categories"""
   categories: [Category]
 
-  """Get a specific feedback"""
-  feedback(id: Int!): Feedback
-
   """Returns all feedbacks that are not archived"""
   feedbacks: [Feedback]
   me: User

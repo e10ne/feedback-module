@@ -100,10 +100,10 @@ export type Query = {
   archivedFeedbacks?: Maybe<PaginatedArchive>;
   /** Gets all categories */
   categories?: Maybe<Array<Maybe<Category>>>;
-  /** Get a specific feedback */
-  feedback?: Maybe<Feedback>;
-  /** Returns all feedbacks that are not archived */
+  /** Returns a list of feedbacks that are not archived and are filtered if search parameters are provided */
   feedbacks?: Maybe<Array<Maybe<Feedback>>>;
+  /** Returns all feedbacks that are not archived */
+  feedbacks2?: Maybe<Array<Maybe<Feedback>>>;
   me?: Maybe<User>;
 };
 
@@ -113,8 +113,9 @@ export type QueryArchivedFeedbacksArgs = {
 };
 
 
-export type QueryFeedbackArgs = {
-  id: Scalars['Int'];
+export type QueryFeedbacksArgs = {
+  categoryId?: InputMaybe<Scalars['Int']>;
+  text?: InputMaybe<Scalars['String']>;
 };
 
 export type User = {
@@ -187,10 +188,13 @@ export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id: number, title?: string | null, active_feedbacks?: boolean | null } | null> | null };
 
-export type FeedbacksQueryVariables = Exact<{ [key: string]: never; }>;
+export type FeedbacksQueryVariables = Exact<{
+  categoryId?: InputMaybe<Scalars['Int']>;
+  text?: InputMaybe<Scalars['String']>;
+}>;
 
 
-export type FeedbacksQuery = { __typename?: 'Query', feedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, archived?: boolean | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null };
+export type FeedbacksQuery = { __typename?: 'Query', feedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -320,13 +324,12 @@ export function useCategoriesQuery(options?: Omit<Urql.UseQueryArgs<CategoriesQu
   return Urql.useQuery<CategoriesQuery, CategoriesQueryVariables>({ query: CategoriesDocument, ...options });
 };
 export const FeedbacksDocument = gql`
-    query feedbacks {
-  feedbacks {
+    query feedbacks($categoryId: Int, $text: String) {
+  feedbacks(categoryId: $categoryId, text: $text) {
     id
     title
     description
     create_date
-    archived
     category {
       id
       title

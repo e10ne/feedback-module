@@ -1,10 +1,9 @@
-query feedbacks {
-  feedbacks {
+query feedbacks($categoryId: Int, $text: String) {
+  feedbacks(categoryId: $categoryId, text: $text) {
     id
     title
     description
     create_date
-    archived
     category {
       id
       title

@@ -58,8 +58,13 @@ type Query {
   """Gets all categories"""
   categories: [Category]
 
+  """
+  Returns a list of feedbacks that are not archived and are filtered if search parameters are provided
+  """
+  feedbacks(categoryId: Int, text: String): [Feedback]
+
   """Returns all feedbacks that are not archived"""
-  feedbacks: [Feedback]
+  feedbacks2: [Feedback]
   me: User
 }
 

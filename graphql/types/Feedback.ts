@@ -59,7 +59,7 @@ export const CreateFeedbackMutation = mutationField("createFeedback", {
   },
 });
 
-export const ActiveFeedbacksQuery = queryField("feedbacks", {
+export const ActiveFeedbacksQuery2 = queryField("feedbacks2", {
   type: list(Feedback),
   description: "Returns all feedbacks that are not archived",
   async resolve(_src, _args, ctx) {
@@ -73,6 +73,42 @@ export const ActiveFeedbacksQuery = queryField("feedbacks", {
     });
 
     return feedbacks;
+  },
+});
+
+export const ActiveFeedbacksQuery = queryField("feedbacks", {
+  type: list(Feedback),
+  description:
+    "Returns a list of feedbacks that are not archived and are filtered if search parameters are provided",
+  args: {
+    categoryId: "Int",
+    text: "String",
+  },
+  async resolve(_src, args, ctx) {
+    const result = await ctx.prisma.feedback.findMany({
+      where: {
+        archived: false,
+        AND: {
+          category_id: args.categoryId != null ? args.categoryId : undefined,
+          OR: [
+            {
+              title: {
+                contains: args.text != null ? args.text : undefined,
+              },
+            },
+            {
+              description: {
+                contains: args.text != null ? args.text : undefined,
+              },
+            },
+          ],
+        },
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+    return result;
   },
 });
 

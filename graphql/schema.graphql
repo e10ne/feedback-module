@@ -58,13 +58,13 @@ type Query {
   """Gets all categories"""
   categories: [Category]
 
+  """Get single active feedback by id"""
+  feedback(id: Int!): Feedback
+
   """
   Returns a list of feedbacks that are not archived and are filtered if search parameters are provided
   """
   feedbacks(categoryId: Int, text: String): [Feedback]
-
-  """Returns all feedbacks that are not archived"""
-  feedbacks2: [Feedback]
   me: User
 }
 

@@ -100,16 +100,21 @@ export type Query = {
   archivedFeedbacks?: Maybe<PaginatedArchive>;
   /** Gets all categories */
   categories?: Maybe<Array<Maybe<Category>>>;
+  /** Get single active feedback by id */
+  feedback?: Maybe<Feedback>;
   /** Returns a list of feedbacks that are not archived and are filtered if search parameters are provided */
   feedbacks?: Maybe<Array<Maybe<Feedback>>>;
-  /** Returns all feedbacks that are not archived */
-  feedbacks2?: Maybe<Array<Maybe<Feedback>>>;
   me?: Maybe<User>;
 };
 
 
 export type QueryArchivedFeedbacksArgs = {
   cursor?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryFeedbackArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -187,6 +192,13 @@ export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id: number, title?: string | null, active_feedbacks?: boolean | null } | null> | null };
+
+export type FeedbackQueryVariables = Exact<{
+  feedbackId: Scalars['Int'];
+}>;
+
+
+export type FeedbackQuery = { __typename?: 'Query', feedback?: { __typename?: 'Feedback', id: number, title?: string | null, create_date?: any | null, description?: string | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null };
 
 export type FeedbacksQueryVariables = Exact<{
   categoryId?: InputMaybe<Scalars['Int']>;
@@ -322,6 +334,24 @@ export const CategoriesDocument = gql`
 
 export function useCategoriesQuery(options?: Omit<Urql.UseQueryArgs<CategoriesQueryVariables>, 'query'>) {
   return Urql.useQuery<CategoriesQuery, CategoriesQueryVariables>({ query: CategoriesDocument, ...options });
+};
+export const FeedbackDocument = gql`
+    query Feedback($feedbackId: Int!) {
+  feedback(id: $feedbackId) {
+    id
+    title
+    create_date
+    description
+    category {
+      id
+      title
+    }
+  }
+}
+    `;
+
+export function useFeedbackQuery(options: Omit<Urql.UseQueryArgs<FeedbackQueryVariables>, 'query'>) {
+  return Urql.useQuery<FeedbackQuery, FeedbackQueryVariables>({ query: FeedbackDocument, ...options });
 };
 export const FeedbacksDocument = gql`
     query feedbacks($categoryId: Int, $text: String) {

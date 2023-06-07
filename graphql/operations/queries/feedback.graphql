@@ -1,0 +1,12 @@
+query Feedback($feedbackId: Int!) {
+  feedback(id: $feedbackId) {
+    id
+    title
+    create_date
+    description
+    category {
+      id
+      title
+    }
+  }
+}

@@ -40,8 +40,7 @@ const CategoryPdf: React.FC<{}> = ({}) => {
     pause: intId === -1 || !intId,
     variables: { categoryId: intId },
   });
-  console.log("intID: ", intId);
-  console.log("data: ", data);
+
   useIsAuth(setIsLoading);
 
   if (fetching) return <>loading</>;

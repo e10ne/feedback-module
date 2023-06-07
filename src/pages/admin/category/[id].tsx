@@ -1,6 +1,5 @@
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../../../../lib/createUrqlClient";
-import { useRouter } from "next/router";
 import { useFeedbacksQuery } from "../../../../graphql/generated/graphql";
 import { useIsAuth } from "../../../utils/useIsAuth";
 import { useState } from "react";
@@ -12,6 +11,7 @@ import {
   Text,
 } from "@react-pdf/renderer";
 import { fullFormat } from "../../../utils/formatDate";
+import { getIntId } from "../../../utils/getIntId";
 
 const styles = StyleSheet.create({
   iframe: {
@@ -32,10 +32,8 @@ const styles = StyleSheet.create({
 });
 
 const CategoryPdf: React.FC<{}> = ({}) => {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const intId =
-    typeof router.query.id === "string" ? parseInt(router.query.id) : -1;
+  const intId = getIntId();
   const [{ data, fetching, error }] = useFeedbacksQuery({
     pause: intId === -1 || !intId,
     variables: { categoryId: intId },

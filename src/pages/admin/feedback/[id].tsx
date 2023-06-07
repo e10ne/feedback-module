@@ -52,7 +52,12 @@ const FeedbackPdf: React.FC<{}> = ({}) => {
               style={styles.page}
               size={"A4"}
             >
-              <Text style={styles.text}>Titel: {data?.feedback?.title}</Text>
+              <Text
+                style={styles.text}
+                fixed={true}
+              >
+                Titel: {data?.feedback?.title}
+              </Text>
               <Text style={styles.text}>
                 Categorie: {data?.feedback?.category?.title}
               </Text>

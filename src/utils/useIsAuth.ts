@@ -16,7 +16,7 @@ export const useIsAuth = (setIsLoading: Dispatch<SetStateAction<boolean>>) => {
     } else if (
       !fetching &&
       data?.me?.username !== "admin" &&
-      router.pathname === "/admin"
+      router.pathname.startsWith("/admin")
     ) {
       setHasCalled(true);
       router.replace("/");

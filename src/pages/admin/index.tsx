@@ -41,10 +41,7 @@ const AdminPage: React.FC<{}> = ({}) => {
             setSearchResult={setSearchResult}
           />
 
-          <Categories
-            data={categories}
-            feedbacks={feedbacks}
-          />
+          <Categories data={categories} />
 
           <Feedbacks
             searchResult={searchResult}

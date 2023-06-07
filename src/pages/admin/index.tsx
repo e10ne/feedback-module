@@ -4,14 +4,14 @@ import { useState } from "react";
 import {
   useCategoriesQuery,
   useFeedbacksQuery,
-} from "../../graphql/generated/graphql";
-import { createUrqlClient } from "../../lib/createUrqlClient";
-import Archived from "../components/admin/Archived";
-import Categories from "../components/admin/Categories";
-import Feedbacks from "../components/admin/Feedbacks";
-import Searchbar from "../components/admin/SearchBar";
-import Layout from "../components/layout/Layout";
-import { useIsAuth } from "../utils/useIsAuth";
+} from "../../../graphql/generated/graphql";
+import { createUrqlClient } from "../../../lib/createUrqlClient";
+import Archived from "../../components/admin/Archived";
+import Categories from "../../components/admin/Categories";
+import Feedbacks from "../../components/admin/Feedbacks";
+import Searchbar from "../../components/admin/SearchBar";
+import Layout from "../../components/layout/Layout";
+import { useIsAuth } from "../../utils/useIsAuth";
 
 const AdminPage: React.FC<{}> = ({}) => {
   const [isLoading, setIsLoading] = useState(true);

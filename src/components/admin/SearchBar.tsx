@@ -1,44 +1,34 @@
-import { SearchIcon } from "@chakra-ui/icons";
 import { Flex, IconButton, Input, Select } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import { useCategoriesQuery } from "../../../graphql/generated/graphql";
+import { SearchIcon } from "@chakra-ui/icons";
 import { Dispatch, SetStateAction } from "react";
-import {
-  CategoriesQuery,
-  FeedbacksQuery,
-} from "../../../graphql/generated/graphql";
-import { feedbacksFilter } from "../../utils/feedbacksFilters";
+import { feedbackVars } from "../../pages/admin";
 
-interface SearchbarProps {
-  feedbacks: FeedbacksQuery | undefined;
-  categories: CategoriesQuery | undefined;
-  setSearchResult: Dispatch<SetStateAction<any[]>>;
+interface SearchBarProps {
+  setFeedbackVariables: Dispatch<SetStateAction<feedbackVars>>;
   setHasSearched: Dispatch<SetStateAction<boolean>>;
 }
 
-const Searchbar: React.FC<SearchbarProps> = ({
-  feedbacks,
-  categories,
-  setSearchResult,
+const Searchbar: React.FC<SearchBarProps> = ({
+  setFeedbackVariables,
   setHasSearched,
 }) => {
+  const [{ data }] = useCategoriesQuery();
   return (
     <>
       <Formik
         initialValues={{
           text: "",
-          category: "",
+          categoryId: "",
         }}
         onSubmit={async (values) => {
-          console.log("values: ", values);
-
-          const result = feedbacksFilter({
-            data: feedbacks,
-            category: values.category,
+          const catId = parseInt(values.categoryId);
+          setFeedbackVariables({
+            categoryId: catId,
             text: values.text,
           });
-
-          setSearchResult(result);
-          setHasSearched(true);
+          setHasSearched(false);
         }}
       >
         {({ isSubmitting }) => (
@@ -46,7 +36,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
             <Flex>
               <Field
                 as={Input}
-                placeholder="Titel en/of omschrijving van feedback"
+                placeholder="Titel of omschrijving van feedback"
                 name="text"
                 _placeholder={{
                   fontFamily: "Montserrat",
@@ -58,7 +48,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
               />
               <Field
                 as={Select}
-                name="category"
+                name="categoryId"
                 fontFamily={"Montserrat"}
                 fontWeight={"500"}
                 w={"max-content"}
@@ -67,7 +57,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
                 h={"60px"}
               >
                 <option value={""}>Categorie</option>
-                {categories?.categories?.map((cat) =>
+                {data?.categories?.map((cat) =>
                   !cat ? null : (
                     <option
                       key={`${cat.id}${cat.title}`}

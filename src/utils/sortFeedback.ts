@@ -1,12 +1,12 @@
 import { Feedback } from "../../graphql/generated/graphql";
 
 interface sortFeedbackValues {
-  feedbacks: Feedback[] | [];
+  feedbacks: Feedback[];
   sortOption: string;
 }
 
 export function sortFeedback(values: sortFeedbackValues): Array<any> {
-  if (values.feedbacks.length <= 0) {
+  if (!values.feedbacks || !values.feedbacks.length) {
     return [];
   }
 

@@ -13,7 +13,6 @@ import {
 } from "../../../graphql/generated/graphql";
 import { useRouter } from "next/router";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
-import { MdLogout } from "react-icons/md";
 
 const HeaderMenu: React.FC<{}> = ({}) => {
   const [{ data, fetching }] = useMeQuery();
@@ -44,7 +43,6 @@ const HeaderMenu: React.FC<{}> = ({}) => {
               </NextLink>
               <MenuDivider />
               <MenuItem
-                icon={<MdLogout fontSize={"1.2rem"} />}
                 onClick={async () => {
                   const { error } = await logout({});
                   if (!error) router.push("/");
@@ -86,7 +84,6 @@ const HeaderMenu: React.FC<{}> = ({}) => {
               </NextLink>
               <MenuDivider />
               <MenuItem
-                icon={<MdLogout fontSize={"1.2rem"} />}
                 onClick={async () => {
                   const { error } = await logout({});
                   if (!error) {

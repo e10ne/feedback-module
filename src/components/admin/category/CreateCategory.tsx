@@ -67,7 +67,7 @@ const CreateCategory: React.FC<{}> = ({}) => {
                     autoComplete="off"
                   />
                 </ModalBody>
-                <ModalFooter>
+                <ModalFooter gap={10}>
                   <Button
                     type={"reset"}
                     bgColor={"modalCancel"}

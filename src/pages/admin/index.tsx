@@ -4,20 +4,34 @@ import { useState } from "react";
 import {
   useCategoriesQuery,
   useFeedbacksQuery,
-} from "../../graphql/generated/graphql";
-import { createUrqlClient } from "../../lib/createUrqlClient";
-import Archived from "../components/admin/Archived";
-import Categories from "../components/admin/Categories";
-import Feedbacks from "../components/admin/Feedbacks";
-import Searchbar from "../components/admin/SearchBar";
-import Layout from "../components/layout/Layout";
-import { useIsAuth } from "../utils/useIsAuth";
+} from "../../../graphql/generated/graphql";
+import { createUrqlClient } from "../../../lib/createUrqlClient";
+import Archived from "../../components/admin/Archived";
+import Categories from "../../components/admin/Categories";
+import Feedbacks from "../../components/admin/Feedbacks";
+import Searchbar from "../../components/admin/SearchBar";
+import Layout from "../../components/layout/Layout";
+import { useIsAuth } from "../../utils/useIsAuth";
+
+export interface feedbackVars {
+  text: string | null | undefined;
+  categoryId: number | null | undefined;
+}
 
 const AdminPage: React.FC<{}> = ({}) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [feedbackVariables, setFeedbackVariables] = useState<feedbackVars>({
+    text: null,
+    categoryId: null,
+  });
   const [
     { data: feedbacks, fetching: feedBackFetching, error: feedBackError },
-  ] = useFeedbacksQuery();
+  ] = useFeedbacksQuery({
+    variables: {
+      categoryId: feedbackVariables.categoryId,
+      text: feedbackVariables.text,
+    },
+  });
   const [{ data: categories }] = useCategoriesQuery();
   const [searchResult, setSearchResult] = useState<any[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
@@ -35,16 +49,11 @@ const AdminPage: React.FC<{}> = ({}) => {
           <Heading variant={"pageHeader"}>Feedback beheerderpagina</Heading>
 
           <Searchbar
+            setFeedbackVariables={setFeedbackVariables}
             setHasSearched={setHasSearched}
-            categories={categories}
-            feedbacks={feedbacks}
-            setSearchResult={setSearchResult}
           />
 
-          <Categories
-            data={categories}
-            feedbacks={feedbacks}
-          />
+          <Categories data={categories} />
 
           <Feedbacks
             searchResult={searchResult}

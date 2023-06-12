@@ -59,49 +59,39 @@ export const CreateFeedbackMutation = mutationField("createFeedback", {
   },
 });
 
-export const FeedbackQuery = queryField("feedback", {
-  type: Feedback,
-  description: "Get a specific feedback",
-  args: {
-    id: nonNull("Int"),
-  },
-  async resolve(_src, args, ctx) {
-    const singleFeedback = await ctx.prisma.feedback.findUnique({
-      where: {
-        id: args.id,
-      },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        create_date: true,
-        category_id: true,
-        category: {
-          select: {
-            title: true,
-          },
-        },
-      },
-    });
-
-    return singleFeedback;
-  },
-});
-
 export const ActiveFeedbacksQuery = queryField("feedbacks", {
   type: list(Feedback),
-  description: "Returns all feedbacks that are not archived",
-  async resolve(_src, _args, ctx) {
-    const feedbacks = await ctx.prisma.feedback.findMany({
+  description:
+    "Returns a list of feedbacks that are not archived and are filtered if search parameters are provided",
+  args: {
+    categoryId: "Int",
+    text: "String",
+  },
+  async resolve(_src, args, ctx) {
+    const result = await ctx.prisma.feedback.findMany({
       where: {
         archived: false,
+        AND: {
+          category_id: args.categoryId != null ? args.categoryId : undefined,
+          OR: [
+            {
+              title: {
+                contains: args.text != null ? args.text : undefined,
+              },
+            },
+            {
+              description: {
+                contains: args.text != null ? args.text : undefined,
+              },
+            },
+          ],
+        },
       },
       orderBy: {
         id: "desc",
       },
     });
-
-    return feedbacks;
+    return result;
   },
 });
 
@@ -167,5 +157,25 @@ export const ArchivedQuery = queryField("archivedFeedbacks", {
       hasMore: hasMore,
       nextCursor: hasMore ? result[5].id : null,
     };
+  },
+});
+
+export const FeedbackQuery = queryField("feedback", {
+  type: Feedback,
+  args: {
+    id: nonNull("Int"),
+  },
+  description: "Get single active feedback by id",
+  async resolve(_src, args, ctx) {
+    const result = await ctx.prisma.feedback.findFirst({
+      where: {
+        id: args.id,
+        AND: {
+          archived: false,
+        },
+      },
+    });
+
+    return result;
   },
 });

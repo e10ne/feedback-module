@@ -13,14 +13,11 @@ import { normalFormat } from "../../../utils/formatDate";
 
 interface FeedbackListProps {
   data: Feedback[];
-  hasSearched: boolean;
 }
 
-const FeedbackList: React.FC<FeedbackListProps> = ({ data, hasSearched }) => {
-  if (data.length <= 0 && !hasSearched) {
+const FeedbackList: React.FC<FeedbackListProps> = ({ data }) => {
+  if (!data.length) {
     return <Text>Er zijn geen feedbacks</Text>;
-  } else if (data.length <= 0 && hasSearched) {
-    return <Text>Er zijn geen feedbacks die voldoen aan de zoekopdracht</Text>;
   }
   return (
     <>

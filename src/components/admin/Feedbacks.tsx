@@ -3,7 +3,7 @@ import { FeedbacksQuery } from "../../../graphql/generated/graphql";
 import { CombinedError } from "@urql/core";
 import FeedbackList from "./feedback/FeedbackList";
 import { sortFeedback } from "../../utils/sortFeedback";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface FeedbacksProps {
   searchResult: any[];
@@ -24,6 +24,9 @@ const Feedbacks: React.FC<FeedbacksProps> = ({
   setSearchResult,
   setHasSearched,
 }) => {
+  const [sortVal, setSortVal] = useState("dateNew");
+  let feedbacks = hasSearched ? searchResult : data?.feedbacks!;
+
   if (error) {
     return (
       <>
@@ -31,8 +34,6 @@ const Feedbacks: React.FC<FeedbacksProps> = ({
       </>
     );
   }
-
-  let feedbacks = hasSearched ? searchResult : data?.feedbacks!;
 
   return (
     <>
@@ -46,7 +47,9 @@ const Feedbacks: React.FC<FeedbacksProps> = ({
           w={"48"}
           placeholder={"Sorteren op"}
           name={"sortOptions"}
+          value={hasSearched ? sortVal : ""}
           onChange={(e) => {
+            setSortVal(e.target.value);
             setSearchResult([
               ...sortFeedback({
                 feedbacks: feedbacks,
@@ -65,10 +68,7 @@ const Feedbacks: React.FC<FeedbacksProps> = ({
       {!data && fetching ? (
         <Text>Feedbacks ophalen</Text>
       ) : (
-        <FeedbackList
-          hasSearched={hasSearched}
-          data={feedbacks}
-        />
+        <FeedbackList data={feedbacks} />
       )}
     </>
   );

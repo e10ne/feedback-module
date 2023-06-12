@@ -14,9 +14,8 @@ import {
   useArchiveFeedbackMutation,
 } from "../../../../graphql/generated/graphql";
 import { FaFileDownload } from "react-icons/fa";
-import { useEffect, useRef, useState } from "react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { FeedbackPDF } from "./FeedbackPDF";
+import { useRef } from "react";
+import NextLink from "next/link";
 
 interface FeedbackButtonsProps {
   feedback: Feedback;
@@ -26,27 +25,20 @@ const FeedbackButtons: React.FC<FeedbackButtonsProps> = ({ feedback }) => {
   const [, archiveFeedback] = useArchiveFeedbackMutation();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const cancelRef = useRef(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   return (
     <>
-      <Button
-        variant={"admin"}
-        rightIcon={<FaFileDownload />}
+      <NextLink
+        href={`/admin/feedback/${feedback.id}`}
+        target="_blank"
       >
-        {isClient && (
-          <PDFDownloadLink
-            document={<FeedbackPDF feedback={feedback} />}
-            fileName={`${feedback.title}.pdf`}
-          >
-            download
-          </PDFDownloadLink>
-        )}
-      </Button>
+        <Button
+          variant={"admin"}
+          rightIcon={<FaFileDownload />}
+        >
+          download
+        </Button>
+      </NextLink>
       <Button
         variant={"admin"}
         onClick={onOpen}

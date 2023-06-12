@@ -40,7 +40,7 @@ const HeaderMenu: React.FC<{}> = ({}) => {
             </MenuButton>
             <MenuList>
               <NextLink href={"/create-feedback"}>
-                <MenuItem>Feedback aanmaken</MenuItem>
+                <MenuItem>Feedback</MenuItem>
               </NextLink>
               <MenuDivider />
               <MenuItem
@@ -50,7 +50,7 @@ const HeaderMenu: React.FC<{}> = ({}) => {
                   if (!error) router.push("/");
                 }}
               >
-                log uit
+                Uitloggen
               </MenuItem>
             </MenuList>
           </>
@@ -74,15 +74,15 @@ const HeaderMenu: React.FC<{}> = ({}) => {
                 )
               }
             >
-              Admin
+              Beheerder
             </MenuButton>
             <MenuList>
               <NextLink href={"/admin"}>
-                <MenuItem>Naar admin pagina</MenuItem>
+                <MenuItem>Beheerderpagina</MenuItem>
               </NextLink>
               <MenuDivider />
               <NextLink href={"/create-feedback"}>
-                <MenuItem>Feedback aanmaken</MenuItem>
+                <MenuItem>Feedback</MenuItem>
               </NextLink>
               <MenuDivider />
               <MenuItem
@@ -94,7 +94,7 @@ const HeaderMenu: React.FC<{}> = ({}) => {
                   }
                 }}
               >
-                log uit
+                Uitloggen
               </MenuItem>
             </MenuList>
           </>

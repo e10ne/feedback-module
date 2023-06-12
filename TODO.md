@@ -1,6 +1,6 @@
 ## TODO
 
-- remove feedback from list whenever you archived it after search filter
+- ~~remove feedback from list whenever you archived it after search filter~~
 - look for a way to manually reset feedbacks cache on admin page when a new feedback is created
 - style feedback(s) pdf
 - ~~have working authentication~~
@@ -11,3 +11,4 @@
 - ~~finish headermenu~~
 - ~~update styling for feedbacks both active and archived to have the description at a fixed height and be scrollable if it exeeds the height~~
 - find way to speed up page loading
+- add space between buttons in modals

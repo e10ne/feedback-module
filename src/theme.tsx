@@ -170,7 +170,9 @@ const theme = extendTheme({
         main: {
           button: {},
           list: {},
-          item: {},
+          item: {
+            justifyContent: "space-evenly",
+          },
           groupTitle: {},
           command: {},
           divider: {

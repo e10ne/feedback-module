@@ -13,7 +13,6 @@ import {
 } from "../../../graphql/generated/graphql";
 import { useRouter } from "next/router";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
-import { MdLogout } from "react-icons/md";
 
 const HeaderMenu: React.FC<{}> = ({}) => {
   const [{ data, fetching }] = useMeQuery();
@@ -40,17 +39,16 @@ const HeaderMenu: React.FC<{}> = ({}) => {
             </MenuButton>
             <MenuList>
               <NextLink href={"/create-feedback"}>
-                <MenuItem>Feedback aanmaken</MenuItem>
+                <MenuItem>Feedback</MenuItem>
               </NextLink>
               <MenuDivider />
               <MenuItem
-                icon={<MdLogout fontSize={"1.2rem"} />}
                 onClick={async () => {
                   const { error } = await logout({});
                   if (!error) router.push("/");
                 }}
               >
-                log uit
+                Uitloggen
               </MenuItem>
             </MenuList>
           </>
@@ -74,19 +72,18 @@ const HeaderMenu: React.FC<{}> = ({}) => {
                 )
               }
             >
-              Admin
+              Beheerder
             </MenuButton>
             <MenuList>
               <NextLink href={"/admin"}>
-                <MenuItem>Naar admin pagina</MenuItem>
+                <MenuItem>Beheerderpagina</MenuItem>
               </NextLink>
               <MenuDivider />
               <NextLink href={"/create-feedback"}>
-                <MenuItem>Feedback aanmaken</MenuItem>
+                <MenuItem>Feedback</MenuItem>
               </NextLink>
               <MenuDivider />
               <MenuItem
-                icon={<MdLogout fontSize={"1.2rem"} />}
                 onClick={async () => {
                   const { error } = await logout({});
                   if (!error) {
@@ -94,7 +91,7 @@ const HeaderMenu: React.FC<{}> = ({}) => {
                   }
                 }}
               >
-                log uit
+                Uitloggen
               </MenuItem>
             </MenuList>
           </>

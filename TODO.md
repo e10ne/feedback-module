@@ -12,4 +12,5 @@
 - ~~update styling for feedbacks both active and archived to have the description at a fixed height and be scrollable if it exeeds the height~~
 - find way to speed up page loading
 - ~~add space between buttons in modals~~
-- update menu text
+- ~~update menu text~~
+- remove description search

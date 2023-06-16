@@ -36,7 +36,7 @@ const Searchbar: React.FC<SearchBarProps> = ({
             <Flex>
               <Field
                 as={Input}
-                placeholder="Titel of omschrijving van feedback"
+                placeholder="Titel van feedback"
                 name="text"
                 _placeholder={{
                   fontFamily: "Montserrat",

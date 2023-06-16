@@ -73,18 +73,11 @@ export const ActiveFeedbacksQuery = queryField("feedbacks", {
         archived: false,
         AND: {
           category_id: args.categoryId != null ? args.categoryId : undefined,
-          OR: [
-            {
-              title: {
-                contains: args.text != null ? args.text : undefined,
-              },
+          OR: {
+            title: {
+              contains: args.text != null ? args.text : undefined,
             },
-            {
-              description: {
-                contains: args.text != null ? args.text : undefined,
-              },
-            },
-          ],
+          },
         },
       },
       orderBy: {

@@ -13,4 +13,5 @@
 - find way to speed up page loading
 - ~~add space between buttons in modals~~
 - ~~update menu text~~
-- remove description search
+- ~~remove description search~~
+- change category pdf so that all feedbacks are on 'one' page

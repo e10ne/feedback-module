@@ -9,6 +9,7 @@ import {
   Page,
   StyleSheet,
   Text,
+  View,
 } from "@react-pdf/renderer";
 import { fullFormat } from "../../../utils/formatDate";
 import { getIntId } from "../../../utils/getIntId";
@@ -19,6 +20,11 @@ const styles = StyleSheet.create({
   },
   page: {
     backgroundColor: "#FFF",
+    padding: 10,
+  },
+  view: {
+    borderBottom: "1px solid red",
+    marginBottom: 50,
   },
   text: {
     marginHorizontal: 20,
@@ -53,28 +59,32 @@ const CategoryPdf: React.FC<{}> = ({}) => {
           style={styles.iframe}
         >
           <Document>
-            {data?.feedbacks?.map((fb) =>
-              !fb ? null : (
-                <Page
-                  key={`${fb.id}${fb.create_date}`}
-                  bookmark={`${fb.title}`}
-                  size={"A4"}
-                  style={styles.page}
-                >
-                  <Text style={styles.text}>
-                    <Text style={styles.titleSpan}>Titel: </Text> {fb.title}
-                  </Text>
-                  <Text style={styles.text}>
-                    <Text style={styles.titleSpan}>datum: </Text>{" "}
-                    {fullFormat(fb.create_date)}
-                  </Text>
-                  <Text style={styles.text}>
-                    <Text style={styles.titleSpan}>Omschrijving: </Text>{" "}
-                    {fb.description}
-                  </Text>
-                </Page>
-              )
-            )}
+            <Page
+              size={"A4"}
+              style={styles.page}
+            >
+              {data?.feedbacks?.map((fb) =>
+                !fb ? null : (
+                  <View
+                    key={`${fb.id}${fb.create_date}`}
+                    style={styles.view}
+                    // bookmark={`${fb.title}`}
+                  >
+                    <Text style={styles.text}>
+                      <Text style={styles.titleSpan}>Titel: </Text> {fb.title}
+                    </Text>
+                    <Text style={styles.text}>
+                      <Text style={styles.titleSpan}>datum: </Text>{" "}
+                      {fullFormat(fb.create_date)}
+                    </Text>
+                    <Text style={styles.text}>
+                      <Text style={styles.titleSpan}>Omschrijving: </Text>{" "}
+                      {fb.description}
+                    </Text>
+                  </View>
+                )
+              )}
+            </Page>
           </Document>
         </PDFViewer>
       )}

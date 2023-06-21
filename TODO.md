@@ -15,7 +15,7 @@
 - ~~update menu text~~
 - ~~remove description search~~
 - ~~change category pdf so that all feedbacks are on 'one' page~~
-- fix color download icon in admin
+- ~~fix color download icon in admin~~
 - add date_archived to Feedback
 - fetching of archived feedback should be ordered by date_archived(latest archived first)
 - sorting (active)feedbacks by category should also sort by title

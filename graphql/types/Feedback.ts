@@ -12,6 +12,9 @@ export const Feedback = objectType({
       t.field("create_date", {
         type: "DateTime",
       }),
+      t.field("archive_date", {
+        type: "DateTime",
+      }),
       t.field("category", {
         type: Category,
         async resolve(src, _args, ctx) {
@@ -98,6 +101,7 @@ export const ArchiveFeedbackMutation = mutationField("archiveFeedback", {
     const result = await ctx.prisma.feedback.update({
       data: {
         archived: true,
+        archive_date: new Date(),
       },
       where: {
         id: args.id,
@@ -128,7 +132,7 @@ export const ArchivedQuery = queryField("archivedFeedbacks", {
           archived: true,
         },
         orderBy: {
-          id: "desc",
+          archive_date: "desc",
         },
       });
     } else {
@@ -138,7 +142,7 @@ export const ArchivedQuery = queryField("archivedFeedbacks", {
           archived: true,
         },
         orderBy: {
-          id: "desc",
+          archive_date: "desc",
         },
       });
     }

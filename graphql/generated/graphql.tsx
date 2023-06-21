@@ -5,93 +5,96 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  DateTime: any;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
 };
 
 export type Category = {
   __typename?: 'Category';
-  active_feedbacks?: Maybe<Scalars['Boolean']>;
+  active_feedbacks?: Maybe<Scalars['Boolean']['output']>;
   feedbacks?: Maybe<Array<Maybe<Feedback>>>;
-  id: Scalars['Int'];
-  title?: Maybe<Scalars['String']>;
+  id: Scalars['Int']['output'];
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 export type Feedback = {
   __typename?: 'Feedback';
-  archived?: Maybe<Scalars['Boolean']>;
+  archive_date?: Maybe<Scalars['DateTime']['output']>;
+  archived?: Maybe<Scalars['Boolean']['output']>;
   category?: Maybe<Category>;
-  category_id?: Maybe<Scalars['Int']>;
-  create_date?: Maybe<Scalars['DateTime']>;
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['Int'];
-  title?: Maybe<Scalars['String']>;
+  category_id?: Maybe<Scalars['Int']['output']>;
+  create_date?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   /** Set feedback as archived */
-  archiveFeedback?: Maybe<Scalars['Boolean']>;
+  archiveFeedback?: Maybe<Scalars['Boolean']['output']>;
   /** Create a new category */
   createCategory?: Maybe<Category>;
   /** Create feedback */
   createFeedback?: Maybe<Feedback>;
   /** Delete an category */
-  deleteCategory?: Maybe<Scalars['Boolean']>;
+  deleteCategory?: Maybe<Scalars['Boolean']['output']>;
   /** Login */
   login?: Maybe<User>;
-  logout?: Maybe<Scalars['Boolean']>;
+  logout?: Maybe<Scalars['Boolean']['output']>;
   /** Change the category title */
   updateCategory?: Maybe<Category>;
 };
 
 
 export type MutationArchiveFeedbackArgs = {
-  id: Scalars['Int'];
+  id: Scalars['Int']['input'];
 };
 
 
 export type MutationCreateCategoryArgs = {
-  title: Scalars['String'];
+  title: Scalars['String']['input'];
 };
 
 
 export type MutationCreateFeedbackArgs = {
-  category_id: Scalars['Int'];
-  description: Scalars['String'];
-  title: Scalars['String'];
+  category_id: Scalars['Int']['input'];
+  description: Scalars['String']['input'];
+  title: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteCategoryArgs = {
-  hasActive: Scalars['Boolean'];
-  id: Scalars['Int'];
+  hasActive: Scalars['Boolean']['input'];
+  id: Scalars['Int']['input'];
 };
 
 
 export type MutationLoginArgs = {
-  name: Scalars['String'];
-  password: Scalars['String'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 
 export type MutationUpdateCategoryArgs = {
-  id: Scalars['Int'];
-  title: Scalars['String'];
+  id: Scalars['Int']['input'];
+  title: Scalars['String']['input'];
 };
 
 export type PaginatedArchive = {
   __typename?: 'PaginatedArchive';
   feedbacks?: Maybe<Array<Maybe<Feedback>>>;
-  hasMore?: Maybe<Scalars['Boolean']>;
-  nextCursor?: Maybe<Scalars['Int']>;
+  hasMore?: Maybe<Scalars['Boolean']['output']>;
+  nextCursor?: Maybe<Scalars['Int']['output']>;
 };
 
 export type Query = {
@@ -109,60 +112,60 @@ export type Query = {
 
 
 export type QueryArchivedFeedbacksArgs = {
-  cursor?: InputMaybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryFeedbackArgs = {
-  id: Scalars['Int'];
+  id: Scalars['Int']['input'];
 };
 
 
 export type QueryFeedbacksArgs = {
-  categoryId?: InputMaybe<Scalars['Int']>;
-  text?: InputMaybe<Scalars['String']>;
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type User = {
   __typename?: 'User';
-  id: Scalars['Int'];
-  username: Scalars['String'];
+  id: Scalars['Int']['output'];
+  username: Scalars['String']['output'];
 };
 
 export type ArchiveFeedbackMutationVariables = Exact<{
-  id: Scalars['Int'];
+  id: Scalars['Int']['input'];
 }>;
 
 
 export type ArchiveFeedbackMutation = { __typename?: 'Mutation', archiveFeedback?: boolean | null };
 
 export type CreateCategoryMutationVariables = Exact<{
-  title: Scalars['String'];
+  title: Scalars['String']['input'];
 }>;
 
 
 export type CreateCategoryMutation = { __typename?: 'Mutation', createCategory?: { __typename?: 'Category', id: number, title?: string | null } | null };
 
 export type CreateFeedbackMutationVariables = Exact<{
-  title: Scalars['String'];
-  description: Scalars['String'];
-  categoryId: Scalars['Int'];
+  title: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  categoryId: Scalars['Int']['input'];
 }>;
 
 
 export type CreateFeedbackMutation = { __typename?: 'Mutation', createFeedback?: { __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category_id?: number | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null };
 
 export type DeleteCategoryMutationVariables = Exact<{
-  deleteCategoryId: Scalars['Int'];
-  hasActive: Scalars['Boolean'];
+  deleteCategoryId: Scalars['Int']['input'];
+  hasActive: Scalars['Boolean']['input'];
 }>;
 
 
 export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory?: boolean | null };
 
 export type LoginMutationVariables = Exact<{
-  name: Scalars['String'];
-  password: Scalars['String'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 }>;
 
 
@@ -174,15 +177,15 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutMutation = { __typename?: 'Mutation', logout?: boolean | null };
 
 export type UpdateCategoryMutationVariables = Exact<{
-  id: Scalars['Int'];
-  title: Scalars['String'];
+  id: Scalars['Int']['input'];
+  title: Scalars['String']['input'];
 }>;
 
 
 export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory?: { __typename?: 'Category', id: number, title?: string | null } | null };
 
 export type ArchivedFeedbacksQueryVariables = Exact<{
-  cursor?: InputMaybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
@@ -194,15 +197,15 @@ export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id: number, title?: string | null, active_feedbacks?: boolean | null } | null> | null };
 
 export type FeedbackQueryVariables = Exact<{
-  feedbackId: Scalars['Int'];
+  feedbackId: Scalars['Int']['input'];
 }>;
 
 
 export type FeedbackQuery = { __typename?: 'Query', feedback?: { __typename?: 'Feedback', id: number, title?: string | null, create_date?: any | null, description?: string | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null };
 
 export type FeedbacksQueryVariables = Exact<{
-  categoryId?: InputMaybe<Scalars['Int']>;
-  text?: InputMaybe<Scalars['String']>;
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 

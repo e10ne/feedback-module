@@ -25,6 +25,7 @@ model Feedback {
   category_id Int?
   create_date DateTime @default(now())
   archived Boolean @default(false)
+  archive_date DateTime?
   @@map("feedbacks")
 }
 

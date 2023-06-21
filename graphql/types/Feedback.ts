@@ -101,6 +101,7 @@ export const ArchiveFeedbackMutation = mutationField("archiveFeedback", {
     const result = await ctx.prisma.feedback.update({
       data: {
         archived: true,
+        archive_date: new Date(),
       },
       where: {
         id: args.id,

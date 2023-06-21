@@ -132,7 +132,7 @@ export const ArchivedQuery = queryField("archivedFeedbacks", {
           archived: true,
         },
         orderBy: {
-          id: "desc",
+          archive_date: "desc",
         },
       });
     } else {
@@ -142,7 +142,7 @@ export const ArchivedQuery = queryField("archivedFeedbacks", {
           archived: true,
         },
         orderBy: {
-          id: "desc",
+          archive_date: "desc",
         },
       });
     }

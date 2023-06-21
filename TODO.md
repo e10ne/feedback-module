@@ -17,8 +17,9 @@
 - ~~change category pdf so that all feedbacks are on 'one' page~~
 - ~~fix color download icon in admin~~
 - ~~add date_archived to Feedback~~
-- update archive function to set archive_date
-- fetching of archived feedback should be ordered by date_archived(latest archived first)
+- ~~update archive function to set archive_date~~
+- ~~fetching of archived feedback should be ordered by date_archived(latest archived first)~~
+- update archived-feedbacks chache when archiveFeedbackMutation is successfully called
 - sorting (active)feedbacks by category should also sort by title
 - fix feedbacks cache not updating when archiving feedback after sorting
 

@@ -12,6 +12,9 @@ export const Feedback = objectType({
       t.field("create_date", {
         type: "DateTime",
       }),
+      t.field("archive_date", {
+        type: "DateTime",
+      }),
       t.field("category", {
         type: Category,
         async resolve(src, _args, ctx) {

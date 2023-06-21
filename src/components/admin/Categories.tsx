@@ -49,6 +49,7 @@ const Categories: React.FC<CategoriesProps> = ({ data }) => {
                       bgColor={"adminWhite"}
                       fontSize={"2xl"}
                       p={4}
+                      color={"primary"}
                     />
                   </NextLink>
                 )}

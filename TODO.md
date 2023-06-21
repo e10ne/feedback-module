@@ -14,4 +14,12 @@
 - ~~add space between buttons in modals~~
 - ~~update menu text~~
 - ~~remove description search~~
-- change category pdf so that all feedbacks are on 'one' page
+- ~~change category pdf so that all feedbacks are on 'one' page~~
+- fix color download icon in admin
+- add date_archived to Feedback
+- fetching of archived feedback should be ordered by date_archived(latest archived first)
+- sorting (active)feedbacks by category should also sort by title
+- fix feedbacks cache not updating when archiving feedback after sorting
+
+currently getting "api handler should not return a value received object"
+caused by "return endResponse.apply(apiRes, args);" on line ~441 in node_modules/next/dist/server/api-utils/node.js

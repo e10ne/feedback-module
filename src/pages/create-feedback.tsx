@@ -16,7 +16,7 @@ import { useIsAuth } from "../utils/useIsAuth";
 const CreateFeedback: React.FC<{}> = ({}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [{ data: categoriesData, fetching: categoriesFetching }] =
-    useCategoriesQuery();
+    useCategoriesQuery({ requestPolicy: "cache-and-network" });
   const [, createFeedback] = useCreateFeedbackMutation();
   const toast = useToast({
     title: "Success",

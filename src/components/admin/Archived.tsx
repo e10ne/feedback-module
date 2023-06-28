@@ -59,7 +59,7 @@ const Archived: React.FC<{}> = () => {
                                 ? "Categorie verwijderd"
                                 : fb!.category!.title}{" "}
                               {" | "}
-                              {normalFormat(fb.create_date)}
+                              {normalFormat(fb.archive_date)}
                             </Text>
 
                             <AccordionIcon

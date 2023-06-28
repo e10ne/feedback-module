@@ -92,7 +92,7 @@ export const ActiveFeedbacksQuery = queryField("feedbacks", {
 });
 
 export const ArchiveFeedbackMutation = mutationField("archiveFeedback", {
-  type: "Boolean",
+  type: Feedback,
   description: "Set feedback as archived",
   args: {
     id: nonNull("Int"),
@@ -107,10 +107,7 @@ export const ArchiveFeedbackMutation = mutationField("archiveFeedback", {
         id: args.id,
       },
     });
-    if (result) {
-      return true;
-    }
-    return false;
+    return result;
   },
 });
 

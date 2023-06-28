@@ -41,7 +41,7 @@ export type Feedback = {
 export type Mutation = {
   __typename?: 'Mutation';
   /** Set feedback as archived */
-  archiveFeedback?: Maybe<Scalars['Boolean']['output']>;
+  archiveFeedback?: Maybe<Feedback>;
   /** Create a new category */
   createCategory?: Maybe<Category>;
   /** Create feedback */
@@ -137,7 +137,7 @@ export type ArchiveFeedbackMutationVariables = Exact<{
 }>;
 
 
-export type ArchiveFeedbackMutation = { __typename?: 'Mutation', archiveFeedback?: boolean | null };
+export type ArchiveFeedbackMutation = { __typename?: 'Mutation', archiveFeedback?: { __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, archive_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null };
 
 export type CreateCategoryMutationVariables = Exact<{
   title: Scalars['String']['input'];
@@ -189,7 +189,7 @@ export type ArchivedFeedbacksQueryVariables = Exact<{
 }>;
 
 
-export type ArchivedFeedbacksQuery = { __typename?: 'Query', archivedFeedbacks?: { __typename?: 'PaginatedArchive', hasMore?: boolean | null, nextCursor?: number | null, feedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, create_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null } | null };
+export type ArchivedFeedbacksQuery = { __typename?: 'Query', archivedFeedbacks?: { __typename?: 'PaginatedArchive', hasMore?: boolean | null, nextCursor?: number | null, feedbacks?: Array<{ __typename?: 'Feedback', id: number, title?: string | null, description?: string | null, archive_date?: any | null, category?: { __typename?: 'Category', id: number, title?: string | null } | null } | null> | null } | null };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -219,7 +219,16 @@ export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: nu
 
 export const ArchiveFeedbackDocument = gql`
     mutation ArchiveFeedback($id: Int!) {
-  archiveFeedback(id: $id)
+  archiveFeedback(id: $id) {
+    id
+    title
+    description
+    archive_date
+    category {
+      id
+      title
+    }
+  }
 }
     `;
 
@@ -310,7 +319,7 @@ export const ArchivedFeedbacksDocument = gql`
       id
       title
       description
-      create_date
+      archive_date
       category {
         id
         title

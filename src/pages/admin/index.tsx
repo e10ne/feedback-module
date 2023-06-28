@@ -31,8 +31,11 @@ const AdminPage: React.FC<{}> = ({}) => {
       categoryId: feedbackVariables.categoryId,
       text: feedbackVariables.text,
     },
+    requestPolicy: "cache-and-network",
   });
-  const [{ data: categories }] = useCategoriesQuery();
+  const [{ data: categories }] = useCategoriesQuery({
+    requestPolicy: "cache-and-network",
+  });
   const [searchResult, setSearchResult] = useState<any[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 

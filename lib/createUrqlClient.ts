@@ -1,7 +1,9 @@
 import { fetchExchange, mapExchange, stringifyVariables } from "urql";
 import { cacheExchange, Cache, Resolver } from "@urql/exchange-graphcache";
 import {
-  ArchiveFeedbackMutationVariables,
+  ArchiveFeedbackMutation,
+  ArchivedFeedbacksDocument,
+  ArchivedFeedbacksQuery,
   LoginMutation,
   LogoutMutation,
   MeDocument,
@@ -89,12 +91,24 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
             createCategory: (_result, _args, cache, _info) => {
               invalidateCache(cache, "categories");
             },
-            archiveFeedback: (_result, args, cache, _info) => {
-              invalidateCache(
-                cache,
-                "Feedback",
-                (args as ArchiveFeedbackMutationVariables).id
-              );
+            archiveFeedback: (_result, _args, cache, _info) => {
+              invalidateCache(cache, "feedbacks");
+              invalidateCache(cache, "categories");
+              const feedbackList = ArchivedFeedbacksDocument;
+              const archivedFeedback = (_result as ArchiveFeedbackMutation)
+                .archiveFeedback;
+
+              if (archivedFeedback) {
+                cache.updateQuery(
+                  { query: feedbackList, variables: { cursor: null } },
+                  (data: ArchivedFeedbacksQuery | null) => {
+                    data?.archivedFeedbacks?.feedbacks?.unshift(
+                      archivedFeedback
+                    );
+                    return data;
+                  }
+                );
+              }
             },
             deleteCategory: (_result, args, cache, _info) => {
               invalidateCache(cache, "Category", args.id as number);

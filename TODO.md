@@ -19,11 +19,15 @@
 - ~~add date_archived to Feedback~~
 - ~~update archive function to set archive_date~~
 - ~~fetching of archived feedback should be ordered by date_archived(latest archived first)~~
-- replace created_date with archived_date for archivedFeedbacks
+- ~~replace created_date with archived_date for archivedFeedbacks~~
 - add validation rule max amount of characters for feedback description
-- update archived-feedbacks chache when archiveFeedbackMutation is successfully called
+- add validation rule max amount of characters for feedback title
+- add validation rule max amount of characters for category title
+- ~~update archived-feedbacks chache when archiveFeedbackMutation is successfully called~~
 - sorting (active)feedbacks by category should also sort by title
 - fix feedbacks cache not updating when archiving feedback after sorting
+- test for textinputs that are not standard (naughty strings)
+- reset cache after navigating using NextLink (maybe set caching strategy to 'cache-and-network')
 
 currently getting "api handler should not return a value received object"
 caused by "return endResponse.apply(apiRes, args);" on line ~441 in node_modules/next/dist/server/api-utils/node.js

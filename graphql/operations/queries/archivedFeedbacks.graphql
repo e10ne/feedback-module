@@ -4,7 +4,7 @@ query ArchivedFeedbacks($cursor: Int) {
       id
       title
       description
-      create_date
+      archive_date
       category {
         id
         title

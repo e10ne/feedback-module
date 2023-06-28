@@ -27,7 +27,7 @@
 - sorting (active)feedbacks by category should also sort by title
 - fix feedbacks cache not updating when archiving feedback after sorting
 - test for textinputs that are not standard (naughty strings)
-- reset cache after navigating using NextLink (maybe set caching strategy to 'cache-and-network')
+- ~~reset cache after navigating using NextLink~~
 
 currently getting "api handler should not return a value received object"
 caused by "return endResponse.apply(apiRes, args);" on line ~441 in node_modules/next/dist/server/api-utils/node.js

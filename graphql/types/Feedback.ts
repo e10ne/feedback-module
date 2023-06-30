@@ -1,5 +1,6 @@
 import { list, mutationField, nonNull, objectType, queryField } from "nexus";
 import { Category } from "./Category";
+import { Prisma } from "@prisma/client";
 
 export const Feedback = objectType({
   name: "Feedback",
@@ -69,8 +70,43 @@ export const ActiveFeedbacksQuery = queryField("feedbacks", {
   args: {
     categoryId: "Int",
     text: "String",
+    orderBy: "String",
   },
   async resolve(_src, args, ctx) {
+    let order: Prisma.FeedbackOrderByWithRelationInput[];
+
+    if (args.orderBy === "dateOld") {
+      order = [{ id: Prisma.SortOrder.asc }];
+    } else if (args.orderBy === "nameAsc") {
+      order = [
+        {
+          category: {
+            title: Prisma.SortOrder.asc,
+          },
+        },
+        {
+          title: Prisma.SortOrder.asc,
+        },
+      ];
+    } else if (args.orderBy === "nameDesc") {
+      order = [
+        {
+          category: {
+            title: Prisma.SortOrder.desc,
+          },
+        },
+        {
+          title: Prisma.SortOrder.desc,
+        },
+      ];
+    } else {
+      order = [
+        {
+          id: Prisma.SortOrder.desc,
+        },
+      ];
+    }
+
     const result = await ctx.prisma.feedback.findMany({
       where: {
         archived: false,
@@ -83,9 +119,7 @@ export const ActiveFeedbacksQuery = queryField("feedbacks", {
           },
         },
       },
-      orderBy: {
-        id: "desc",
-      },
+      orderBy: order,
     });
     return result;
   },

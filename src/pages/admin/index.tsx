@@ -1,10 +1,7 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql";
 import { useState } from "react";
-import {
-  useCategoriesQuery,
-  useFeedbacksQuery,
-} from "../../../graphql/generated/graphql";
+import { useFeedbacksQuery } from "../../../graphql/generated/graphql";
 import { createUrqlClient } from "../../../lib/createUrqlClient";
 import Archived from "../../components/admin/Archived";
 import Categories from "../../components/admin/Categories";
@@ -33,9 +30,6 @@ const AdminPage: React.FC<{}> = ({}) => {
     },
     requestPolicy: "cache-and-network",
   });
-  const [{ data: categories }] = useCategoriesQuery({
-    requestPolicy: "cache-and-network",
-  });
   const [searchResult, setSearchResult] = useState<any[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 
@@ -56,7 +50,7 @@ const AdminPage: React.FC<{}> = ({}) => {
             setHasSearched={setHasSearched}
           />
 
-          <Categories data={categories} />
+          <Categories />
 
           <Feedbacks
             searchResult={searchResult}

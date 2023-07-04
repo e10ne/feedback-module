@@ -123,6 +123,7 @@ export type QueryFeedbackArgs = {
 
 export type QueryFeedbacksArgs = {
   categoryId?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -206,6 +207,7 @@ export type FeedbackQuery = { __typename?: 'Query', feedback?: { __typename?: 'F
 export type FeedbacksQueryVariables = Exact<{
   categoryId?: InputMaybe<Scalars['Int']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -366,8 +368,8 @@ export function useFeedbackQuery(options: Omit<Urql.UseQueryArgs<FeedbackQueryVa
   return Urql.useQuery<FeedbackQuery, FeedbackQueryVariables>({ query: FeedbackDocument, ...options });
 };
 export const FeedbacksDocument = gql`
-    query feedbacks($categoryId: Int, $text: String) {
-  feedbacks(categoryId: $categoryId, text: $text) {
+    query feedbacks($categoryId: Int, $text: String, $orderBy: String) {
+  feedbacks(categoryId: $categoryId, text: $text, orderBy: $orderBy) {
     id
     title
     description

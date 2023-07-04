@@ -1,5 +1,5 @@
-query feedbacks($categoryId: Int, $text: String) {
-  feedbacks(categoryId: $categoryId, text: $text) {
+query feedbacks($categoryId: Int, $text: String, $orderBy: String) {
+  feedbacks(categoryId: $categoryId, text: $text, orderBy: $orderBy) {
     id
     title
     description

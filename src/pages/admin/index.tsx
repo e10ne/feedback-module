@@ -1,10 +1,6 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql";
 import { useState } from "react";
-import {
-  useCategoriesQuery,
-  useFeedbacksQuery,
-} from "../../../graphql/generated/graphql";
 import { createUrqlClient } from "../../../lib/createUrqlClient";
 import Archived from "../../components/admin/Archived";
 import Categories from "../../components/admin/Categories";
@@ -24,20 +20,6 @@ const AdminPage: React.FC<{}> = ({}) => {
     text: null,
     categoryId: null,
   });
-  const [
-    { data: feedbacks, fetching: feedBackFetching, error: feedBackError },
-  ] = useFeedbacksQuery({
-    variables: {
-      categoryId: feedbackVariables.categoryId,
-      text: feedbackVariables.text,
-    },
-    requestPolicy: "cache-and-network",
-  });
-  const [{ data: categories }] = useCategoriesQuery({
-    requestPolicy: "cache-and-network",
-  });
-  const [searchResult, setSearchResult] = useState<any[]>([]);
-  const [hasSearched, setHasSearched] = useState(false);
 
   useIsAuth(setIsLoading);
 
@@ -51,22 +33,11 @@ const AdminPage: React.FC<{}> = ({}) => {
         >
           <Heading variant={"pageHeader"}>Feedback beheerderpagina</Heading>
 
-          <Searchbar
-            setFeedbackVariables={setFeedbackVariables}
-            setHasSearched={setHasSearched}
-          />
+          <Searchbar setFeedbackVariables={setFeedbackVariables} />
 
-          <Categories data={categories} />
+          <Categories />
 
-          <Feedbacks
-            searchResult={searchResult}
-            data={feedbacks}
-            error={feedBackError}
-            fetching={feedBackFetching}
-            hasSearched={hasSearched}
-            setSearchResult={setSearchResult}
-            setHasSearched={setHasSearched}
-          />
+          <Feedbacks feedbackVars={feedbackVariables} />
 
           <Heading variant={"subHeader"}>Archief feedback</Heading>
           <Archived />

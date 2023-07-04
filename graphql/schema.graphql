@@ -65,7 +65,7 @@ type Query {
   """
   Returns a list of feedbacks that are not archived and are filtered if search parameters are provided
   """
-  feedbacks(categoryId: Int, text: String): [Feedback]
+  feedbacks(categoryId: Int, orderBy: String, text: String): [Feedback]
   me: User
 }
 

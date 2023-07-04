@@ -2,14 +2,13 @@ import { FaFileDownload } from "react-icons/fa";
 import { Flex, Heading, IconButton, Stack, Text } from "@chakra-ui/react";
 import EditCategory from "./category/EditCategory";
 import CreateCategory from "./category/CreateCategory";
-import { CategoriesQuery } from "../../../graphql/generated/graphql";
+import { useCategoriesQuery } from "../../../graphql/generated/graphql";
 import NextLink from "next/link";
 
-interface CategoriesProps {
-  data: CategoriesQuery | undefined;
-}
+interface CategoriesProps {}
 
-const Categories: React.FC<CategoriesProps> = ({ data }) => {
+const Categories: React.FC<CategoriesProps> = ({}) => {
+  const [{ data }] = useCategoriesQuery({ requestPolicy: "cache-and-network" });
   return (
     <>
       <Flex

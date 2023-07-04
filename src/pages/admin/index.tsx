@@ -20,7 +20,6 @@ const AdminPage: React.FC<{}> = ({}) => {
     text: null,
     categoryId: null,
   });
-  const [hasSearched, setHasSearched] = useState(false);
 
   useIsAuth(setIsLoading);
 
@@ -34,24 +33,11 @@ const AdminPage: React.FC<{}> = ({}) => {
         >
           <Heading variant={"pageHeader"}>Feedback beheerderpagina</Heading>
 
-          <Searchbar
-            setFeedbackVariables={setFeedbackVariables}
-            setHasSearched={setHasSearched}
-          />
+          <Searchbar setFeedbackVariables={setFeedbackVariables} />
 
           <Categories />
 
           <Feedbacks feedbackVars={feedbackVariables} />
-
-          {/* <Feedbacks
-            searchResult={searchResult}
-            data={feedbacks}
-            error={feedBackError}
-            fetching={feedBackFetching}
-            hasSearched={hasSearched}
-            setSearchResult={setSearchResult}
-            setHasSearched={setHasSearched}
-          /> */}
 
           <Heading variant={"subHeader"}>Archief feedback</Heading>
           <Archived />

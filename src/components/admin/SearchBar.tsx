@@ -7,13 +7,9 @@ import { feedbackVars } from "../../pages/admin";
 
 interface SearchBarProps {
   setFeedbackVariables: Dispatch<SetStateAction<feedbackVars>>;
-  setHasSearched: Dispatch<SetStateAction<boolean>>;
 }
 
-const Searchbar: React.FC<SearchBarProps> = ({
-  setFeedbackVariables,
-  setHasSearched,
-}) => {
+const Searchbar: React.FC<SearchBarProps> = ({ setFeedbackVariables }) => {
   const [{ data }] = useCategoriesQuery();
   return (
     <>
@@ -28,7 +24,6 @@ const Searchbar: React.FC<SearchBarProps> = ({
             categoryId: catId,
             text: values.text,
           });
-          setHasSearched(false);
         }}
       >
         {({ isSubmitting }) => (

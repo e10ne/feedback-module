@@ -7,7 +7,7 @@ export interface feedbackValues {
 export const feedbackValidation = (values: feedbackValues) => {
   const errors: Record<string, string> = {};
 
-  if (values.title.length < 3) {
+  if (values.title.trim().length < 3) {
     errors.title = "Minimaal 3 karakters";
   } else if (values.title.length > 50) {
     errors.title = "Maximaal 50 karakters";
@@ -17,10 +17,10 @@ export const feedbackValidation = (values: feedbackValues) => {
     errors.category_id = "Kies een categorie";
   }
 
-  if (values.description.length < 10) {
+  if (values.description.trim().length < 10) {
     errors.description = "Minimaal 10 karakters";
-  } else if (values.description.length > 150) {
-    errors.description = "Maximaal 150 karakters";
+  } else if (values.description.length > 250) {
+    errors.description = "Maximaal 250 karakters";
   }
 
   return errors;
@@ -29,7 +29,7 @@ export const feedbackValidation = (values: feedbackValues) => {
 export const categoryValidation = (title: string) => {
   const errors: Record<string, string> = {};
 
-  if (title.length < 3) {
+  if (title.trim().length < 3) {
     errors.title = "Minimaal 3 karakters";
   } else if (title.length > 50) {
     errors.title = "Maximaal 50 karakters";

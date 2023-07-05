@@ -9,6 +9,8 @@ export const feedbackValidation = (values: feedbackValues) => {
 
   if (values.title.length < 3) {
     errors.title = "Minimaal 3 karakters";
+  } else if (values.title.length > 50) {
+    errors.title = "Maximaal 50 karakters";
   }
 
   if (values.category_id === "") {
@@ -17,6 +19,8 @@ export const feedbackValidation = (values: feedbackValues) => {
 
   if (values.description.length < 10) {
     errors.description = "Minimaal 10 karakters";
+  } else if (values.description.length > 150) {
+    errors.description = "Maximaal 150 karakters";
   }
 
   return errors;
@@ -27,6 +31,8 @@ export const categoryValidation = (title: string) => {
 
   if (title.length < 3) {
     errors.title = "Minimaal 3 karakters";
+  } else if (title.length > 50) {
+    errors.title = "Maximaal 50 karakters";
   }
 
   return errors;

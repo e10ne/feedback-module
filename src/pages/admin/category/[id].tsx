@@ -17,6 +17,7 @@ import { getIntId } from "../../../utils/getIntId";
 const styles = StyleSheet.create({
   iframe: {
     minHeight: "100vh",
+    width: "100%",
   },
   page: {
     backgroundColor: "#FFF",
@@ -58,10 +59,7 @@ const CategoryPdf: React.FC<{}> = ({}) => {
   return (
     <>
       {isLoading ? null : (
-        <PDFViewer
-          width={"100%"}
-          style={styles.iframe}
-        >
+        <PDFViewer style={styles.iframe}>
           <Document>
             <Page
               size={"A4"}

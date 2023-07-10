@@ -20,10 +20,15 @@ const styles = StyleSheet.create({
   },
   page: {
     backgroundColor: "#FFF",
+    padding: 10,
   },
   text: {
     marginHorizontal: 20,
     marginVertical: 10,
+    fontFamily: "Helvetica",
+  },
+  titleSpan: {
+    fontFamily: "Helvetica-Bold",
   },
 });
 
@@ -48,24 +53,25 @@ const FeedbackPdf: React.FC<{}> = ({}) => {
       {isLoading ? null : (
         <PDFViewer style={styles.iframe}>
           <Document>
-            <Page
-              style={styles.page}
-              size={"A4"}
-            >
+            <Page style={styles.page}>
               <Text
                 style={styles.text}
                 fixed={true}
               >
-                Titel: {data?.feedback?.title}
+                <Text style={styles.titleSpan}>Titel: </Text>
+                {data?.feedback?.title}
               </Text>
               <Text style={styles.text}>
-                Categorie: {data?.feedback?.category?.title}
+                <Text style={styles.titleSpan}>Categorie: </Text>
+                {data?.feedback?.category?.title}
               </Text>
               <Text style={styles.text}>
-                Datum: {fullFormat(data?.feedback?.create_date)}
+                <Text style={styles.titleSpan}>Datum: </Text>
+                {fullFormat(data?.feedback?.create_date)}
               </Text>
               <Text style={styles.text}>
-                Omschrijving: {data?.feedback?.description}
+                <Text style={styles.titleSpan}>Omschrijving: </Text>
+                {data?.feedback?.description}
               </Text>
             </Page>
           </Document>

@@ -28,5 +28,5 @@
 - ~~fix feedbacks cache not updating when archiving feedback after sorting~~
 - ~~reset cache after navigating using NextLink~~
 - fix formatDate util file error
-- replace text index page
-- replace text create-feedback page
+- ~~replace text index page~~
+- ~~replace text create-feedback page~~

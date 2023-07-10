@@ -23,18 +23,22 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   view: {
-    borderBottom: "1px solid red",
+    borderBottom: "1px solid black",
+    paddingHorizontal: 10,
+    paddingVertical: 20,
     marginBottom: 50,
   },
   text: {
     marginHorizontal: 20,
     marginVertical: 10,
+    fontFamily: "Helvetica",
   },
   titleSpan: {
-    fontWeight: "extrabold",
-    // color: "red",
+    fontFamily: "Helvetica-Bold",
   },
-  dateSpan: {},
+  header: {
+    textAlign: "center",
+  },
 });
 
 const CategoryPdf: React.FC<{}> = ({}) => {
@@ -63,18 +67,25 @@ const CategoryPdf: React.FC<{}> = ({}) => {
               size={"A4"}
               style={styles.page}
             >
+              <Text
+                style={styles.header}
+                fixed
+              >
+                Categorie: {data?.feedbacks?.[0]?.category?.title}
+              </Text>
               {data?.feedbacks?.map((fb) =>
                 !fb ? null : (
                   <View
                     key={`${fb.id}${fb.create_date}`}
                     style={styles.view}
-                    // bookmark={`${fb.title}`}
+                    bookmark={`${fb.title}`}
+                    wrap={false}
                   >
                     <Text style={styles.text}>
                       <Text style={styles.titleSpan}>Titel: </Text> {fb.title}
                     </Text>
                     <Text style={styles.text}>
-                      <Text style={styles.titleSpan}>datum: </Text>{" "}
+                      <Text style={styles.titleSpan}>Datum: </Text>{" "}
                       {fullFormat(fb.create_date)}
                     </Text>
                     <Text style={styles.text}>

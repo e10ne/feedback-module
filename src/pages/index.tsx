@@ -7,7 +7,13 @@ import { createUrqlClient } from "../../lib/createUrqlClient";
 const Index: React.FC<{}> = ({}) => {
   return (
     <Layout>
-      <Stack color="text">
+      <Stack
+        mt={"10"}
+        fontSize={"20"}
+        color="text"
+        spacing={"4"}
+        fontFamily={"Open Sans"}
+      >
         <Text>Welkom op de feedback module van Spectrum Multimedia & IT!</Text>
         <Text>
           Bij Spectrum Multimedia & IT hechten we veel waarde aan je mening en

@@ -11,6 +11,7 @@ import {
 } from "../graphql/generated/graphql";
 import { isServer } from "../src/utils/isServer";
 import { betterUpdateQuery } from "./betterUpdateQuery";
+import { refocusExchange } from "@urql/exchange-refocus";
 
 const invalidateCache = (cache: Cache, name: string, id?: number) => {
   id
@@ -77,6 +78,7 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
       headers: cookie ? { cookie } : undefined,
     },
     exchanges: [
+      refocusExchange(),
       cacheExchange({
         keys: {
           PaginatedArchive: () => null,

@@ -1,22 +1,24 @@
-import { Heading, Link, Stack } from "@chakra-ui/react";
+import { Button, Heading, Stack } from "@chakra-ui/react";
 import NextLink from "next/link";
+import Layout from "../components/layout/Layout";
+import { withUrqlClient } from "next-urql";
+import { createUrqlClient } from "../../lib/createUrqlClient";
 
 const custom404: React.FC = () => {
   return (
-    <Stack
-      alignItems={"center"}
-      mt={"4"}
-    >
-      <Heading>Pagina niet gevonden</Heading>
-      <Link
-        as={NextLink}
-        href={"/"}
-        color={"teal.600"}
+    <Layout>
+      <Stack
+        alignItems={"center"}
+        mt={"4"}
+        // gap={"10"}
       >
-        terug naar hoofdpagina
-      </Link>
-    </Stack>
+        <Heading variant={"pageHeader"}>Deze pagina bestaat niet</Heading>
+        <NextLink href={"/"}>
+          <Button bgColor={"button"}>Ga terug naar de hoofdpagina</Button>
+        </NextLink>
+      </Stack>
+    </Layout>
   );
 };
 
-export default custom404;
+export default withUrqlClient(createUrqlClient)(custom404);

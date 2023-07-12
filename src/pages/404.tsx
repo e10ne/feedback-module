@@ -10,7 +10,6 @@ const custom404: React.FC = () => {
       <Stack
         alignItems={"center"}
         mt={"4"}
-        // gap={"10"}
       >
         <Heading variant={"pageHeader"}>Deze pagina bestaat niet</Heading>
         <NextLink href={"/"}>

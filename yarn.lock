@@ -2729,6 +2729,14 @@
     "@urql/core" ">=4.0.0"
     wonka "^6.3.2"
 
+"@urql/exchange-refocus@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@urql/exchange-refocus/-/exchange-refocus-1.0.2.tgz#6f0b866e8c0a05131f0b42940b457dc71e4d2dc7"
+  integrity sha512-Lrsx33pGiC/cwysGvtE8c+ERUymZFq9pXUE40sivhLTHgMrHdKcinEFvjk9XgUb+6FtYw0d0DDJVe42KQZ5z1g==
+  dependencies:
+    "@urql/core" ">=4.0.0"
+    wonka "^6.3.2"
+
 "@whatwg-node/events@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@whatwg-node/events/-/events-0.0.2.tgz#7b7107268d2982fc7b7aff5ee6803c64018f84dd"

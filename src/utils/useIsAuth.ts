@@ -3,14 +3,22 @@ import { useMeQuery } from "../../graphql/generated/graphql";
 import { useRouter } from "next/router";
 
 export const useIsAuth = (setIsLoading: Dispatch<SetStateAction<boolean>>) => {
-  const [{ fetching, data }] = useMeQuery();
+  const [{ fetching, data }] = useMeQuery({
+    requestPolicy: "cache-and-network",
+  });
   const [hasCalled, setHasCalled] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    if (hasCalled) return;
+    if (fetching) setHasCalled(false);
+    if (!fetching && data?.me && hasCalled) return;
 
-    if (!fetching && !data?.me?.username) {
+    if (
+      !fetching &&
+      !data?.me?.username &&
+      (router.pathname.startsWith("/admin") ||
+        router.pathname.startsWith("/create-feedback"))
+    ) {
       setHasCalled(true);
       router.replace("/login");
     } else if (

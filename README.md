@@ -8,11 +8,11 @@ cp .env.example .env
 # fill out variables
 
 # install dependencies
-yarn install
+npm run install
 
 # run database migrations and seeder
-yarn prisma migrate dev
+npx prisma migrate dev
 
 # start server
-yarn dev
+npm run dev
 ```

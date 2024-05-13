@@ -1,3 +1,3 @@
-import { GraphQLDateTime } from "graphql-iso-date";
+import { GraphQLDateTime } from "graphql-scalars";
 
 export const DateTime = GraphQLDateTime;
